@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ajustes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <!-- Ajustar el contenido central para extenderlo a la totalidad de la pantalla -->
+  <script src="js/resize.js"></script>
+  <script src="js/buttons.js"></script>
+</head>
+
+<body>
+  <div class="outer" data-role="page">
+    <!-- Título -->
+    <div data-role="header" data-theme="b">
+      <h1>Ajustes</h1>
+      <a href="" id="calendarbutton" data-icon="home" data-iconpos="notext"></a>
+      <a href="#outside" data-icon="bars" data-iconpos="notext">Menú</a>
+    </div>    
+    <!-- Contenido principal -->
+    <div role="main" class="ui-content">
+      <!-- Tabla de botones -->
+      <table class="buttonstable" align="center" width="100%" height="100%">
+        <tr>
+          <td valign="bottom"><a href="#" data-role="button" data-icon="user" data-iconpos="top" data-theme="b" style="padding-top:50px;">Personalizar</a></td>
+          <td valign="bottom"><a href="#" data-role="button" data-icon="delete" data-iconpos="top" data-theme="b" style="padding-top:50px;">Cerrar sesión</a></td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="#" data-role="button" data-icon="info" data-iconpos="top" data-theme="b" style="padding-top:50px;">Acerca de</a></td>
+          <td valign="top"><a href="#" data-role="button" data-icon="alert" data-iconpos="top" data-theme="b" style="padding-top:50px;">Otros</a></td>
+        </tr>
+      </table>
+    </div>
+    <!-- Pie de página -->
+    <div data-role="footer" data-theme="b">
+      <h1>Interfaces Inteligentes · 2016</h1>
+    </div>
+    <!-- Menú desplegable -->
+    <div data-role="panel" id="outside" data-theme="b">
+      <ul data-role="listview">
+        <li data-icon="back"><a href="#" data-rel="close">Cerrar</a></li>
+        <li><a id="homebutton">Inicio</a></li>
+        <li><a id="calendarbutton">Calendario</a></li>
+        <li><a id="profilebutton">Perfil</a></li>
+        <li><a id="aboutbutton">Acerca de</a></li>
+        <li><a id="settingsbutton">Configuración</a></li>
+      </ul>
+	  </div>
+  </div>
+</body>
+</html>

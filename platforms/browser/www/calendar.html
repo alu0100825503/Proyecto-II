@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Calendario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/calendar.css" />
+    <link rel="stylesheet" href="css/datepicker.css" />
+    <link rel="stylesheet" href="css/jw-jqm-cal.css" />
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/calendar.js"></script>
+    <script src="js/buttons.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+</head>
+
+<body>
+    <div data-role="page">
+        <div data-role="header" data-theme="b">
+            <h1>Calendario</h1>
+            <a href="#outside" data-icon="bars" data-iconpos="notext">Menú</a>
+        </div>
+        <div role="main" class="ui-content">
+            <div id="calendar"></div>
+            <!-- Añadir eventos -->
+            <div class="add_event">
+                <a href="#popupAddEvent" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="slidedown">Añadir evento</a>
+                <div data-role="popup" id="popupAddEvent" data-overlay-theme="a" data-theme="b">
+                    <form>
+                        <div style="text-align: center;padding:0px 20px">
+                            <h3>Evento</h3>
+                            <input type="text" name="nameEvent" id="nameEvent" value="" placeholder="Nombre del evento" data-theme="b">
+                            <h4 style="margin-top:20px;">Inicio</h4>
+                            <input type="text" name="startDate" id="startDate" value="" placeholder="Fecha inicio" data-theme="b" readonly>
+                            <input type="time" name="startHour" id="startHour" value="00:00" data-theme="b">
+                            <h4 style="margin-top:20px;">Final</h4>
+                            <input type="text" name="endDate" id="endDate" value="" placeholder="Fecha finalizar" data-theme="b" readonly>
+                            <input type="time" name="endHour" id="endHour" value="23:59" data-theme="b">
+                            <div class="ui-checkbox">
+                                <label for="eventPrivate" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off" style="text-align:center">Evento privado
+                                    <input type="checkbox" name="eventPrivate" id="eventPrivate" data-enhanced="true">
+                                </label>
+                            </div>
+                            <button type="button" onClick="addEventToCalendar()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Añadir</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Menú de evento -->
+            <div data-role="popup" id="popupMenuEvent" data-overlay-theme="a" data-theme="b">
+                <form>
+                    <div style="text-align: center;padding:0px 20px">
+                        <h3>Editar evento</h3>
+                        <input type="text" name="nameEvent" id="nameEventEdit" value="" placeholder="Nombre del evento" data-theme="b">
+                        <h4 style="margin-top:20px;">Inicio</h4>
+                        <input type="text" name="startDate" id="startDateEdit" value="" placeholder="Fecha inicio" data-theme="b" readonly>
+                        <input type="time" name="startHour" id="startHourEdit" value="00:00" data-theme="b">
+                        <h4 style="margin-top:20px;">Final</h4>
+                        <input type="text" name="endDate" id="endDateEdit" value="" placeholder="Fecha finalizar" data-theme="b" readonly>
+                        <input type="time" name="endHour" id="endHourEdit" value="23:59" data-theme="b">
+                        <div class="ui-checkbox">
+                            <label for="eventPrivateEdit" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off" style="text-align:center">Evento privado
+                                <input type="checkbox" name="eventPrivate" id="eventPrivateEdit" data-enhanced="true">
+                            </label>
+                        </div>
+                        <button type="button" onClick="editEvent()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Editar</button>
+                        <a href="#" onclick="deleteEvent()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-delete ui-btn-icon-left ui-btn-b">Eliminar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Menu desplegable -->
+        <div data-role="panel" id="outside" data-theme="b">
+            <ul data-role="listview">
+                <li data-icon="back"><a href="#" data-rel="close">Cerrar</a></li>
+                <li><a id="profilebutton">Perfil</a></li>
+                <li><a id="aboutbutton">Acerca de</a></li>
+                <li><a id="settingsbutton">Configuración</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

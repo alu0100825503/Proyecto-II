@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Perfil</title>
+  <link rel="shortcut icon" href="../favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <!----><script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/dbGetter.js"></script>
+  <link rel="stylesheet" href="css/profile.css" />
+  <script type="text/javascript">
+			function changePage(page) {
+				window.location = page;
+			}
+		</script>
+	<script src="js/resize.js"></script>
+	<script src="js/buttons.js"></script>
+  <script src="js/camera.js"></script>
+
+</head>
+
+<body>
+
+  <div data-role="header" data-position="fixed" data-theme="b">
+    <h1>Perfil:</h1>
+    <a href="#inside-a" data-icon="bars" data-iconpos="notext">Menu</a>
+
+  </div>
+  <!-- /header -->
+  <div data-role="page" id="a">
+    <div role="main" class="ui-content">
+      <div data-role="collapsible">
+        <h4>Datos Personales</h4>
+        <input type="text" name="name" placeholder="Nombre" value="">
+        <input type="text" name="apellido" placeholder="Apellido" value="">
+        <input type="date" name="nacimiento" placeholder="Nacimiento DD/MM/AAAA" value="">
+        <input type="file" name="photo" placeholder="Imagen" value="">
+
+
+        <button onclick="capturePhotoWithData();">Capture Photo With Image Data</button> <br>
+       <!--button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
+       <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+       <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br-->
+       <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+       <img style="display:none;" id="largeImage" src="" />
+   <div>Hola</div>
+
+
+
+
+
+        <img src="img/standar-face.png" style="width:30%; margin: 0 auto; " />
+      </div>
+      <div data-role="collapsible">
+        <h4>Datos de contacto</h4>
+        <input type="tel" name="telefono" placeholder="Teléfono" value="">
+        <input type="text" name="direccion" placeholder="Dirección" value="">
+        <input type="number" name="codPostal" placeholder="Código Postal" pattern:"[0.9]*" value="">
+        <input type="text" name="correoe" placeholder="correo@example.com" pattern="[a-z,A-Z,1-9]+@[a-z,A-Z,1-9]+(.com|.es|.org)+" value="">
+      </div>
+      <div data-role="collapsible">
+        <h4>Privacidad</h4>
+        <input type="password" name="password" placeholder="Clave" value="">
+        <input type="password" name="repPassord" placeholder="Repetir clave" value="">
+        <label for="privSelect">Mostrar datos a:<label>
+          <select name="privSelect">
+            <option value="1">Contactos</option>
+            <option value="2">Privado</option>
+            <option value="3">Público</option>
+          </select>
+        </div>
+      </div>
+      <!-- /content -->
+      <div data-role="footer" data-position="fixed">
+      </div>
+      <!-- /header -->
+      <div data-role="footer" data-position="fixed">
+      </div>
+    </div>
+    <!-- /page -->
+    <div data-role="panel" id="inside-a" data-position="left" data-display="overlay" data-theme="b">
+      <ul data-role="listview">
+        <li data-icon="back"><a href="#" data-rel="close">Cerrar</a></li>
+        <li><a id="homebutton">Inicio</a></li>
+        <li><a id="calendarbutton">Calendario</a></li>
+        <li><a id="profilebutton">Perfil</a></li>
+        <li><a id="aboutbutton">Acerca de</a></li>
+        <li><a id="settingsbutton">Configuración</a></li>
+      </ul>
+
+    </div>
+
+  </body>
+
+  </html
