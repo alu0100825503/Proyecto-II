@@ -1,4 +1,12 @@
 $(document).ready(function() {
+  //preparando archivo para la subida
+  $('input[name=photo]').on('change', function () {
+    $file = event.target.files;
+    console.log($file[0].name);
+
+  });
+
+
   var myObject = {id : 'JuanitoIto'}
   var json = JSON.stringify(myObject);
   $.post("http://socialcalendarplus.esy.es/profileGetter.php",{ par:json},null, "json")
@@ -19,12 +27,14 @@ $(document).ready(function() {
   });
   $("#send").click(function (){
     var myObject3 = new Object();
+    console.log($('input[name=photo]'));
     myObject3.username = "Pepe_85";
     myObject3.name = $('input[name=name]').val();
     myObject3.lastname = $('input[name=apellido]').val();
     myObject3.email = $('input[name=correoe]').val();
     myObject3.telephone = $('input[name=telefono]').val();
     myObject3.newusername = "Pepe_85";
+    myObject3.file = $file;   //probando lo del file
     var json3 = JSON.stringify(myObject3);
     $.post("http://socialcalendarplus.esy.es/profileSetter.php",{ par:json3},null, "json")
     .done(function( data, textStatus, jqXHR ) {
