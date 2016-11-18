@@ -8,10 +8,13 @@ $(document).ready(function() {
 			"username": $("#usernamelogin").val(),
 			"password": $("#passwordlogin").val()
 		}
-		
-		$.post(url, { eventData: formData }, function(data) {
-			alert(data);	
-		},
-		'json');
+
+		console.log("post");
+		var ajaxRequest = $.post(url, formData, function(returnedData) {
+			console.log(returnedData);	
+		}, 'json')
+		.fail(function() {
+			console.log("error en la respuesta del servidor");
+		});
 	});
 });
