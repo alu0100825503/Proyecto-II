@@ -13,12 +13,12 @@
   <script src="js/dbGetter.js"></script>
   <link rel="stylesheet" href="css/profile.css" />
   <script type="text/javascript">
-			function changePage(page) {
-				window.location = page;
-			}
-		</script>
-	<script src="js/resize.js"></script>
-	<script src="js/buttons.js"></script>
+  function changePage(page) {
+    window.location = page;
+  }
+  </script>
+  <script src="js/resize.js"></script>
+  <script src="js/buttons.js"></script>
   <script src="js/camera.js"></script>
 
 </head>
@@ -40,19 +40,12 @@
         <input type="date" name="nacimiento" placeholder="Nacimiento DD/MM/AAAA" value="">
         <input type="file" name="photo" placeholder="Imagen" value="">
 
-
         <button onclick="capturePhotoWithData();">Capture Photo With Image Data</button> <br>
-       <!--button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
-       <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
-       <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br-->
-       <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-       <img style="display:none;" id="largeImage" src="" />
-   <div>Hola</div>
-
-
-
-
-
+        <!--button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
+        <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+        <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br-->
+        <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+        <img style="display:none;" id="largeImage" src="" />
         <img src="img/standar-face.png" style="width:30%; margin: 0 auto; " />
       </div>
       <div data-role="collapsible">
@@ -73,6 +66,8 @@
             <option value="3">Público</option>
           </select>
         </div>
+        <button id = "send" type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Cambiar</button>
+        <button id = "discard" type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-delete">Descartar</button>
       </div>
       <!-- /content -->
       <div data-role="footer" data-position="fixed">
