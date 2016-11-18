@@ -1,8 +1,9 @@
 function makePostRequest(dataForServer) {
-	//url = "http://socialcalendarplus.esy.es/login.php";
-	url = "http://localhost/login.php";
+	url = "http://socialcalendarplus.esy.es/login.php";
+	//url = "http://localhost/login.php";
 
 	var ajaxRequest = $.post(url, dataForServer, function(returnedData) {
+			console.log(returnedData);
 			if (returnedData.success) {
 				// Store login data for a valid user if remember me is checked
 				if ($('#rememberme').is(":checked")) {
@@ -22,7 +23,8 @@ function makePostRequest(dataForServer) {
 			else {
 				console.log("login failed");
 				// Show warning popup:
-				$("#popupDialogLogin").popup("open");
+				$("#popupLogin").popup("close");
+				$("#loginpopuplink").click();
 			}
 		}, 'json')
 		.fail(function() {
@@ -38,6 +40,7 @@ $(document).ready(function() {
 		$("#passwordlogin").val(localStorage.password);
 		// TODO: hacer inicio de sesión automático si hay datos 
 		// guardados en localStorage
+		//makePostRequest(datosguardados)...
 	}
 
 	$("#submitlogin").click(function(evt) {

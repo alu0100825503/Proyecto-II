@@ -2,7 +2,13 @@ $(document).ready(function() {
   //preparando archivo para la subida
   $('input[name=photo]').on('change', function () {
     $file = event.target.files;
-    console.log($file[0].name);
+    console.log($file[0].name); //https://www.html5rocks.com/es/tutorials/file/dndfiles/
+                                //https://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
+                                //http://casamadrugada.net/tutoriales/php/como-almacenar-archivos-imagenes-en-mysql-utilizando-php/
+                                //https://www.formget.com/ajax-image-upload-php/
+                                //http://www.aorank.com/tutorial/Live_demo_ajax_upload_image/ajax_upload_image_main.php
+                                //https://manuais.iessanclemente.net/index.php/Almacenamiento_de_im%C3%A1genes_en_bases_de_datos_con_PHP#Formulario_para_subir_im.C3.A1genes
+
 
   });
 
