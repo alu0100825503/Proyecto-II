@@ -4,6 +4,10 @@ $(document).ready(function() {
     }
 
     // Botón home (esquina superior izquierda)
+    $("#loginbutton").click(function() {
+        chargePage("index.html");
+    });
+
     $("#homebutton").click(function() {
         chargePage("calendar.html");
     });
