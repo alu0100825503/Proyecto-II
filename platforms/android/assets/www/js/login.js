@@ -9,9 +9,18 @@ $(document).ready(function() {
 			"password": $("#passwordlogin").val()
 		}
 
-		console.log("post");
+		//console.log(formData);
 		var ajaxRequest = $.post(url, formData, function(returnedData) {
-			console.log(returnedData);	
+			console.log(returnedData);
+			if (returnedData.success) {
+				window.location = "profile.html";
+			}
+			else {
+				// Show a warning popup
+				console.log("failed");
+				$("#popupLogin").popup("close");
+				$("#popupDialogLogin").popup("open");
+			}
 		}, 'json')
 		.fail(function() {
 			console.log("error en la respuesta del servidor");
