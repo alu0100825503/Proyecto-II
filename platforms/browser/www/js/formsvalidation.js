@@ -35,7 +35,7 @@ $(document).ready(function() {
 		if (errors.length != 0) {
 			alert("Se detectaron errores en el formulario de registro: \n" + errors);
 		} else {
-			// TODO Enviar formulario
+			 $(this).unbind('submit').submit();
 		}
 	});
 });

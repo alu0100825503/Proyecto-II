@@ -7,19 +7,9 @@
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
   <script src="js/formsvalidation.js"></script>
-<<<<<<< HEAD
-  
-
-	<script type="text/javascript">
-      function changePage(page) {
-        window.location = page;
-      }
-    </script>
-=======
 	<!-- Ajustar el contenido central para extenderlo a la totalidad de la pantalla -->
   <script src="js/resize.js"></script>
-	<script src="js/buttons.js"></script>
->>>>>>> 2d31af3fd9b8c4ac4f86c050dd45c01eb78d9db6
+  <script src="js/buttons.js"></script>
 </head>
 
 <body>
@@ -36,11 +26,14 @@
 			<!-- Popup para el inicio de sesión -->
 			<a href="#popupLogin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-b" data-transition="pop" data-theme="b">Iniciar</a>
 			<div data-role="popup" id="popupLogin" class="ui-corner-all">
-				<form id="signinForm" action="" method="post">
+				<form id="signinForm" action="http://socialcalendarplus.esy.es/login.php" method="post">
 					<div style="padding:10px 20px;">
 						<h3>Inicio de sesión</h3>
 						<input type="text" name="user" id="un" placeholder="Nombre de usuario">
 						<input type="password" name="pass" id="pw" placeholder="Contraseña">
+						<label>
+        			<input type="checkbox" name="checkbox-0" checked>Recuérdame
+    				</label>
 						<button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Iniciar sesión</button>
 					</div>
 				</form>
@@ -49,7 +42,7 @@
 			<!-- Popup para el registro -->
 			<a href="#popupRegister" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-b" data-transition="pop">Registrarse</a>
 			<div data-role="popup" id="popupRegister" class="ui-corner-all">
-				<form id="registerForm" action="" method="post">
+				<form id="registerForm" action="http://socialcalendarplus.esy.es/register.php" method="post">
 					<div style="padding:10px 20px;">
 						<h3>Registro</h3>
 						<input type="text" name="user" id="newusername" placeholder="Nombre de usuario">
@@ -57,7 +50,7 @@
 						<input type="password" name="passrpt" id="pwrepeat" placeholder="Repita contraseña"/>
 						<input type="text" name="realname" id="userrealname" placeholder="Nombre"/>
 						<input type="text" name="lastname" id="userlastname" placeholder="Apellidos"/>
-						<input type="text" onfocus="(this.type='date')" id="date" placeholder="Fecha de nacimiento"/>
+						<input type="text" name="date" onfocus="(this.type='date')" id="date" placeholder="Fecha de nacimiento"/>
 						<button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Enviar</button>
 					</div>
 				</form>
