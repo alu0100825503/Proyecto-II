@@ -10,6 +10,7 @@
 	<!-- Ajustar el contenido central para extenderlo a la totalidad de la pantalla -->
   <script src="js/resize.js"></script>
   <script src="js/buttons.js"></script>
+	<script src="js/login.js"></script>
 </head>
 
 <body>
@@ -24,15 +25,15 @@
 			<!-- Popup para el inicio de sesión -->
 			<a href="#popupLogin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-b" data-transition="pop" data-theme="b">Iniciar</a>
 			<div data-role="popup" id="popupLogin" class="ui-corner-all">
-				<form id="signinForm" action="http://socialcalendarplus.esy.es/login.php" method="post">
+				<form id="signinForm" id="formlogin">
 					<div style="padding:10px 20px;">
 						<h3>Inicio de sesión</h3>
-						<input type="text" name="user" id="un" placeholder="Nombre de usuario">
-						<input type="password" name="pass" id="pw" placeholder="Contraseña">
+						<input type="text" name="user" id="usernamelogin" placeholder="Nombre de usuario">
+						<input type="password" name="pass" id="passwordlogin" placeholder="Contraseña">
 						<label>
         			<input type="checkbox" name="checkbox-0" checked>Recuérdame
     				</label>
-						<button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Iniciar sesión</button>
+						<button type="submit" id="submitlogin" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Iniciar sesión</button>
 					</div>
 				</form>
 			</div>
