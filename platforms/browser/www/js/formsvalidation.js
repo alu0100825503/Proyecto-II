@@ -92,8 +92,8 @@ $(document).ready(function() {
 		if (error) {
 			alert("Hubo errores en el formulario. Por favor, revíselo y envíelo de nuevo.");
 		} else {
-			//url = "http://socialcalendarplus.esy.es/register.php";
-			url = "http://localhost/register.php";
+			url = "http://socialcalendarplus.esy.es/register.php";
+			//url = "http://localhost/register.php";
 			formData = {
 				"username": username,
 				"password": password,
@@ -107,8 +107,13 @@ $(document).ready(function() {
 			var ajaxRequest = $.post(url, formData, function(returnedData) {
 				console.log(returnedData);
 				if (returnedData.success) {
-					// éxito: llevar al usuario a profile.html por ejemplo
-					// popup informando del éxito en el registro
+					// Show warning popup:
+					$("#popupRegister").popup("close");
+					setTimeout(function() {
+						$("#warningRegister").popup();
+						console.log("showing warning...");
+						$("#warningRegister").popup("open");
+					}, 500);
 					// guardar en el objeto de sesión al usuario
 				} else {
 					if (returnedData.userAlreadyExists) {

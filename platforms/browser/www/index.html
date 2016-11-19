@@ -81,7 +81,7 @@
 			</div>
 
 			<!-- Popup para el warning del inicio de sesión no válido -->
-			<div data-role="popup" id="prueba" class="ui-corner-all">
+			<div data-role="popup" id="warningLogin" class="ui-corner-all">
 				<div style="padding:10px 20px;">
 					<h3>Credenciales incorrectas</h3>
 					<p>Los datos introducidos no son correctos. Por favor, inténtelo de nuevo.</p>
@@ -89,25 +89,32 @@
 				</div>
 			</div>
 
+			<!-- Popup para el warning de registro satisfactorio -->
+			<div data-role="popup" id="warningRegister" class="ui-corner-all">
+				<div style="padding:10px 20px;">
+					<h3>Su cuenta ha sido creada</h3>
+					<p>Ha sido dado de alta correctamente en nuestra base de datos. Haga click en 'OK' para comenzar.</p>
+					<a href="profile.html" type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">OK</a>
+				</div>
+			</div>
+
     </div>
 
-		<!-- Popup para el warning de registro no válido -->
-
-		<!-- Pie de página -->
-		<div data-role="footer" data-theme="b">
-			<h4>Interfaces Inteligentes · 2016</h4>
-		</div>
-
-		<!-- Popup de información -->
-		<div data-role="popup" id="popupinfo" class="ui-corner-all">
-  		<p>
-				<strong>SuperCalendar</strong> es una aplicación desarrollada en la <i>Universidad de La Laguna</i> 
-				concebida para facilitar la concertación de citas entre los usuarios. Comparte rápidamente tu calendario
-				con el resto, crea eventos personalizables, añade notas de voz y mucho más.<br/>		
-				<br/>Regístrate, es gratis. 
-			</p>
-		</div>
-  
+	<!-- Pie de página -->
+	<div data-role="footer" data-theme="b">
+		<h4>Interfaces Inteligentes · 2016</h4>
 	</div>
+
+	<!-- Popup de información -->
+	<div data-role="popup" id="popupinfo" class="ui-corner-all">
+		<p>
+			<strong>SuperCalendar</strong> es una aplicación desarrollada en la <i>Universidad de La Laguna</i> 
+			concebida para facilitar la concertación de citas entre los usuarios. Comparte rápidamente tu calendario
+			con el resto, crea eventos personalizables, añade notas de voz y mucho más.<br/>		
+			<br/>Regístrate, es gratis. 
+		</p>
+	</div>
+  
+  </div>
 </body>
 </html>

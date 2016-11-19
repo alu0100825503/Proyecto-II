@@ -14,13 +14,15 @@ $username = "u344358176_calen";
 $password = "supercalendar";
 $dbname = "u344358176_calen";
 
-$form_username = $_POST['user'];
-$form_password = $_POST['pass'];
-$form_name = $_POST['realname'];
-$form_lastname = $_POST['lastname'];
-$form_date = $_POST['date'];
-$form_email = $_POST['email'];
-$form_tel = $_POST['tel'];
+if (isset($_POST)) {
+    $form_username = $_POST['username'];
+    $form_password = $_POST['password'];
+    $form_name = $_POST['name'];
+    $form_lastname = $_POST['lastname'];
+    $form_date = $_POST['date'];
+    $form_email = $_POST['email'];
+    $form_tel = $_POST['tel'];
+}
 
 // Objeto JSON que contendrá la respuesta para el cliente
 $json_response = array();
@@ -41,22 +43,15 @@ $sql_select_username = "SELECT NAME FROM User".
 
 $result_name = mysqli_query($connection, $sql_select_username);
 
-if ($result_name) {
-    $json_response['success'] = false;
-    $json_response['userAlreadyExists'] = true;
-}
-else {
+if (!$result_name || mysqli_num_rows($result_name) <= 0) {
     // Comprobar ahora que no existe el correo electrónico
     $sql_select_email = "SELECT NAME FROM User".
         " WHERE email='$form_email';";
 
     $result_email = mysqli_query($connection, $sql_select_email);
 
-    if ($result_email) {
-        $json_response['success'] = false;
-        $json_response['emailAlreadyExists'] = true;
-    } else {
-        // Insertamos finalmente al nuevo usuario si no existe el nombre de usuario
+    if (!$result_email || mysqli_num_rows($result_email) <= 0) {
+        // Insertamos al nuevo usuario si no existe el nombre de usuario
         // y correo electrónico insertados
         $sql_insert = "INSERT INTO User VALUES ".
         "('".$form_username."','".
@@ -65,26 +60,32 @@ else {
         $form_password."','".
         $form_date."','".
         $form_email."','".
-        $form_tel."');";
+        $form_tel."', NULL, NULL);";
 
-        $result = mysqli_query($connection, $sql_insert);
+        $result_insert = mysqli_query($connection, $sql_insert);
 
-        if ($result) {
+        if (!$result_insert) {
+            $json_response['success'] = false;
+        } else {
             $json_response['success'] = true;
             $json_response['username'] = $form_username;
             $json_response['password'] = $form_password;
-        } else {
-            $json_response['success'] = false;
         }
+    } else {
+        $json_response['success'] = false;
+        $json_response['emailAlreadyExists'] = true;
+        mysqli_free_result($result_email);
     }
+}
+else {
+    $json_response['success'] = false;
+    $json_response['userAlreadyExists'] = true;
+    mysqli_free_result($result_name);
 }
 
 // Envío del objeto JSON como respuesta
 header('Content-type: application/json; charset=utf-8');
 echo json_encode($json_response, JSON_FORCE_OBJECT);
-
-// Set the result memory free
-mysqli_free_result($result);
 
 // Close connection 
 mysqli_close($connection); 

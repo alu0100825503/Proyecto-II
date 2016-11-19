@@ -25,9 +25,9 @@ function makePostRequest(dataForServer) {
 				// Show warning popup:
 				$("#popupLogin").popup("close");
 				setTimeout(function() {
-					$("#prueba").popup();
+					$("#warningLogin").popup();
 					console.log("showing warning...");
-					$("#prueba").popup("open");
+					$("#warningLogin").popup("open");
 				}, 500);
 			}
 		}, 'json')

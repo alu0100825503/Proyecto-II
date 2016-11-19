@@ -60,7 +60,7 @@ if (!$result_name || mysqli_num_rows($result_name) <= 0) {
         $form_password."','".
         $form_date."','".
         $form_email."','".
-        $form_tel."', NULL, NULL);";
+        $form_tel."');";
 
         $result_insert = mysqli_query($connection, $sql_insert);
 
