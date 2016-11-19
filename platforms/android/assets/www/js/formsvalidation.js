@@ -11,6 +11,8 @@ $(document).ready(function() {
 		var email = $("#email").val();
 		var tel = $("#tel").val();
 		var error = false;
+
+		console.log(birth);
 		
 		// Limpiar campos inicialmente
 		$("#newusername").parent().css('border-color', 'green');
@@ -124,7 +126,7 @@ $(document).ready(function() {
 						alert("Ooooops! Error inesperado. Inténtelo de nuevo.");
 					}
 				}
-			}, 'json')
+			}, 'html')
 			.fail(function() {
 				console.log("server connection failed");
 			});
