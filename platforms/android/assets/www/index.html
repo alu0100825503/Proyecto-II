@@ -11,7 +11,11 @@
   <script src="js/resize.js"></script>
   <script src="js/buttons.js"></script>
 	<script src="js/login.js"></script>
-
+	<style>
+		.warningformtext {
+			font-size: 80%;
+		}
+	</style>
 	<!-- TODO: añadir imagen de fondo -->
 
 </head>
@@ -44,17 +48,25 @@
 			<!-- Popup para el registro -->
 			<a href="#popupRegister" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-b" data-transition="pop">Registrarse</a>
 			<div data-role="popup" id="popupRegister" class="ui-corner-all">
-				<form id="registerForm" action="http://socialcalendarplus.esy.es/register.php" method="post">
+				<form id="registerForm">
 					<div style="padding:10px 20px;">
 						<h3>Registro</h3>
 						<input type="text" name="user" id="newusername" placeholder="Nombre de usuario">
+						<p id="warningusername" class="warningformtext"></p>
 						<input type="password" name="pass" id="password" placeholder="Contraseña">
+						<p></p>
 						<input type="password" name="passrpt" id="pwrepeat" placeholder="Repita contraseña"/>
+						<p id="warningpassword" class="warningformtext"></p>
 						<input type="text" name="realname" id="userrealname" placeholder="Nombre"/>
+						<p id="warningname" class="warningformtext"></p>
 						<input type="text" name="lastname" id="userlastname" placeholder="Apellidos"/>
+						<p id="warninglastname" class="warningformtext"></p>
 						<input type="text" name="email" id="email" placeholder="Correo electrónico"/>
-						<input type="text" name="telephone" id="telephone" placeholder="Teléfono (+34)"/>
+						<p id="warningemail" class="warningformtext"></p>
+						<input type="text" name="tel" id="tel" placeholder="Teléfono (+34)"/>
+						<p id="warningtel" class="warningformtext"></p>
 						<input type="text" name="date" onfocus="(this.type='date')" id="date" placeholder="Fecha de nacimiento"/>
+						<p id="warningdate" class="warningformtext"></p>
 						<button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Enviar</button>
 					</div>
 				</form>
