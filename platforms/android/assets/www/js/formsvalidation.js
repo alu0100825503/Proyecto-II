@@ -28,7 +28,7 @@ $(document).ready(function() {
 		$("#warningname").text("");
 		$("#warninglastname").text("");
 		$("#warningdate").text("");
-		$("#warningtel").text("");
+		$("#warningemail").text("");
 		$("#warningtel").text("");
 
 		if (username == "") {
@@ -93,13 +93,13 @@ $(document).ready(function() {
 			alert("Hubo errores en el formulario. Por favor, revíselo y envíelo de nuevo.");
 		} else {
 			//url = "http://socialcalendarplus.esy.es/register.php";
-			url = "http://localhost/register.php"; 
+			url = "http://localhost/register.php";
 			formData = {
 				"username": username,
 				"password": password,
 				"name": realname,
 				"lastname": lastname,
-				"birth": birth,
+				"date": birth,
 				"email": email,
 				"tel": tel
 			};
@@ -119,14 +119,14 @@ $(document).ready(function() {
 					else if (returnedData.emailAlreadyExists) {
 						console.log("email already exists in the db");
 						$("#email").parent().css('border-color', 'red');
-						$("#warningemail").text("El nombre de usuario ya existe.");
+						$("#warningemail").text("El correo electrónico ya existe.");
 					}
 					else {
 						console.log("unknown error");
 						alert("Ooooops! Error inesperado. Inténtelo de nuevo.");
 					}
 				}
-			}, 'html')
+			}, 'json')
 			.fail(function() {
 				console.log("server connection failed");
 			});
