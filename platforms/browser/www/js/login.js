@@ -23,8 +23,12 @@ function makePostRequest(dataForServer) {
 			else {
 				console.log("login failed");
 				// Show warning popup:
-
-
+				$("#popupLogin").popup("close");
+				setTimeout(function() {
+					$("#prueba").popup();
+					console.log("showing warning...");
+					$("#prueba").popup("open");
+				}, 500);
 			}
 		}, 'json')
 		.fail(function() {
@@ -49,7 +53,6 @@ $(document).ready(function() {
 			"username": $("#usernamelogin").val(),
 			"password": $("#passwordlogin").val()
 		}
-		$("#anchor").click();
-		//makePostRequest(formData);
+		makePostRequest(formData);
 	});
 });

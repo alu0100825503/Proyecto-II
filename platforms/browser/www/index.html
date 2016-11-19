@@ -79,22 +79,17 @@
 					</div>
 				</form>
 			</div>
+
+			<!-- Popup para el warning del inicio de sesión no válido -->
+			<div data-role="popup" id="prueba" class="ui-corner-all">
+				<div style="padding:10px 20px;">
+					<h3>Credenciales incorrectas</h3>
+					<p>Los datos introducidos no son correctos. Por favor, inténtelo de nuevo.</p>
+					<a href="#" type="submit" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">OK</a>
+				</div>
+			</div>
+
     </div>
-
-		<!-- Popup para el warning del inicio de sesión -->
-		<a id="loginpopuplink" href="#popupDialogLogin" data-rel="popup"></a>
-		<div data-role="popup" id="popupDialogLogin" data-theme="b" data-dismissible="false" style="max-width:400px;">
-    	<div data-role="header" data-theme="a">
-    		<h1>Datos incorrectos</h1>
-    	</div>
-    	<div role="main" class="ui-content">
-      	<h3 class="ui-title">Asegúrese de que tanto el nombre de usuario como la contraseña insertados son válidos.</h3>
-        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">OK</a>
-    	</div>
-		</div>
-
-		<!-- Popup para el warning del inicio de sesión no válido -->
-		
 
 		<!-- Popup para el warning de registro no válido -->
 
