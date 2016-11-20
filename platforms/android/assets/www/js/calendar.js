@@ -441,9 +441,14 @@
 
     // Function to get all events from server
     getEventsFromServer = function () {
+        var dataToSend = [{
+            "creator": "test"
+        }]
+        var dataJSON = JSON.stringify(dataToSend);
         var url = "http://socialcalendarplus.esy.es/eventGet.php";
 
-        $.getJSON(url, function (eventsReceived) {
+        $.getJSON(url, { eventData: dataJSON }, function (eventsReceived) {
+            console.log(eventsReceived);
             calendar.eventsCalendar.length = 0;
             $.each(eventsReceived, function (i, event) {
                 calendar.eventsCalendar.splice(0, 0, {
