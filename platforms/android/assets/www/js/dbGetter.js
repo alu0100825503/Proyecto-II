@@ -1,4 +1,18 @@
 $(document).ready(function() {
+  //preparando archivo para la subida
+  $('input[name=photo]').on('change', function () {
+    $file = event.target.files;
+    console.log($file[0].name); //https://www.html5rocks.com/es/tutorials/file/dndfiles/
+                                //https://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
+                                //http://casamadrugada.net/tutoriales/php/como-almacenar-archivos-imagenes-en-mysql-utilizando-php/
+                                //https://www.formget.com/ajax-image-upload-php/
+                                //http://www.aorank.com/tutorial/Live_demo_ajax_upload_image/ajax_upload_image_main.php
+                                //https://manuais.iessanclemente.net/index.php/Almacenamiento_de_im%C3%A1genes_en_bases_de_datos_con_PHP#Formulario_para_subir_im.C3.A1genes
+
+
+  });
+
+
   var myObject = {id : 'JuanitoIto'}
   var json = JSON.stringify(myObject);
   $.post("http://socialcalendarplus.esy.es/profileGetter.php",{ par:json},null, "json")
@@ -19,12 +33,14 @@ $(document).ready(function() {
   });
   $("#send").click(function (){
     var myObject3 = new Object();
+    console.log($('input[name=photo]'));
     myObject3.username = "Pepe_85";
     myObject3.name = $('input[name=name]').val();
     myObject3.lastname = $('input[name=apellido]').val();
     myObject3.email = $('input[name=correoe]').val();
     myObject3.telephone = $('input[name=telefono]').val();
     myObject3.newusername = "Pepe_85";
+    myObject3.file = $file;   //probando lo del file
     var json3 = JSON.stringify(myObject3);
     $.post("http://socialcalendarplus.esy.es/profileSetter.php",{ par:json3},null, "json")
     .done(function( data, textStatus, jqXHR ) {
