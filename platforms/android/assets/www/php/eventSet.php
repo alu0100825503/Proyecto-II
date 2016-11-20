@@ -8,6 +8,7 @@ $event = json_decode($_POST['eventData']);
 $name = $event[0]->name;
 $start = $event[0]->start;
 $finish = $event[0]->finish;
+$creator = $event[0]->creator;
 $private = $event[0]->private;
 
 //Creamos la conexión
@@ -16,7 +17,7 @@ or die("Ha sucedido un error inexperado en la conexion de la base de datos");
 
 //generamos la consulta
 $sql = "INSERT INTO Event (name, start, finish, creator, private)
-VALUES('$name', '$start', '$finish', 'test', '$private')";
+VALUES('$name', '$start', '$finish', '$creator', '$private')";
 mysqli_set_charset($conexion, "utf8"); //formato de datos utf8
 
 if(!$result = mysqli_query($conexion, $sql)) die();

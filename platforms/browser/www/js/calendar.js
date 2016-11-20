@@ -399,6 +399,7 @@
 
     // Object to get the events and things of the calendar
     var calendar = {
+        creator: "test",               // Usuario del que obtener los eventos
         eventSelected: null,                // Event selected by click
         eventsCalendar: null,               // Have all events
         refreshFunction: null               // Refresh the calendar in the html
@@ -442,13 +443,12 @@
     // Function to get all events from server
     getEventsFromServer = function () {
         var dataToSend = [{
-            "creator": "test"
+            "creator": calendar.creator
         }]
         var dataJSON = JSON.stringify(dataToSend);
         var url = "http://socialcalendarplus.esy.es/eventGet.php";
 
         $.getJSON(url, { eventData: dataJSON }, function (eventsReceived) {
-            console.log(eventsReceived);
             calendar.eventsCalendar.length = 0;
             $.each(eventsReceived, function (i, event) {
                 calendar.eventsCalendar.splice(0, 0, {
@@ -486,6 +486,7 @@
             "name": name,
             "start": new Date(startDate + " " + startHour),
             "finish": new Date(endDate + " " + endHour),
+            "creator": calendar.creator,
             "private": eventPrivate
         }]
         var dataJSON = JSON.stringify(dataToSend);
