@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-  <script type="text/javascript" src="js/cordova.js"></script>
+  <script type="text/javascript" src="cordova.js"></script>
   <!-- Ajustar el contenido central para extenderlo a la totalidad de la pantalla -->
   <script src="js/resize.js"></script>
   <script src="js/buttons.js"></script>
@@ -23,8 +23,12 @@
       <a href="#outside" data-icon="bars" data-iconpos="notext">Menú</a>
     </div>    
     <!-- Contenido principal -->
-    <div role="main" class="ui-content">
-      
+    <div role="main" class="ui-content" style="text-align:center;">
+      <div>
+        <input type="button" id="compassButton" data-theme="b" value="Medir" />
+        <p id="measureVal" style="color:white;"></p>
+        <p id="measure" style="color:white;font-weight:normal;"></p>
+      </div>
     </div>
     <!-- Pie de página -->
     <div data-role="footer" data-theme="b">
