@@ -1,17 +1,13 @@
-function searchUser() {
-    var userToSearch = [{
-        "username": document.getElementById("nameUserSearch").value
-    }]
-    document.getElementById("nameUserSearch").value = "";
+$(document).ready(function() {
+    document.getElementById("userFoundName").innerHTML = localStorage.getItem("userFound");    // Name
 
-    var dataJSON = JSON.stringify(userToSearch);
-    var url = "http://socialcalendarplus.esy.es/searchUser.php";
-
-    // Add users found to the popup
-    $.getJSON(url, { eventData: dataJSON }, function (eventsReceived) {
-        $.each(eventsReceived, function (i, event) {
-            $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-btn-icon-right ui-icon-forward"></button>').
-            text(event.username).appendTo($("#userFound"));
-        });
-    });
-}
+    $('<img src="img/standar-face.png" hspace=30 style="width:30%"/>').appendTo($("#headMainContent"));
+    // If es amigo muestro uno, sino otro
+    $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="float: right;"></button>').
+                    text("Añadir amigo").appendTo($("#headMainContent"));
+    // Else
+    /*
+    $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-delete"></button>').
+                    text("Añadir amigo").appendTo($("#headMainContent"));
+    */
+});
