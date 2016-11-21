@@ -588,6 +588,17 @@
             }
             );
     }
+
+    getAcelerometer = function () {
+        navigator.accelerometer.getCurrentAcceleration(success, error);    }
+
+    function success(acceleration) {
+        console.log(siRespuesta);
+    }
+
+    function error() {
+        console.log("error");
+    }
     /* ------------------------------------------------------------------------------*/
 
 })(jQuery);
