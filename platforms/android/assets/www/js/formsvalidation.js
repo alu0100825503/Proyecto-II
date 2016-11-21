@@ -114,7 +114,7 @@ $(document).ready(function() {
 						console.log("showing warning...");
 						$("#warningRegister").popup("open");
 					}, 500);
-					// guardar en el objeto de sesión al usuario
+					localStorage.setItem("username", formData.username);
 				} else {
 					if (returnedData.userAlreadyExists) {
 						console.log("user already exists in the db");

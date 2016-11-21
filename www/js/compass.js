@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	/*
+	
 	// The watch id references the current `watchHeading`
     var watchID = null;
 
@@ -19,11 +19,12 @@ $(document).ready(function() {
     // Start watching the compass
     //
     function startWatch() {
-
+		console.log("start");
         // Update compass every 3 seconds
         var options = { frequency: 2000 };
 
-        watchID = navigator.compass.watchHeading(onSuccess, onError, options);
+		console.log(navigator.compass);
+        //watchID = navigator.compass.watchHeading(onSuccess, onError, options);
     }
 
     // Stop watching the compass
@@ -48,5 +49,5 @@ $(document).ready(function() {
     }
 
 	startWatch();
-	*/
+	
 });

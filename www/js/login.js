@@ -4,13 +4,16 @@ function makePostRequest(dataForServer) {
 
 	var ajaxRequest = $.post(url, dataForServer, function(returnedData) {
 			console.log(returnedData);
+			// Guardar el nombre de usuario para el resto de páginas
+			localStorage.setItem("username", dataForServer.username);
+			
 			if (returnedData.success) {
 				// Store login data for a valid user if remember me is checked
 				if ($('#rememberme').is(":checked")) {
 					if (window.localStorage) {
 						console.log("Web browser supports LocalStorage");
-						localStorage.setItem("username", $("#usernamelogin").val());
-						localStorage.password = $("#passwordlogin").val();
+						localStorage.setItem("lastUsername", $("#usernamelogin").val());
+						localStorage.setItem("lastPassword", $("#passwordlogin").val());
 					}
 				} 
 				else {
@@ -40,8 +43,8 @@ $(document).ready(function() {
 	// If the browser supports localStorage and we have some stored data
 	if (window.localStorage && localStorage.username) {
 		console.log("stored user: " + localStorage.username);
-		$("#usernamelogin").val(localStorage.username);
-		$("#passwordlogin").val(localStorage.password);
+		$("#usernamelogin").val(localStorage.lastUsername);
+		$("#passwordlogin").val(localStorage.lastPassword);
 		// TODO: hacer inicio de sesión automático si hay datos 
 		// guardados en localStorage
 		//makePostRequest(datosguardados)...
