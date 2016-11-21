@@ -428,7 +428,6 @@
                 $("#endDateEdit").val(getDateFormated(selected));
             }
         });
-        getEventsFromServer();
     })
 
     getDateFormated = function (selected) {
@@ -491,8 +490,8 @@
         }]
         var dataJSON = JSON.stringify(dataToSend);
         var url = "http://socialcalendarplus.esy.es/eventSet.php";
-       
-       contactServer(url, dataJSON);
+
+        contactServer(url, dataJSON);
 
         $("#popupAddEvent").popup("close");
     }
@@ -513,7 +512,7 @@
         document.getElementById("nameEventEdit").value = calendar.eventSelected.summary;
         document.getElementById("startDateEdit").value = getDateFormated(startDate);
         document.getElementById("endDateEdit").value = getDateFormated(endDate);
-        
+
         // Hour
         hour = startDate.toString().substr(16, 2);
         minutes = startDate.toString().substr(19, 2);
@@ -521,7 +520,7 @@
         hour = endDate.toString().substr(16, 2);
         minutes = endDate.toString().substr(19, 2);
         document.getElementById("endHourEdit").value = hour + ":" + minutes;
-        
+
         // Private
         if (calendar.eventSelected.isPrivate > 0) { // 0 = false
             document.getElementById("eventPrivateEdit").checked = true;
@@ -558,7 +557,7 @@
 
         var dataJSON = JSON.stringify(dataToUpdate);
         var url = "http://socialcalendarplus.esy.es/eventUpdate.php";
-        
+
         contactServer(url, dataJSON);
 
         $("#popupMenuEvent").popup("close");
@@ -571,9 +570,9 @@
         }]
         var dataJSON = JSON.stringify(dataToDelete);
         var url = "http://socialcalendarplus.esy.es/eventDelete.php";
-        
+
         contactServer(url, dataJSON);
-        
+
         $("#popupMenuEvent").popup("close");    // Close popup
     }
 
