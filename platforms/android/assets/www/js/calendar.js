@@ -399,6 +399,7 @@
 
     // Object to get the events and things of the calendar
     var calendar = {
+        creator: "test",               // Usuario del que obtener los eventos
         eventSelected: null,                // Event selected by click
         eventsCalendar: null,               // Have all events
         refreshFunction: null               // Refresh the calendar in the html
@@ -427,7 +428,6 @@
                 $("#endDateEdit").val(getDateFormated(selected));
             }
         });
-        getEventsFromServer();
     })
 
     getDateFormated = function (selected) {
@@ -442,13 +442,12 @@
     // Function to get all events from server
     getEventsFromServer = function () {
         var dataToSend = [{
-            "creator": "test"
+            "creator": calendar.creator
         }]
         var dataJSON = JSON.stringify(dataToSend);
         var url = "http://socialcalendarplus.esy.es/eventGet.php";
 
         $.getJSON(url, { eventData: dataJSON }, function (eventsReceived) {
-            console.log(eventsReceived);
             calendar.eventsCalendar.length = 0;
             $.each(eventsReceived, function (i, event) {
                 calendar.eventsCalendar.splice(0, 0, {
@@ -486,12 +485,13 @@
             "name": name,
             "start": new Date(startDate + " " + startHour),
             "finish": new Date(endDate + " " + endHour),
+            "creator": calendar.creator,
             "private": eventPrivate
         }]
         var dataJSON = JSON.stringify(dataToSend);
         var url = "http://socialcalendarplus.esy.es/eventSet.php";
-       
-       contactServer(url, dataJSON);
+
+        contactServer(url, dataJSON);
 
         $("#popupAddEvent").popup("close");
     }
@@ -512,7 +512,7 @@
         document.getElementById("nameEventEdit").value = calendar.eventSelected.summary;
         document.getElementById("startDateEdit").value = getDateFormated(startDate);
         document.getElementById("endDateEdit").value = getDateFormated(endDate);
-        
+
         // Hour
         hour = startDate.toString().substr(16, 2);
         minutes = startDate.toString().substr(19, 2);
@@ -520,7 +520,7 @@
         hour = endDate.toString().substr(16, 2);
         minutes = endDate.toString().substr(19, 2);
         document.getElementById("endHourEdit").value = hour + ":" + minutes;
-        
+
         // Private
         if (calendar.eventSelected.isPrivate > 0) { // 0 = false
             document.getElementById("eventPrivateEdit").checked = true;
@@ -557,7 +557,7 @@
 
         var dataJSON = JSON.stringify(dataToUpdate);
         var url = "http://socialcalendarplus.esy.es/eventUpdate.php";
-        
+
         contactServer(url, dataJSON);
 
         $("#popupMenuEvent").popup("close");
@@ -570,9 +570,9 @@
         }]
         var dataJSON = JSON.stringify(dataToDelete);
         var url = "http://socialcalendarplus.esy.es/eventDelete.php";
-        
+
         contactServer(url, dataJSON);
-        
+
         $("#popupMenuEvent").popup("close");    // Close popup
     }
 
