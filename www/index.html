@@ -26,8 +26,6 @@
             <a href="#popupinfo" data-icon="info" data-rel="popup" data-iconpos="notext">Menu</a>
         </div>
         <div role="content" class="ui-content" style="text-align:center;">
-        
-                
             <table width="100%" height="100%">
                 <tr>
                     <td>
@@ -51,75 +49,69 @@
                         </div>
 
                         <!-- Popup para el registro -->
-                    <a href="#popupRegister" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a" data-transition="pop">Registrarse</a>
-                    <div data-role="popup" id="popupRegister" class="ui-corner-all">
-                        <form id="registerForm">
+                        <a href="#popupRegister" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a" data-transition="pop">Registrarse</a>
+                        <div data-role="popup" id="popupRegister" class="ui-corner-all">
+                            <form id="registerForm">
+                                <div style="padding:10px 20px;">
+                                    <h3>Registro</h3>
+                                    <input type="text" name="user" id="newusername" placeholder="Nombre de usuario">
+                                    <p id="warningusername" class="warningformtext"></p>
+                                    <input type="password" name="pass" id="password" placeholder="Contraseña">
+                                    <p></p>
+                                    <input type="password" name="passrpt" id="pwrepeat" placeholder="Repita contraseña"/>
+                                    <p id="warningpassword" class="warningformtext"></p>
+                                    <input type="text" name="realname" id="userrealname" placeholder="Nombre"/>
+                                    <p id="warningname" class="warningformtext"></p>
+                                    <input type="text" name="lastname" id="userlastname" placeholder="Apellidos"/>
+                                    <p id="warninglastname" class="warningformtext"></p>
+                                    <input type="text" name="email" id="email" placeholder="Correo electrónico"/>
+                                    <p id="warningemail" class="warningformtext"></p>
+                                    <input type="text" name="tel" id="tel" placeholder="Teléfono (+34)"/>
+                                    <p id="warningtel" class="warningformtext"></p>
+                                    <input type="text" name="date" onfocus="(this.type='date')" id="date" placeholder="Fecha de nacimiento"/>
+                                    <p id="warningdate" class="warningformtext"></p>
+                                    <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Popup para el warning del inicio de sesión no válido -->
+                        <div data-role="popup" id="warningLogin" class="ui-corner-all">
                             <div style="padding:10px 20px;">
-                                <h3>Registro</h3>
-                                <input type="text" name="user" id="newusername" placeholder="Nombre de usuario">
-                                <p id="warningusername" class="warningformtext"></p>
-                                <input type="password" name="pass" id="password" placeholder="Contraseña">
-                                <p></p>
-                                <input type="password" name="passrpt" id="pwrepeat" placeholder="Repita contraseña"/>
-                                <p id="warningpassword" class="warningformtext"></p>
-                                <input type="text" name="realname" id="userrealname" placeholder="Nombre"/>
-                                <p id="warningname" class="warningformtext"></p>
-                                <input type="text" name="lastname" id="userlastname" placeholder="Apellidos"/>
-                                <p id="warninglastname" class="warningformtext"></p>
-                                <input type="text" name="email" id="email" placeholder="Correo electrónico"/>
-                                <p id="warningemail" class="warningformtext"></p>
-                                <input type="text" name="tel" id="tel" placeholder="Teléfono (+34)"/>
-                                <p id="warningtel" class="warningformtext"></p>
-                                <input type="text" name="date" onfocus="(this.type='date')" id="date" placeholder="Fecha de nacimiento"/>
-                                <p id="warningdate" class="warningformtext"></p>
-                                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Enviar</button>
+                                <h3>Credenciales incorrectas</h3>
+                                <p>Los datos introducidos no son correctos. Por favor, inténtelo de nuevo.</p>
+                                <a href="#" type="submit" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">OK</a>
                             </div>
-                        </form>
-                    </div>
-
-                    <!-- Popup para el warning del inicio de sesión no válido -->
-                    <div data-role="popup" id="warningLogin" class="ui-corner-all">
-                        <div style="padding:10px 20px;">
-                            <h3>Credenciales incorrectas</h3>
-                            <p>Los datos introducidos no son correctos. Por favor, inténtelo de nuevo.</p>
-                            <a href="#" type="submit" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">OK</a>
                         </div>
-                    </div>
 
-                    <!-- Popup para el warning de registro satisfactorio -->
-                    <div data-role="popup" id="warningRegister" class="ui-corner-all">
-                        <div style="padding:10px 20px;">
-                            <h3>Su cuenta ha sido creada</h3>
-                            <p>Ha sido dado de alta correctamente en nuestra base de datos. Haga click en 'OK' para comenzar.</p>
-                            <a href="calendar.html" type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">OK</a>
+                        <!-- Popup para el warning de registro satisfactorio -->
+                        <div data-role="popup" id="warningRegister" class="ui-corner-all">
+                            <div style="padding:10px 20px;">
+                                <h3>Su cuenta ha sido creada</h3>
+                                <p>Ha sido dado de alta correctamente en nuestra base de datos. Haga click en 'OK' para comenzar.</p>
+                                <a href="calendar.html" type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">OK</a>
+                            </div>
                         </div>
-                    </div>
-
                     </td>
                 </tr>
             </table>
-
-
-
-
         </div>
     
+        <!-- Pie de página -->
+        <div data-role="footer" data-theme="b">
+            <h4>Interfaces Inteligentes · 2016</h4>
+        </div>
 
-    <!-- Pie de página -->
-    <div data-role="footer" data-theme="b">
-        <h4>Interfaces Inteligentes · 2016</h4>
+        <!-- Popup de información -->
+        <div data-role="popup" id="popupinfo" class="ui-corner-all">
+            <p>
+                <strong>SuperCalendar</strong> es una aplicación desarrollada en la <i>Universidad de La Laguna</i> 
+                concebida para facilitar la concertación de citas entre los usuarios. Comparte rápidamente tu calendario
+                con el resto, crea eventos personalizables, añade notas de voz y mucho más.<br/>		
+                <br/>Regístrate, es gratis. 
+            </p>
+        </div>
+        
     </div>
-
-    <!-- Popup de información -->
-    <div data-role="popup" id="popupinfo" class="ui-corner-all">
-        <p>
-            <strong>SuperCalendar</strong> es una aplicación desarrollada en la <i>Universidad de La Laguna</i> 
-            concebida para facilitar la concertación de citas entre los usuarios. Comparte rápidamente tu calendario
-            con el resto, crea eventos personalizables, añade notas de voz y mucho más.<br/>		
-            <br/>Regístrate, es gratis. 
-        </p>
-    </div>
-  
-  </div>
 </body>
 </html>
