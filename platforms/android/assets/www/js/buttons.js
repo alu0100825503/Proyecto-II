@@ -4,10 +4,15 @@ function chargePage(page) {
 
 function logout() {
     localStorage.removeItem("username");
+    console.log("logoutbutton");
     // Warning popup
-    $("#warningLogout").popup();
-	$("#warningLogout").popup("open");
-    $("#agreeLogout").click(function() {
+    $("#closeMenu").click();
+    setTimeout(function() {
+        $("#warningLogout").popup();
+        $("#warningLogout").popup("open");
+    }, 500);
+
+     $("#agreeLogout").click(function() {
         // Eliminar usuario de la sesión actual
         localStorage.removeItem("username");
         // Redirección a la página principal
@@ -16,7 +21,8 @@ function logout() {
 }
 
 $(document).ready(function() {
-    $("#logoutbutton").click(logout);
+    $("#logoutbutton").click(logout);   
+     $("#logoutbuttonMain").click(logout);
 
      // Botón home (esquina superior izquierda)
     $("#homebutton").click(function() {
