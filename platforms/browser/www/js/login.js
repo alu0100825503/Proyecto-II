@@ -21,7 +21,7 @@ function makePostRequest(dataForServer) {
 					localStorage.removeItem("username");
 					localStorage.removeItem("password");
 				}
-				window.location = "profile.html";
+				window.location = "calendar.html";
 			}
 			else {
 				console.log("login failed");
