@@ -18,8 +18,8 @@ function makePostRequest(dataForServer) {
 				} 
 				else {
 					// Delete login data if remember me is unchecked
-					localStorage.removeItem("username");
-					localStorage.removeItem("password");
+					localStorage.removeItem("lastUsername");
+					localStorage.removeItem("lastPassword");
 				}
 				window.location = "calendar.html";
 			}
@@ -41,8 +41,8 @@ function makePostRequest(dataForServer) {
 
 $(document).ready(function() {
 	// If the browser supports localStorage and we have some stored data
-	if (window.localStorage && localStorage.username) {
-		console.log("stored user: " + localStorage.username);
+	if (window.localStorage && localStorage.lastUsername) {
+		console.log("stored user: " + localStorage.lastUsername);
 		$("#usernamelogin").val(localStorage.lastUsername);
 		$("#passwordlogin").val(localStorage.lastPassword);
 		// TODO: hacer inicio de sesión automático si hay datos 
