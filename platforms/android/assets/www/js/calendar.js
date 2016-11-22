@@ -399,7 +399,7 @@
 
     // Object to get the events and things of the calendar
     var calendar = {
-        creator: "test",               // Usuario del que obtener los eventos
+        creator: localStorage.getItem("username"), // Usuario del que obtener los eventos
         eventSelected: null,                // Event selected by click
         eventsCalendar: null,               // Have all events
         refreshFunction: null               // Refresh the calendar in the html
@@ -431,32 +431,6 @@
         getEventsFromServer();
         document.addEventListener("deviceready", onDeviceReady, false);
     })
-
-    var options = { frequency: 500 };
-
-    onDeviceReady = function () {
-        navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
-    }
-
-    var previousX = 0;
-    var previousY = 0;
-    var previousZ = 0;
-    var EPS = 8;
-    onSuccess = function (acceleration) {
-        if (Math.abs(acceleration.x - previousX) > EPS || Math.abs(acceleration.y - previousY) > EPS || 
-                Math.abs(acceleration.z - previousZ) > EPS) {
-            document.getElementById("accelerometer").innerHTML = acceleration.x + " " + acceleration.y + " " + acceleration.z;
-            getEventsFromServer();
-        }
-        previousX = acceleration.x;
-        previousY = acceleration.y;
-        previousZ = acceleration.z; 
-    };
-
-    onError = function () {
-        alert('onError!');
-    };
-
 
     getDateFormated = function (selected) {
         var daysOfWeek = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
@@ -633,6 +607,29 @@
             });
         });
     }
+
+    // Accelerometer
+    var options = { frequency: 500 };   // Update every 500 ms
+
+    onDeviceReady = function () {
+        navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+    }
+
+    var previousX = 0;
+    var previousY = 0;
+    var previousZ = 0;
+    var EPS = 8;
+    onSuccess = function (acceleration) {
+        if (Math.abs(acceleration.x - previousX) > EPS || Math.abs(acceleration.y - previousY) > EPS || 
+                Math.abs(acceleration.z - previousZ) > EPS) {
+            getEventsFromServer();
+        }
+        previousX = acceleration.x;
+        previousY = acceleration.y;
+        previousZ = acceleration.z; 
+    }
+
+    onError = function () {}
 
     seeUserFound = function (name) {
         localStorage.setItem("userFound", name);  // Save name
