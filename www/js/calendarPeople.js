@@ -399,7 +399,7 @@
 
     // Object to get the events and things of the calendar
     var calendar = {
-        creator: localStorage.getItem("username"), // Usuario del que obtener los eventos
+        creator: localStorage.getItem("userFound"), // Usuario del que obtener los eventos
         eventSelected: null,                // Event selected by click
         eventsCalendar: null,               // Have all events
         refreshFunction: null               // Refresh the calendar in the html
@@ -407,9 +407,20 @@
 
     // Create calendar
     $(document).ready(function () {
+        document.getElementById("userFoundName").innerHTML = localStorage.getItem("userFound");    // Name
+        $('<img src="img/standar-face.png" hspace=30 style="width:30%"/>').appendTo($("#headMainContent"));
+        // If es amigo muestro uno, sino otro
+        $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="float: right;"></button>').
+            text("Añadir amigo").appendTo($("#headMainContent"));
+        // Else
+        /*
+        $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-delete"></button>').
+                        text("Añadir amigo").appendTo($("#headMainContent"));
+        */
+        $('<br></br>').appendTo($("#headMainContent"));
         $("#calendar").jqmCalendar(calendar, {});
         // Format datepicker
-        $("#endDate").datepicker({
+        /*$("#endDate").datepicker({
             firstDay: 1,
             dayNamesMin: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
             monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre"
@@ -427,7 +438,7 @@
             onSelect: function (selected, evnt) {
                 $("#endDateEdit").val(getDateFormated(selected));
             }
-        });
+        });*/
         getEventsFromServer();
         document.addEventListener("deviceready", onDeviceReady, false);
     })
@@ -462,7 +473,7 @@
     }
 
     // Function to create an event
-    addEventToCalendar = function () {
+    /*addEventToCalendar = function () {
         name = document.getElementById("nameEvent").value;
         document.getElementById("nameEvent").value = "";
         if (name == "") {
@@ -606,12 +617,12 @@
                     text(event.username).appendTo($("#userFound"));
             });
         });
-    }
 
-    seeUserFound = function (name) {
-        localStorage.setItem("userFound", name);  // Save name
-        window.location = "people.html";
-    }
+        seeUserFound = function (name) {
+            localStorage.setItem("userFound", name);  // Save name
+            window.location = "people.html";
+        }
+    }*/
 
     // Accelerometer
     var options = { frequency: 500 };   // Update every 500 ms
@@ -625,16 +636,16 @@
     var previousZ = 0;
     var EPS = 8;
     onSuccess = function (acceleration) {
-        if (Math.abs(acceleration.x - previousX) > EPS || Math.abs(acceleration.y - previousY) > EPS || 
-                Math.abs(acceleration.z - previousZ) > EPS) {
+        if (Math.abs(acceleration.x - previousX) > EPS || Math.abs(acceleration.y - previousY) > EPS ||
+            Math.abs(acceleration.z - previousZ) > EPS) {
             getEventsFromServer();
         }
         previousX = acceleration.x;
         previousY = acceleration.y;
-        previousZ = acceleration.z; 
+        previousZ = acceleration.z;
     }
 
-    onError = function () {}
+    onError = function () { }
     /* ------------------------------------------------------------------------------*/
 
 })(jQuery);

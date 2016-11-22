@@ -608,6 +608,11 @@
         });
     }
 
+    seeUserFound = function (name) {
+        localStorage.setItem("userFound", name);  // Save name
+        window.location = "people.html";
+    }
+
     // Accelerometer
     var options = { frequency: 500 };   // Update every 500 ms
 
@@ -630,11 +635,6 @@
     }
 
     onError = function () {}
-
-    seeUserFound = function (name) {
-        localStorage.setItem("userFound", name);  // Save name
-        window.location = "people.html";
-    }
     /* ------------------------------------------------------------------------------*/
 
 })(jQuery);
