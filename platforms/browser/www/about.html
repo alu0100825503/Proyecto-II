@@ -4,59 +4,45 @@
 <head>
 	<meta charset="utf-8">
 	<title>About</title>
-	<link rel="shortcut icon" href="../favicon.ico">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-	<!----><script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-	<script src="js/menu.js"></script>
-	<script type="text/javascript">
-			function changePage(page) {
-				window.location = page;
-			}
-		</script>
+	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script src="js/resize.js"></script>
 	<script src="js/buttons.js"></script>
-
-
+	<link rel="stylesheet" type="text/css" href="css/background.css"></link>
 </head>
 
 <body>
-
-	<div data-role="header" data-position="fixed" data-theme="b">
-		<h1>Acerca de:</h1>
-		<a href="#inside-a" data-icon="bars" data-iconpos="notext">Menu</a>
-
-	</div>
-	<!-- /header -->
-	<div data-role="page" id="a">
-		<div role="main" class="ui-content">
-
-			<h2>Calendar.app</h2>
-			<p>Es un calendario colaborativo desarrollado en la Universidad de La Laguna</p>
-			<img href="../index.html" src="img/calendar-image-png-3.png" style="width:90%;" />
+	<div class="outer" data-role="page">
+		<!-- Título -->
+		<div data-role="header" data-theme="b">
+			<h1>Acerca de</h1>
+			<a id="calendarbutton" data-icon="home" data-iconpos="notext"></a>
+			<a href="#outside" data-icon="bars" data-iconpos="notext">Menú</a>
+		</div>    
+		
+		<!-- Contenido principal -->
+    	<div role="main" class="ui-content" style="text-align:center;">
+			<!-- Imagen del logo -->
+            <img src="img/supercalendar.png" style="width:90%;"/>
 		</div>
-		<!-- /content -->
-		<div data-role="footer" data-position="fixed">
+
+		<!-- Pie de página -->
+		<div data-role="footer" data-theme="b">
+		<h1>Interfaces Inteligentes · 2016</h1>
 		</div>
-		<!-- /header -->
-		<div data-role="footer" data-position="fixed">
-			<h4>Copyright 2016</h4>
-		</div>
-	</div>
-	<!-- /page -->
-	<div data-role="panel" id="inside-a" data-position="left" data-display="overlay" data-theme="b">
+
+		<!-- Menú desplegable -->
+		<div data-role="panel" id="outside" data-theme="b">
 		<ul data-role="listview">
-			<li data-icon="back"><a href="#" data-rel="close">Cerrar</a></li>
-			<li><a id="homebutton">Inicio</a></li>
+			<li data-icon="back"><a href="#" id="closeMenu" data-rel="close">Cerrar</a></li>
 			<li><a id="calendarbutton">Calendario</a></li>
 			<li><a id="profilebutton">Perfil</a></li>
-			<li><a id="aboutbutton">Acerca de</a></li>
-			<li><a id="settingsbutton">Configuración</a></li>
+			<li><a id="settingsbutton">Ajustes</a></li>
+			<li><a id="logoutbutton">Cerrar sesión</a></li>
 		</ul>
-
+		</div>
 	</div>
-
 </body>
-
 </html>
