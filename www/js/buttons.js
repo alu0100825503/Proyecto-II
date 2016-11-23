@@ -21,7 +21,7 @@ function logout() {
 }
 
 $(document).ready(function() {
-    $("#logoutbutton").click(logout);   
+    $("#logoutbutton").click(logout);
      $("#logoutbuttonMain").click(logout);
 
      // Botón home (esquina superior izquierda)
@@ -43,5 +43,9 @@ $(document).ready(function() {
 
     $("#aboutbutton").click(function() {
         chargePage("about.html");
+    });
+
+    $("#mapbutton").click(function() {
+        chargePage("map.html");
     });
 });
