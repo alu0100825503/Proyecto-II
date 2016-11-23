@@ -29,23 +29,28 @@
   </div>
   <div data-role="page" id="a">
     <div role="main" class="ui-content">
-      <div id="map" style="height: 550px;"></div>
+      <div id="map" style="height: 98%;"></div>
       <script type="text/javascript">
       document.addEventListener("deviceready", onDeviceReady, false);
-      var map;
+      var map = undefined;
       var existMap = false;
+      var userpos;
+      var eventpos;
+      var latitude = undefined;
+      var longitude = undefined;
+      var accuracy;
+      var circle = undefined;
       function onDeviceReady() {
-
-
-
         var onSuccess = function(position) {
-
-
-          initMap(position.coords.latitude, position.coords.longitude);
-
-
-
-
+          latitude = position.coords.latitude;
+          longitude = position.coords.longitude;
+          accuracy = position.coords.accuracy;
+          //if (!$existMap){
+            initMap(latitude, longitude, accuracy);
+            //existMap = true;
+          //} else {
+            //updatemap(latitude,longitude);
+          //}
           //alert('Latitude: '          + position.coords.latitude          + '\n' +
           //'Longitude: '         + position.coords.longitude         + '\n' +
           //'Altitude: '          + position.coords.altitude          + '\n' +
@@ -55,52 +60,62 @@
           //'Speed: '             + position.coords.speed             + '\n' +
           //'Timestamp: '         + position.timestamp                + '\n');
         };
-
-        // onError Callback receives a PositionError object
-        //
         function onError(error) {
           alert('code: '    + error.code    + '\n' +
           'message: ' + error.message + '\n');
         }
-
-
-
-        navigator.geolocation.watchPosition(onSuccess, onError);
-
+        navigator.geolocation.watchPosition(onSuccess, onError,{enableHighAccuracy: true});
       }
 
-      function initMap(latval, longval) {
-
+      function initMap(latitude, longitude, accuracy) {
+        //var map;
+        //var exist = false
+        var latLong = new google.maps.LatLng(latitude, longitude);
         if (!existMap){
           map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: latval, lng: longval},
-            zoom: 12
+            center: latLong,
+            zoom: 18
           });
-          //existMap = true;
+
+          circle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            map: map,
+            center: latLong,
+            radius: parseFloat(accuracy)
+          });
+
+          userpos = new google.maps.Marker({
+            position: latLong,
+            map: map,
+            title: 'Hello World!'
+          });
+          eventpos = new google.maps.Marker({
+            position: {lat: 28.5, lng: -16.2},
+            map: map,
+            title: 'Hello World!'
+          });
+
+
+
+          existMap = true;
         } else {
-          //alert(latval);
-          //alert(longval)
-          //var myLatlng = new google.maps.LatLng(parseFloat(latval),parseFloat(longval));
-          map.setZoom({zoom: 9});
-
+          map.setCenter(latLong);
+          userpos.setPosition(latLong);
+          circle.setCenter(latLong);
+          circle.setRadius(parseFloat(accuracy));
         }
-        var marker = new google.maps.Marker({
-          position: {lat: latval, lng: longval},
-          map: map,
-          title: 'Hello World!'
-        });
-        var marker2 = new google.maps.Marker({
-          position: {lat: 28.5, lng: -16.2},
-          map: map,
-          title: 'Hello World!'
-        });
+
+
       }
-
-
-
-
-
-
+      function updateMap(latitude, longitude) {
+        alert ("estoy entrando")
+        var latLong = new google.maps.LatLng(latitude, longitude);
+        userpos.setPosition(latlng);
+      }
 
 
       </script>
