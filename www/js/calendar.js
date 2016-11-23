@@ -428,6 +428,15 @@
                 $("#endDateEdit").val(getDateFormated(selected));
             }
         });
+        // Clear popup of search user when close it
+        $("#popupSearchUser").bind({
+            popupafterclose: function (event, ui) {
+                var div = document.getElementById('userFound');
+                while (div.firstChild) {
+                    div.removeChild(div.firstChild);
+                }
+            }
+        });
         getEventsFromServer();
         document.addEventListener("deviceready", onDeviceReady, false);
     })
@@ -462,7 +471,7 @@
     }
 
     paintPublicHoliday = function () {
-        
+
     }
 
     // Function to create an event
@@ -629,16 +638,16 @@
     var previousZ = 0;
     var EPS = 8;
     onSuccess = function (acceleration) {
-        if (Math.abs(acceleration.x - previousX) > EPS || Math.abs(acceleration.y - previousY) > EPS || 
-                Math.abs(acceleration.z - previousZ) > EPS) {
+        if (Math.abs(acceleration.x - previousX) > EPS || Math.abs(acceleration.y - previousY) > EPS ||
+            Math.abs(acceleration.z - previousZ) > EPS) {
             getEventsFromServer();
         }
         previousX = acceleration.x;
         previousY = acceleration.y;
-        previousZ = acceleration.z; 
+        previousZ = acceleration.z;
     }
 
-    onError = function () {}
+    onError = function () { }
     /* ------------------------------------------------------------------------------*/
 
 })(jQuery);
