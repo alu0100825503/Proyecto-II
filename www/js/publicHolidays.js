@@ -9,8 +9,8 @@ $(document).ready(function() {
 
 	$.getJSON(calendarUrl)
     .success(function(data) {
-    	//console.log(data);
-		console.log("got data");
+			// paint public holidays on calendar
+    	console.log(new Date(data.items[0].start.date));
     })
     .error(function(error) {
       console.log("fail while getting the json from the server");
