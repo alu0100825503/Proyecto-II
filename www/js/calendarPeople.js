@@ -407,19 +407,10 @@
 
     // Create calendar
     $(document).ready(function () {
-        document.getElementById("userFoundName").innerHTML = localStorage.getItem("userFound");    // Name
-        $('<img src="img/standar-face.png" hspace=30 style="width:60%"/>').appendTo($("#userImage"));
-        // If es amigo muestro uno, sino otro
-        $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="float: right;"></button>').
-            text("Añadir contacto").appendTo($("#contactButton"));
-        // Else
-        /*
-        $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-delete"></button>').
-                        text("Añadir contacto").appendTo($("#headMainContent"));
-        */
-
-        // Si soy amigo puedo mandar mensaje, si no no
+        document.getElementById("userFoundName").innerHTML = localStorage.getItem("userFound");         // Name user
+        $('<img src="img/standar-face.png" hspace=30 style="width:60%"/>').appendTo($("#userImage"));   // Image user
         $("#calendar").jqmCalendar(calendar, {});
+        isContact();                              // Check if users are contact
         // Format datepicker
         /*$("#endDate").datepicker({
             firstDay: 1,
@@ -440,9 +431,33 @@
                 $("#endDateEdit").val(getDateFormated(selected));
             }
         });*/
-        getEventsFromServer();
         document.addEventListener("deviceready", onDeviceReady, false);
     })
+
+    isContact = function () {
+        var dataToSend = [{
+            "user1": localStorage.getItem("username"),
+            "user2": localStorage.getItem("userFound")
+        }]
+        var dataJSON = JSON.stringify(dataToSend);
+        var url = "http://socialcalendarplus.esy.es/isContact.php";
+
+        $.post(url, { eventData: dataJSON }, function (answer) {
+            if (answer > 0) {
+                getEventsFromServer();
+                $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-delete" style="float: right;background:#FF5050"></button>').
+                    text("Eliminar contacto").appendTo($("#contactButton"));
+                // Si soy amigo puedo mandar mensaje, si no no
+            } else {
+                $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="float: right;background:#90EE90"></button>').
+                    text("Añadir contacto").appendTo($("#contactButton"));
+            }
+        }).error(function () {
+            console.log('Error al ejecutar la petición');
+        });
+    }
+
+    // Funcionalidad al boton y solicitud de eventos
 
     getDateFormated = function (selected) {
         var daysOfWeek = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
