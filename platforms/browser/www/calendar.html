@@ -17,6 +17,7 @@
     <script src="js/calendar.js"></script>
     <script src="js/buttons.js"></script>
     <script src="js/resize.js"></script>
+    <script src="js/publicHolidays.js"></script>
 </head>
 
 <body>
@@ -39,17 +40,17 @@
             <h4>Interfaces Inteligentes · 2016</h4>
         </div>
         <!-- Añadir evento -->
-        <div data-role="popup" id="popupAddEvent" data-overlay-theme="a" data-theme="b">
+        <div data-role="popup" id="popupAddEvent" data-overlay-theme="a" data-theme="a">
             <form>
                 <div style="text-align: center;padding:0px 20px">
                     <h3>Evento</h3>
-                    <input type="text" name="nameEvent" id="nameEvent" value="" placeholder="Nombre del evento" data-theme="b">
+                    <input type="text" name="nameEvent" id="nameEvent" value="" placeholder="Nombre del evento" data-theme="a">
                     <h4 style="margin-top:20px;">Inicio</h4>
-                    <input type="text" name="startDate" id="startDate" value="" placeholder="Fecha inicio" data-theme="b" readonly>
-                    <input type="time" name="startHour" id="startHour" value="00:00" data-theme="b">
+                    <input type="text" name="startDate" id="startDate" value="" placeholder="Fecha inicio" data-theme="a" readonly>
+                    <input type="time" name="startHour" id="startHour" value="00:00" data-theme="a">
                     <h4 style="margin-top:20px;">Final</h4>
-                    <input type="text" name="endDate" id="endDate" value="" placeholder="Fecha finalizar" data-theme="b" readonly>
-                    <input type="time" name="endHour" id="endHour" value="23:59" data-theme="b">
+                    <input type="text" name="endDate" id="endDate" value="" placeholder="Fecha finalizar" data-theme="a" readonly>
+                    <input type="time" name="endHour" id="endHour" value="23:59" data-theme="a">
                     <div class="ui-checkbox">
                         <label for="eventPrivate" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off" style="text-align:center">Evento privado
                             <input type="checkbox" name="eventPrivate" id="eventPrivate" data-enhanced="true">
@@ -60,17 +61,17 @@
             </form>
         </div>
         <!-- Menú de evento -->
-        <div data-role="popup" id="popupMenuEvent" data-overlay-theme="a" data-theme="b">
+        <div data-role="popup" id="popupMenuEvent" data-overlay-theme="a" data-theme="a">
             <form>
                 <div style="text-align: center;padding:0px 20px">
                     <h3>Editar evento</h3>
-                    <input type="text" name="nameEvent" id="nameEventEdit" value="" placeholder="Nombre del evento" data-theme="b">
+                    <input type="text" name="nameEvent" id="nameEventEdit" value="" placeholder="Nombre del evento" data-theme="a">
                     <h4 style="margin-top:20px;">Inicio</h4>
-                    <input type="text" name="startDate" id="startDateEdit" value="" placeholder="Fecha inicio" data-theme="b" readonly>
-                    <input type="time" name="startHour" id="startHourEdit" value="00:00" data-theme="b">
+                    <input type="text" name="startDate" id="startDateEdit" value="" placeholder="Fecha inicio" data-theme="a" readonly>
+                    <input type="time" name="startHour" id="startHourEdit" value="00:00" data-theme="a">
                     <h4 style="margin-top:20px;">Final</h4>
-                    <input type="text" name="endDate" id="endDateEdit" value="" placeholder="Fecha finalizar" data-theme="b" readonly>
-                    <input type="time" name="endHour" id="endHourEdit" value="23:59" data-theme="b">
+                    <input type="text" name="endDate" id="endDateEdit" value="" placeholder="Fecha finalizar" data-theme="a" readonly>
+                    <input type="time" name="endHour" id="endHourEdit" value="23:59" data-theme="a">
                     <div class="ui-checkbox">
                         <label for="eventPrivateEdit" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off" style="text-align:center">Evento privado
                             <input type="checkbox" name="eventPrivate" id="eventPrivateEdit" data-enhanced="true">
@@ -92,11 +93,11 @@
             </ul>
         </div>
         <!-- Menú de búsqueda de usuario -->
-        <div data-role="popup" id="popupSearchUser" data-overlay-theme="a" data-theme="b">
+        <div data-role="popup" id="popupSearchUser" data-overlay-theme="a" data-theme="a">
             <form>
                 <div style="text-align: center;padding:0px 20px">
                     <h3>Buscar usuario</h3>
-                    <input type="text" name="nameUserSearch" id="nameUserSearch" value="" placeholder="Nombre de usuario" data-theme="b">
+                    <input type="text" name="nameUserSearch" id="nameUserSearch" value="" placeholder="Nombre de usuario" data-theme="a">
                     <button type="button" onClick="searchUser()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Buscar</button>
                     <div id="userFound"></div>
                 </div>

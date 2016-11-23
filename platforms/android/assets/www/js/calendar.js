@@ -461,6 +461,10 @@
         });
     }
 
+    paintPublicHoliday = function () {
+        
+    }
+
     // Function to create an event
     addEventToCalendar = function () {
         name = document.getElementById("nameEvent").value;
