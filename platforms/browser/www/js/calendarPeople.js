@@ -479,10 +479,17 @@
         $.getJSON(url, { eventData: dataJSON }, function (eventsReceived) {
             calendar.eventsCalendar.length = 0;
             $.each(eventsReceived, function (i, event) {
-                calendar.eventsCalendar.splice(0, 0, {
-                    "summary": event.name, "begin": new Date(event.start),
-                    "end": new Date(event.finish), "id": event.id, "isPrivate": event.isPrivate
-                });
+                if (event.isPrivate > 0) { // 0 = no privado
+                    calendar.eventsCalendar.splice(0, 0, {
+                        "summary": "Evento privado", "begin": new Date(event.start),
+                        "end": new Date(event.finish), "id": event.id, "isPrivate": event.isPrivate
+                    });
+                } else {
+                    calendar.eventsCalendar.splice(0, 0, {
+                        "summary": event.name, "begin": new Date(event.start),
+                        "end": new Date(event.finish), "id": event.id, "isPrivate": event.isPrivate
+                    });
+                }
             });
             calendar.refreshFunction();
         });
