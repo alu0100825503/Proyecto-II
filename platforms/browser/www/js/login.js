@@ -47,7 +47,12 @@ $(document).ready(function() {
 		$("#passwordlogin").val(localStorage.lastPassword);
 		// TODO: hacer inicio de sesión automático si hay datos 
 		// guardados en localStorage
-		//makePostRequest(datosguardados)...
+		/*storedData = {
+			"username": localStorage.lastUsername,
+			"password": localStorage.lastPassword
+		}
+		makePostRequest(storedData);
+		*/
 	}
 
 	$("#submitlogin").click(function(evt) {

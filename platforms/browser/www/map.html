@@ -1,35 +1,121 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="map"></div>
-    <script>
+<head>
+  <meta charset="utf-8">
+  <title>Mapa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZTORBRdgbXQWMUugw4Ohpz6F-BaZS6tE&callback=initMap" async defer></script>
+  <script type="text/javascript" src="cordova.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/dbGetter.js"></script>
+  <link rel="stylesheet" href="css/profile.css" />
+  <script type="text/javascript">
+  function changePage(page) {
+    window.location = page;
+  }
+  </script>
+  <script src="js/resize.js"></script>
+  <script src="js/buttons.js"></script>
+</head>
+<body>
+  <div data-role="header" data-position="fixed" data-theme="b">
+    <h1>Mapa</h1>
+    <a href="#inside-a" data-icon="bars" data-iconpos="notext">Menu</a>
+  </div>
+  <div data-role="page" id="a">
+    <div role="main" class="ui-content">
+      <div id="map" style="height: 550px;"></div>
+      <script type="text/javascript">
+      document.addEventListener("deviceready", onDeviceReady, false);
+      var map;
+      var existMap = false;
+      function onDeviceReady() {
 
-var map;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 8
-  });
-}
 
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZTORBRdgbXQWMUugw4Ohpz6F-BaZS6tE&callback=initMap"
-        async defer></script>
+
+        var onSuccess = function(position) {
+
+
+          initMap(position.coords.latitude, position.coords.longitude);
+
+
+
+
+          //alert('Latitude: '          + position.coords.latitude          + '\n' +
+          //'Longitude: '         + position.coords.longitude         + '\n' +
+          //'Altitude: '          + position.coords.altitude          + '\n' +
+          //'Accuracy: '          + position.coords.accuracy          + '\n' +
+          //'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+          //'Heading: '           + position.coords.heading           + '\n' +
+          //'Speed: '             + position.coords.speed             + '\n' +
+          //'Timestamp: '         + position.timestamp                + '\n');
+        };
+
+        // onError Callback receives a PositionError object
+        //
+        function onError(error) {
+          alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+        }
+
+
+
+        navigator.geolocation.watchPosition(onSuccess, onError);
+
+      }
+
+      function initMap(latval, longval) {
+
+        if (!existMap){
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: latval, lng: longval},
+            zoom: 12
+          });
+          //existMap = true;
+        } else {
+          //alert(latval);
+          //alert(longval)
+          //var myLatlng = new google.maps.LatLng(parseFloat(latval),parseFloat(longval));
+          map.setZoom({zoom: 9});
+
+        }
+        var marker = new google.maps.Marker({
+          position: {lat: latval, lng: longval},
+          map: map,
+          title: 'Hello World!'
+        });
+        var marker2 = new google.maps.Marker({
+          position: {lat: 28.5, lng: -16.2},
+          map: map,
+          title: 'Hello World!'
+        });
+      }
+
+
+
+
+
+
+
+
+      </script>
+    </div>
+    <div data-role="panel" id="inside-a" data-position="left" data-display="overlay" data-theme="b">
+      <ul data-role="listview">
+        <li data-icon="back"><a href="#" data-rel="close">Cerrar</a></li>
+        <li><a id="calendarbutton">Calendario</a></li>
+        <li><a id="profilebutton">Perfil</a></li>
+        <li><a id="aboutbutton">Acerca de</a></li>
+        <li><a id="settingsbutton">Configuración</a></li>
+        <li><a id="mapbutton">Mapa</a></li>
+        <li><a id="loginbutton">Cerrar sesión</a></li>
+      </ul>
+
+    </div>
   </body>
-</html>
+  </html>
