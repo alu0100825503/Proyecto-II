@@ -1,5 +1,5 @@
-(function ($) {
-    $.jqmCalendar = function (element, options, cal) {
+(function($) {
+    $.jqmCalendar = function(element, options, cal) {
         var defaults = {
             // Array of events
             events: [],
@@ -68,7 +68,7 @@
                 $tr = $("<tr/>").appendTo($thead),
                 $th = $("<th class='ui-bar-" + plugin.settings.theme + " header' colspan='7'/>");
 
-            $("<a href='#' data-role='button' data-icon='arrow-l' data-iconpos='notext' class='previous-btn'>Previous</a>").click(function () {
+            $("<a href='#' data-role='button' data-icon='arrow-l' data-iconpos='notext' class='previous-btn'>Previous</a>").click(function() {
                 refresh(new Date(plugin.settings.date.getFullYear(), plugin.settings.date.getMonth() - 1,
                     plugin.settings.date.getDate() <= _daysInMonth(new Date(plugin.settings.date.getFullYear(), plugin.settings.date.getMonth() - 1)) ? plugin.settings.date.getDate() : _daysInMonth(new Date(plugin.settings.date.getFullYear(), plugin.settings.date.getMonth() - 1))
 
@@ -76,7 +76,7 @@
             }).appendTo($th);
 
             if (plugin.settings.yearArrow) {
-                $("<a href='#' data-role='button' data-icon='arrow-d' data-iconpos='notext' class='previous-btn'>Previous</a>").click(function () {
+                $("<a href='#' data-role='button' data-icon='arrow-d' data-iconpos='notext' class='previous-btn'>Previous</a>").click(function() {
                     refresh(new Date(plugin.settings.date.getFullYear(), plugin.settings.date.getMonth() - 12,
                         plugin.settings.date.getDate() <= _daysInMonth(new Date(plugin.settings.date.getFullYear(), plugin.settings.date.getMonth() - 12)) ? plugin.settings.date.getDate() : _daysInMonth(new Date(plugin.settings.date.getFullYear(), plugin.settings.date.getMonth() - 12))
 
@@ -86,7 +86,7 @@
 
             $header = $("<span/>").appendTo($th);
 
-            $("<a href='#' data-role='button' data-icon='arrow-r' data-iconpos='notext' class='next-btn'>Next</a>").click(function () {
+            $("<a href='#' data-role='button' data-icon='arrow-r' data-iconpos='notext' class='next-btn'>Next</a>").click(function() {
                 var newDay = plugin.settings.date.getDate();
                 var maxDay = _daysInMonth(new Date(plugin.settings.date.getFullYear(), plugin.settings.date.getMonth() + 1), 0);
                 if (newDay > maxDay) { newDay = maxDay; }
@@ -94,7 +94,7 @@
             }).appendTo($th);
 
             if (plugin.settings.yearArrow) {
-                $("<a href='#' data-role='button' data-icon='arrow-u' data-iconpos='notext' class='next-btn'>Next</a>").click(function () {
+                $("<a href='#' data-role='button' data-icon='arrow-u' data-iconpos='notext' class='next-btn'>Next</a>").click(function() {
                     refresh(new Date(plugin.settings.date.getFullYear(), plugin.settings.date.getMonth() + 12,
                         plugin.settings.date.getDate() <= _daysInMonth(new Date(plugin.settings.date.getFullYear(), plugin.settings.date.getMonth() + 12)) ? plugin.settings.date.getDate() : _daysInMonth(new Date(plugin.settings.date.getFullYear(), plugin.settings.date.getMonth() + 12))
 
@@ -192,7 +192,7 @@
             $a.attr("disabled", isDisabled(date));
 
             plugin.settings.eventHandler.getImportanceOfDay(date,
-                function (importance, bg) {
+                function(importance, bg) {
                     if (importance > 0) {
                         $a.append("<span>&bull;</span>");
                     }
@@ -337,12 +337,12 @@
             $element.trigger('create');
         }
 
-        $element.bind('change', function (originalEvent, begin) {
+        $element.bind('change', function(originalEvent, begin) {
             var end = new Date(begin.getFullYear(), begin.getMonth(), begin.getDate() + 1, 0, 0, 0, 0);
             // Empty the list
             $listview.empty();
 
-            plugin.settings.eventHandler.getEventsOnDay(begin, end, function (list_of_events) {
+            plugin.settings.eventHandler.getEventsOnDay(begin, end, function(list_of_events) {
                 for (var i = 0, event; event = list_of_events[i]; i++) {
                     var summary = event[plugin.settings.summary],
                         bg = event[plugin.settings.bg],
@@ -381,7 +381,7 @@
             }
         }
 
-        $element.bind('refresh', function (event, date) {
+        $element.bind('refresh', function(event, date) {
             refresh(date);
         });
 
@@ -389,8 +389,8 @@
         init(cal);      // Parameter added for me
     };
 
-    $.fn.jqmCalendar = function (cal, options) {
-        return this.each(function () {
+    $.fn.jqmCalendar = function(cal, options) {
+        return this.each(function() {
             if (!$(this).data('jqmCalendar')) {
                 $(this).data('jqmCalendar', new $.jqmCalendar(this, options, cal));
             }
@@ -406,7 +406,7 @@
     };
 
     // Create calendar
-    $(document).ready(function () {
+    $(document).ready(function() {
         $("#calendar").jqmCalendar(calendar, {});
         // Format datepicker
         $("#endDate").datepicker({
@@ -414,7 +414,7 @@
             dayNamesMin: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
             monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre"
                 , "Noviembre", "Diciembre"],
-            onSelect: function (selected, evnt) {
+            onSelect: function(selected, evnt) {
                 $("#endDate").val(getDateFormated(selected));
             }
         });
@@ -424,13 +424,13 @@
             dayNamesMin: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
             monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre"
                 , "Noviembre", "Diciembre"],
-            onSelect: function (selected, evnt) {
+            onSelect: function(selected, evnt) {
                 $("#endDateEdit").val(getDateFormated(selected));
             }
         });
         // Clear popup of search user when close it
         $("#popupSearchUser").bind({
-            popupafterclose: function (event, ui) {
+            popupafterclose: function(event, ui) {
                 var div = document.getElementById('userFound');
                 while (div.firstChild) {
                     div.removeChild(div.firstChild);
@@ -441,7 +441,7 @@
         document.addEventListener("deviceready", onDeviceReady, false);
     })
 
-    getDateFormated = function (selected) {
+    getDateFormated = function(selected) {
         var daysOfWeek = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
         var monthsOfYear = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 
@@ -451,16 +451,16 @@
     }
 
     // Function to get all events from server
-    getEventsFromServer = function () {
+    getEventsFromServer = function() {
         var dataToSend = [{
             "creator": calendar.creator
         }]
         var dataJSON = JSON.stringify(dataToSend);
         var url = "http://socialcalendarplus.esy.es/eventGet.php";
 
-        $.getJSON(url, { eventData: dataJSON }, function (eventsReceived) {
+        $.getJSON(url, { eventData: dataJSON }, function(eventsReceived) {
             calendar.eventsCalendar.length = 0;
-            $.each(eventsReceived, function (i, event) {
+            $.each(eventsReceived, function(i, event) {
                 calendar.eventsCalendar.splice(0, 0, {
                     "summary": event.name, "begin": new Date(event.start),
                     "end": new Date(event.finish), "id": event.id, "isPrivate": event.isPrivate
@@ -470,12 +470,12 @@
         });
     }
 
-    paintPublicHoliday = function () {
+    paintPublicHoliday = function() {
 
     }
 
     // Function to create an event
-    addEventToCalendar = function () {
+    addEventToCalendar = function() {
         name = document.getElementById("nameEvent").value;
         document.getElementById("nameEvent").value = "";
         if (name == "") {
@@ -512,7 +512,7 @@
     }
 
     // Function to select an event
-    selectEvent = function (id) {
+    selectEvent = function(id) {
         // Search event in calendar
         for (var i = 0; i < calendar.eventsCalendar.length; i++) {
             if (id == calendar.eventsCalendar[i].id) {
@@ -545,7 +545,7 @@
     }
 
     // Function to edit an event
-    editEvent = function () {
+    editEvent = function() {
         name = document.getElementById("nameEventEdit").value;
         if (name == "") {
             name = "Ocupado";
@@ -579,7 +579,7 @@
     }
 
     // Function to delete an event
-    deleteEvent = function () {
+    deleteEvent = function() {
         var dataToDelete = [{
             "id": calendar.eventSelected.id
         }]
@@ -592,18 +592,24 @@
     }
 
     // Function to communicate with the server
-    contactServer = function (url, data) {
+    contactServer = function(url, data) {
         $.post(url, { eventData: data },
-            function () {
+            function() {
                 getEventsFromServer();
             }).error(
-            function () {
+            function() {
                 console.log('Error al ejecutar la petición');
             }
             );
     }
 
-    searchUser = function () {
+    searchUser = function() {
+        // Clear popup
+        var div = document.getElementById('userFound');
+        while (div.firstChild) {
+            div.removeChild(div.firstChild);
+        }
+        // Search user
         var userToSearch = [{
             "username": document.getElementById("nameUserSearch").value
         }]
@@ -613,15 +619,15 @@
         var url = "http://socialcalendarplus.esy.es/searchUser.php";
 
         // Add users found to the popup
-        $.getJSON(url, { eventData: dataJSON }, function (eventsReceived) {
-            $.each(eventsReceived, function (i, event) {
+        $.getJSON(url, { eventData: dataJSON }, function(eventsReceived) {
+            $.each(eventsReceived, function(i, event) {
                 $('<button type="button" onClick="seeUserFound(this.innerHTML)" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-btn-icon-right ui-icon-forward"></button>').
                     text(event.username).appendTo($("#userFound"));
             });
         });
     }
 
-    seeUserFound = function (name) {
+    seeUserFound = function(name) {
         localStorage.setItem("userFound", name);  // Save name
         window.location = "people.html";
     }
@@ -629,7 +635,7 @@
     // Accelerometer
     var options = { frequency: 500 };   // Update every 500 ms
 
-    onDeviceReady = function () {
+    onDeviceReady = function() {
         navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
     }
 
@@ -637,7 +643,7 @@
     var previousY = 0;
     var previousZ = 0;
     var EPS = 8;
-    onSuccess = function (acceleration) {
+    onSuccess = function(acceleration) {
         if (Math.abs(acceleration.x - previousX) > EPS || Math.abs(acceleration.y - previousY) > EPS ||
             Math.abs(acceleration.z - previousZ) > EPS) {
             getEventsFromServer();
@@ -647,7 +653,7 @@
         previousZ = acceleration.z;
     }
 
-    onError = function () { }
+    onError = function() { }
     /* ------------------------------------------------------------------------------*/
 
 })(jQuery);
