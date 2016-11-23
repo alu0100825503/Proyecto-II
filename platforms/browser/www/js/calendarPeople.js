@@ -408,7 +408,7 @@
     // Create calendar
     $(document).ready(function () {
         document.getElementById("userFoundName").innerHTML = localStorage.getItem("userFound");         // Name user
-        $('<img src="img/standar-face.png" hspace=30 style="width:60%"/>').appendTo($("#userImage"));   // Image user
+        $('<img src="img/standar-face.png" hspace=30 style="width:50%;background:white;border-radius: 25px;"/>').appendTo($("#headMainContent"));   // Image user
         $("#calendar").jqmCalendar(calendar, {});
         isContact();                              // Check if users are contact
         // Format datepicker
@@ -445,12 +445,12 @@
         $.post(url, { eventData: dataJSON }, function (answer) {
             if (answer > 0) {
                 getEventsFromServer();
-                $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-delete" style="float: right;background:#FF5050"></button>').
-                    text("Eliminar contacto").appendTo($("#contactButton"));
+                $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-delete" style="background:#FF5050;border-radius: 25px;"></button>').
+                    text("Eliminar contacto").appendTo($("#headMainContent"));
                 // Si soy amigo puedo mandar mensaje, si no no
             } else {
-                $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="float: right;background:#90EE90"></button>').
-                    text("Añadir contacto").appendTo($("#contactButton"));
+                $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="background:#90EE90;border-radius: 25px;"></button>').
+                    text("Añadir contacto").appendTo($("#headMainContent"));
             }
         }).error(function () {
             console.log('Error al ejecutar la petición');
