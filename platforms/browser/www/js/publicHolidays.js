@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	// Get the JSON with all public holidays in Spain
+	// Get the JSON with all public holdays in Spain
 	var country = "spain";
 	var apiKey = "AIzaSyCzOnZPKf2UmQD8rBm3fNd0SzMfG7p4DdU";
 	var calendarUrl = 'https://www.googleapis.com/calendar/v3/calendars/en.' + country 
