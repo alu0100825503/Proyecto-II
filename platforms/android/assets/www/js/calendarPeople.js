@@ -457,7 +457,7 @@
         });
     }
 
-    // Funcionalidad al boton y solicitud d eventos
+    // Funcionalidad al boton y solicitud de eventos
 
     getDateFormated = function (selected) {
         var daysOfWeek = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
