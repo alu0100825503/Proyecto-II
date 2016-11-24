@@ -447,21 +447,38 @@
                 getEventsFromServer();
                 $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-delete" style="background:#FF5050;border-radius: 25px;"></button>').
                     text("Eliminar contacto").appendTo($("#headMainContent"));
-                $('<table style="width:100%"><tr><td id="buttonRequestEvent"></td><td id="buttonMessage"></td></tr></table>').appendTo($("#headMainContent"));
+                $('<table style="width:100%"><tr><td id="buttonRequestEvent"></td><td id="buttonMessage"></td></tr></table>').appendTo($("#footerMainContent"));
                 $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="border-radius: 25px;"></button>').
                     text("Evento").appendTo($("#buttonRequestEvent"));
                 $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-mail" style="border-radius: 25px;"></button>').
                     text("Mensaje").appendTo($("#buttonMessage"));
             } else {
-                $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="background:#90EE90;border-radius: 25px;"></button>').
+                $('<a href="#popupFriendship" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="background:#90EE90;border-radius: 25px;" data-transition="slidedown"></a>').
                     text("Añadir contacto").appendTo($("#headMainContent"));
+                    //<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="background:#90EE90;border-radius: 25px;"></button>
             }
         }).error(function () {
             console.log('Error al ejecutar la petición');
         });
     }
 
-    // Funcionalidad al boton y solicitud de eventos
+    addAsContact = function () {
+        var dataToSend = [{
+            "sender": localStorage.getItem("username"),
+            "receiver": localStorage.getItem("userFound"),
+            "type": "friendship",
+            "message_subject": document.getElementById("subjectFriendship").value,
+            "message_content": document.getElementById("messageFriendship").value
+        }]
+        var dataJSON = JSON.stringify(dataToSend);
+        var url = "http://socialcalendarplus.esy.es/addContact.php";
+
+        $.post(url, { eventData: dataJSON }, function () {
+            $("#popupFriendship").popup("close");
+        }).error(function () {
+            alert('Error al enviar la solicitud');
+        });
+    }
 
     getDateFormated = function (selected) {
         var daysOfWeek = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
