@@ -40,17 +40,19 @@
       var longitude = undefined;
       var accuracy;
       var circle = undefined;
+      var directionsDisplay;
+      var directionsService;
       function onDeviceReady() {
         var onSuccess = function(position) {
           latitude = position.coords.latitude;
           longitude = position.coords.longitude;
           accuracy = position.coords.accuracy;
-          //if (!$existMap){
+          if (!existMap){
             initMap(latitude, longitude, accuracy);
-            //existMap = true;
-          //} else {
-            //updatemap(latitude,longitude);
-          //}
+            existMap = true;
+          } else {
+            updateMap(latitude,longitude);
+          }
           //alert('Latitude: '          + position.coords.latitude          + '\n' +
           //'Longitude: '         + position.coords.longitude         + '\n' +
           //'Altitude: '          + position.coords.altitude          + '\n' +
@@ -66,55 +68,69 @@
         }
         navigator.geolocation.watchPosition(onSuccess, onError,{enableHighAccuracy: true});
       }
-
       function initMap(latitude, longitude, accuracy) {
-        //var map;
-        //var exist = false
+        userpos = new google.maps.LatLng(latitude, longitude);
+        eventpos = new google.maps.LatLng(28.5, -16.2);
         var latLong = new google.maps.LatLng(latitude, longitude);
-        if (!existMap){
-          map = new google.maps.Map(document.getElementById('map'), {
-            center: latLong,
-            zoom: 18
-          });
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: latLong,
+          zoom: 18
+        });
 
-          circle = new google.maps.Circle({
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.,
-            strokeWeight: 2,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35,
-            map: map,
-            center: latLong,
-            radius: parseFloat(accuracy)
-          });
+        circle = new google.maps.Circle({
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35,
+          map: map,
+          center: latLong,
+          radius: parseFloat(accuracy)
+        });
 
-          userpos = new google.maps.Marker({
-            position: latLong,
-            map: map,
-            title: 'Hello World!'
-          });
-          eventpos = new google.maps.Marker({
-            position: {lat: 28.5, lng: -16.2},
-            map: map,
-            title: 'Hello World!'
-          });
+        userpos = new google.maps.Marker({
+          position: latLong,
+          map: map,
+          title: 'Hello World!'
+        });
+        eventpos = new google.maps.Marker({
+          position: {lat: 28.5, lng: -16.2},
+          map: map,
+          title: 'Hello World!'
+        });
 
-
-
-          existMap = true;
-        } else {
-          map.setCenter(latLong);
-          userpos.setPosition(latLong);
-          circle.setCenter(latLong);
-          circle.setRadius(parseFloat(accuracy));
-        }
-
-
+        existMap = true;
       }
       function updateMap(latitude, longitude) {
-        alert ("estoy entrando")
         var latLong = new google.maps.LatLng(latitude, longitude);
-        userpos.setPosition(latlng);
+        map.setCenter(latLong);
+        userpos.setPosition(latLong);
+        circle.setCenter(latLong);
+        circle.setRadius(parseFloat(accuracy));
+        maproute (userpos, eventpos);
+      }
+
+      function maproute(orig, dest){
+        directionsService = new google.maps.DirectionsService();
+        var request = {
+          origin: userpos.getPosition(),
+          destination: eventpos.getPosition(),
+          travelMode: google.maps.DirectionsTravelMode.DRIVING,
+          unitSystem: google.maps.DirectionsUnitSystem.METRIC,
+          provideRouteAlternatives: false
+        };
+        directionsService.route(request, function(response, status) {
+          if (status === google.maps.DirectionsStatus.OK) {
+            if(directionsDisplay != null) {
+              directionsDisplay.setMap(null);
+              directionsDisplay = null;
+            }
+            directionsDisplay = new google.maps.DirectionsRenderer({preserveViewport: true, map: map});
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
       }
 
 
