@@ -4,9 +4,10 @@ $(document).ready(function() {
 	console.log(localStorage.notifications);
 	notifications_obj = JSON.parse(localStorage.notifications);
 
-	messagesSection = $("#messagesCollapsible");
-	eventsSection = $("#eventsCollapsible");
-	contactsSection = $("#contactsCollapsible");
+	// Empty divs
+	$("#messagesContainer").empty();
+	$("#eventsContainer").empty();
+	$("#contactsContainer").empty();
 
 	jQuery.each(notifications_obj.notifications, function(i, val) {
 		if (val.type == "message") {
