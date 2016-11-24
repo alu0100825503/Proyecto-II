@@ -15,6 +15,7 @@ $(document).ready(function() {
 				// Poner el número de notificaciones sobre el botón de notificaciones	
 				// en rojo
 				// .....
+				// if (es calendar.html) { actualizamos icono de mensajes }
 			}
 			else {
 				console.log("not success in the json");
