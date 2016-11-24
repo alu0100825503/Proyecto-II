@@ -408,7 +408,7 @@
     // Create calendar
     $(document).ready(function () {
         document.getElementById("userFoundName").innerHTML = localStorage.getItem("userFound");         // Name user
-        $('<img src="img/standar-face.png" hspace=30 style="width:50%;background:white;border-radius: 25px;"/>').appendTo($("#headMainContent"));   // Image user
+        $('<img src="img/standar-face.png" hspace=30 style="width:45%;background:white;border-radius: 25px;"/>').appendTo($("#headMainContent"));   // Image user
         $("#calendar").jqmCalendar(calendar, {});
         isContact();                              // Check if users are contact
         // Format datepicker
@@ -447,7 +447,11 @@
                 getEventsFromServer();
                 $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-delete" style="background:#FF5050;border-radius: 25px;"></button>').
                     text("Eliminar contacto").appendTo($("#headMainContent"));
-                // Si soy amigo puedo mandar mensaje, si no no
+                $('<table style="width:100%"><tr><td id="buttonRequestEvent"></td><td id="buttonMessage"></td></tr></table>').appendTo($("#headMainContent"));
+                $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="border-radius: 25px;"></button>').
+                    text("Evento").appendTo($("#buttonRequestEvent"));
+                $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-mail" style="border-radius: 25px;"></button>').
+                    text("Mensaje").appendTo($("#buttonMessage"));
             } else {
                 $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="background:#90EE90;border-radius: 25px;"></button>').
                     text("Añadir contacto").appendTo($("#headMainContent"));
