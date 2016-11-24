@@ -22,7 +22,7 @@ if(!mysqli_select_db($connection, $dbname)) {
     die("Error: DB does not exist");
 }
 
-$notifications_query = "SELECT sender, receiver, date, type, message_subject, message_content FROM Notification".
+$notifications_query = "SELECT sender, receiver, dateSol, type, message_subject, message_content FROM Notification".
     " WHERE receiver='$receiver'";
 
 $result = mysqli_query($connection, $notifications_query);
@@ -36,7 +36,7 @@ if (!$result || mysqli_num_rows($result) <= 0) {
         $new_notification = array();
         $new_notification['sender'] = $row['sender'];
         $new_notification['receiver'] = $row['receiver'];
-        $new_notification['date'] = $row['date'];
+        $new_notification['date'] = $row['dateSol'];
         $new_notification['type'] = $row['type'];
         $new_notification['message_subject'] = $row['message_subject'];
         $new_notification['message_content'] = $row['message_content']; 
