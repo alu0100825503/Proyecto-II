@@ -15,6 +15,7 @@ function logout() {
      $("#agreeLogout").click(function() {
         // Eliminar usuario de la sesión actual
         localStorage.removeItem("username");
+        localStorage.removeItem("notifications");
         // Redirección a la página principal
         chargePage("index.html");
     });
@@ -27,6 +28,10 @@ $(document).ready(function() {
      // Botón home (esquina superior izquierda)
     $("#homebutton").click(function() {
         chargePage("calendar.html");
+    });
+
+    $("#notificationsbutton").click(function() {
+        chargePage("notifications.html");
     });
 
     $("#calendarbutton").click(function() {
