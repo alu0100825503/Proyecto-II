@@ -9,10 +9,11 @@
   <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZTORBRdgbXQWMUugw4Ohpz6F-BaZS6tE&callback=initMap" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZTORBRdgbXQWMUugw4Ohpz6F-BaZS6tE&" async defer></script>
   <script type="text/javascript" src="cordova.js"></script>
   <script src="js/menu.js"></script>
   <script src="js/dbGetter.js"></script>
+  <script src="js/map.js"></script>
   <link rel="stylesheet" href="css/profile.css" />
   <script type="text/javascript">
   function changePage(page) {
@@ -29,112 +30,8 @@
   </div>
   <div data-role="page" id="a">
     <div role="main" class="ui-content">
-      <div id="map" style="height: 98%;"></div>
-      <script type="text/javascript">
-      document.addEventListener("deviceready", onDeviceReady, false);
-      var map = undefined;
-      var existMap = false;
-      var userpos;
-      var eventpos;
-      var latitude = undefined;
-      var longitude = undefined;
-      var accuracy;
-      var circle = undefined;
-      var directionsDisplay;
-      var directionsService;
-      function onDeviceReady() {
-        var onSuccess = function(position) {
-          latitude = position.coords.latitude;
-          longitude = position.coords.longitude;
-          accuracy = position.coords.accuracy;
-          if (!existMap){
-            initMap(latitude, longitude, accuracy);
-            existMap = true;
-          } else {
-            updateMap(latitude,longitude);
-          }
-          //alert('Latitude: '          + position.coords.latitude          + '\n' +
-          //'Longitude: '         + position.coords.longitude         + '\n' +
-          //'Altitude: '          + position.coords.altitude          + '\n' +
-          //'Accuracy: '          + position.coords.accuracy          + '\n' +
-          //'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-          //'Heading: '           + position.coords.heading           + '\n' +
-          //'Speed: '             + position.coords.speed             + '\n' +
-          //'Timestamp: '         + position.timestamp                + '\n');
-        };
-        function onError(error) {
-          alert('code: '    + error.code    + '\n' +
-          'message: ' + error.message + '\n');
-        }
-        navigator.geolocation.watchPosition(onSuccess, onError,{enableHighAccuracy: true});
-      }
-      function initMap(latitude, longitude, accuracy) {
-        userpos = new google.maps.LatLng(latitude, longitude);
-        eventpos = new google.maps.LatLng(28.5, -16.2);
-        var latLong = new google.maps.LatLng(latitude, longitude);
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: latLong,
-          zoom: 18
-        });
-
-        circle = new google.maps.Circle({
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.35,
-          map: map,
-          center: latLong,
-          radius: parseFloat(accuracy)
-        });
-
-        userpos = new google.maps.Marker({
-          position: latLong,
-          map: map,
-          title: 'Hello World!'
-        });
-        eventpos = new google.maps.Marker({
-          position: {lat: 28.5, lng: -16.2},
-          map: map,
-          title: 'Hello World!'
-        });
-
-        existMap = true;
-      }
-      function updateMap(latitude, longitude) {
-        var latLong = new google.maps.LatLng(latitude, longitude);
-        map.setCenter(latLong);
-        userpos.setPosition(latLong);
-        circle.setCenter(latLong);
-        circle.setRadius(parseFloat(accuracy));
-        maproute (userpos, eventpos);
-      }
-
-      function maproute(orig, dest){
-        directionsService = new google.maps.DirectionsService();
-        var request = {
-          origin: userpos.getPosition(),
-          destination: eventpos.getPosition(),
-          travelMode: google.maps.DirectionsTravelMode.DRIVING,
-          unitSystem: google.maps.DirectionsUnitSystem.METRIC,
-          provideRouteAlternatives: false
-        };
-        directionsService.route(request, function(response, status) {
-          if (status === google.maps.DirectionsStatus.OK) {
-            if(directionsDisplay != null) {
-              directionsDisplay.setMap(null);
-              directionsDisplay = null;
-            }
-            directionsDisplay = new google.maps.DirectionsRenderer({preserveViewport: true, map: map});
-            directionsDisplay.setDirections(response);
-          } else {
-            window.alert('Directions request failed due to ' + status);
-          }
-        });
-      }
-
-
-      </script>
+      <div id="map" style="height: 98%;">
+      </div>
     </div>
     <div data-role="panel" id="inside-a" data-position="left" data-display="overlay" data-theme="b">
       <ul data-role="listview">
@@ -146,7 +43,6 @@
         <li><a id="mapbutton">Mapa</a></li>
         <li><a id="loginbutton">Cerrar sesión</a></li>
       </ul>
-
     </div>
   </body>
   </html>
