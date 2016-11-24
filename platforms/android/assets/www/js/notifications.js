@@ -10,7 +10,10 @@ $(document).ready(function() {
 			if (returnedData.success) {
 				// Guardar el objeto json de notificaciones en
 				// localStorage para hacerlo accesible a notifications.html
-
+				localStorage.notifications = JSON.stringify(returnedData);
+				// Poner el número de notificaciones sobre el botón de notificaciones	
+				// en rojo
+				// .....
 			}
 			else {
 				console.log("not success in the json");

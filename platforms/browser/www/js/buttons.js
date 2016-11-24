@@ -15,6 +15,7 @@ function logout() {
      $("#agreeLogout").click(function() {
         // Eliminar usuario de la sesión actual
         localStorage.removeItem("username");
+        localStorage.removeItem("notifications");
         // Redirección a la página principal
         chargePage("index.html");
     });
