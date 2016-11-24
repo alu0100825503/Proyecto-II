@@ -41,12 +41,9 @@ if (!$result || mysqli_num_rows($result) <= 0) {
         $new_notification['message_subject'] = $row['message_subject'];
         $new_notification['message_content'] = $row['message_content']; 
         // Append new notification
-        echo "sender: ". $new_notification['sender'];
-        echo "subject: ". $new_notification['message_subject'];
         $notifications[] = $new_notification;
     }
     $json_response['notifications'] = $notifications;
-    print_r(array_values($json_response));
     mysqli_free_result($result);
 }
 

@@ -8,13 +8,15 @@ $(document).ready(function() {
 
 	var ajaxRequest = $.post(url, dataForServer, function(returnedData) {
 			if (returnedData.success) {
-				console.log(returnedData);
+				// Guardar el objeto json de notificaciones en
+				// localStorage para hacerlo accesible a notifications.html
+
 			}
 			else {
 				console.log("not success in the json");
 				console.log(returnedData);
 			}	
-		}, 'html')
+		}, 'json')
 		.fail(function() {
 			console.log("the response from the server failed");
 		});

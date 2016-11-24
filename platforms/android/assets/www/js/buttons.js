@@ -29,6 +29,10 @@ $(document).ready(function() {
         chargePage("calendar.html");
     });
 
+    $("#notificationsbutton").click(function() {
+        chargePage("notifications.html");
+    });
+
     $("#calendarbutton").click(function() {
         chargePage("calendar.html");
     });
