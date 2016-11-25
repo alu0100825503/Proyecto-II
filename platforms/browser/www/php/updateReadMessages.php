@@ -35,16 +35,15 @@ if(!mysqli_select_db($connection, $dbname)) {
 
 // Comprobar primero que no existe el nombre de usuario en la base de datos
 $update_query = "UPDATE Notification".
-    " SET is_read='1' WHERE sender='$notification_sender' AND receiver='$notification_receiver AND dateSol='$notification_date'";
+    " SET is_read='1' WHERE sender='$notification_sender' AND receiver='$notification_receiver' AND dateSol='$notification_date'";
 
 $result = mysqli_query($connection, $update_query);
 
-if (!$result || mysqli_num_rows($result) <= 0) {
+if (!$result) {
     $json_response['success'] = false;
 }
 else {
     $json_response['success'] = true;
-    mysqli_free_result($result);
 }
 
 // Envío del objeto JSON como respuesta
