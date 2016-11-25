@@ -64,13 +64,26 @@
     <!-- Popup para visualizar los mensajes -->
     <div data-role="popup" id="messageViewer" class="ui-corner-all">
         <div style="padding:10px 20px;">
-            <a class="ui-btn ui-btn-a" style="text-align: left;">Mensaje</a>
+            <a class="ui-btn ui-btn-a">Mensaje</a>
             <p id="messageSubject"></p>
             <p id="messageDate"></p>
             <p id="messageFrom"></p>
             <p id="messageTo"></p>
             <p id="messageText"></p>
             <a href="#" type="submit" id="agreeLogout" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Responder</a>
+        </div>
+    </div>
+
+    <!-- Popup para visualizar las solicitudes de contacto -->
+    <div data-role="popup" id="contactViewer" class="ui-corner-all">
+        <div style="padding:10px 20px;">
+            <a class="ui-btn ui-btn-a">Solicitud de contacto</a>
+            <p id="contactSender"></p>
+            <p>Este usuario le ha enviado una solicitud para añadirle a su lista de contactos. ¿Desea aceptarla?</p>
+            <div class="ui-grid-a ui-responsive">
+              <a href="#" type="submit" id="acceptContact" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Aceptar</a>
+              <a href="#" type="submit" id="rejectContact" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-delete">Rechazar</a>
+            </div>
         </div>
     </div>
 

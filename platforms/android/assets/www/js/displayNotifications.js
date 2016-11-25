@@ -47,6 +47,11 @@ function notificationButtonHandler(event) {
 		$("#messageText").append("<i>" + notification.message_content + "</i>");
 		$("#messageViewer").popup();
 		$("#messageViewer").popup("open");	
+	} else if (notification.type == "friendship") {
+		$("#contactSender").empty();
+		$("#contactSender").append("<strong>Usuario: </strong>" + notification.sender);
+		$("#contactViewer").popup();
+		$("#contactViewer").popup("open");	
 	}
 };
 
