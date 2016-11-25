@@ -13,12 +13,15 @@
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZTORBRdgbXQWMUugw4Ohpz6F-BaZS6tE&" async defer></script>
+
     <script type="text/javascript" src="cordova.js"></script>
     <script src="js/calendar.js"></script>
     <script src="js/buttons.js"></script>
     <script src="js/resize.js"></script>
     <script src="js/publicHolidays.js"></script>
     <script src="js/notifications.js"></script>
+    <script src="js/position.js"></script>
 </head>
 
 <body>
@@ -57,8 +60,7 @@
                     <input type="time" name="endHour" id="endHour" value="23:59" data-theme="a">
                     <div data-role="collapsible">
                         <h4>Ubicación</h4>
-                        <a href="#locationMap" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="slidedown">Mapa</a>
-                        <input type="text" name="name" placeholder="Dirección" value="">
+                        <input type="text" id = "pos" name="name" placeholder="Dirección" value="">
                         <button data-icon="location" onclick="getPositionOnMap()">Mapa</button>
                     </div>
                     <div class="ui-checkbox">
@@ -98,10 +100,10 @@
             <form>
                 <div style="text-align: center;padding:0px 20px">
                     <h3>Ubicación</h3>
-                      <div id="map">
+                      <div id="map" style="height: 400px; width: 300px">
 
                       </div>
-                    <button type="button" onClick="returnPosition()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Añadir</button>
+                    <button type="button" onClick="returnPosition()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Seleccionar</button>
                 </div>
             </form>
         </div>
