@@ -4,10 +4,25 @@ $(document).ready(function() {
 	console.log(localStorage.notifications);
 	notifications_obj = JSON.parse(localStorage.notifications);
 
+	var n_messages = 0, 
+		n_events = 0, 
+		n_contacts = 0;
+
+	// Contar los tipos de notificación
+	jQuery.each(notifications_obj.notifications, function(i, val) {
+		if (notifications_obj.notifications[i].type == "message") {
+			n_messages++;
+		} else if (notifications_obj.notifications[i].type == "invitation") {
+			n_events++;
+		} else if (notifications_obj.notifications[i].type == "friendship") {
+			n_contacts++;
+		}
+	});
+
 	// Empty divs
-	$("#messagesContainer").empty();
-	//$("#eventsContainer").empty();
-	$("#contactsContainer").empty();
+	if (n_messages > 0) $("#messagesContainer").empty();
+	if (n_events > 0) $("#eventsContainer").empty();
+	if (n_contacts > 0) $("#contactsContainer").empty();
 
 	// Getting total number of notifications
 	console.log(Object.keys(notifications_obj.notifications).length);
