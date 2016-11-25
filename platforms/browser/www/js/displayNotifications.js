@@ -1,3 +1,27 @@
+function notificationButtonHandler(notifications) {
+	url = "http://socialcalendarplus.esy.es/updateReadMessages.php";
+	/*
+	dataForServer = {
+		"sender": notifications[],
+		"receiver": ,
+		"date": 
+	}
+
+	var ajaxRequest = $.post(url, dataForServer, function(returnedData) {
+			console.log(returnedData);
+			if (returnedData.success) {
+
+			}
+			else {
+
+			}
+		}, 'json')
+		.fail(function() {
+			console.log("server connection failed");
+		});
+		*/
+};
+
 $(document).ready(function() {
 	console.log("displaying notifications....");
 
@@ -37,14 +61,16 @@ $(document).ready(function() {
 				val.sender + ": <i>" +
 				val.message_subject +
 				"</i></a>");
+			newMessageButton.click(notificationButtonHandler(notifications));
 
 			// Si el mensaje no ha sido leído, se pone primero en la lista	
-			if (val.is_read) {
+			if (val.is_read > 0) {
 				$("#messagesContainer").append(newMessageButton);
 			} else {
 				$("#messagesContainer").prepend(newMessageButton);
+				$("#not" + i).css("background-color", "green");
+				$("#messagesCollapsible").css("background-color", "green");
 			}
-			
 	
 		} else if (val.type == "invitation") {
 			console.log("tiene solicitudes de eventos");
@@ -56,10 +82,11 @@ $(document).ready(function() {
 				val.message_subject +
 				"</i></a>");
 
-			if (val.is_read) {
+			if (val.is_read > 0) {
 				$("#contactsContainer").append(newContactButton);
 			} else {
 				$("#contactsContainer").prepend(newContactButton);
+				$("#not" + i).css("background-color", "green");
 			}
 
 		} else {

@@ -43,10 +43,25 @@
                 <div style="text-align: center;padding:0px 20px">
                     <h3>Datos de la solicitud</h3>
                     <h4 style="margin-top:20px;">Asunto</h4>
-                    <input type="text" name="subjectFriendship" id="subjectFriendship" value="Quiero añadirte a mis contactos" data-theme="a" readonly>
+                    <input type="text" name="subjectFriendship" id="subjectFriendship" value="Solicitud" data-theme="a" readonly>
                     <h4 style="margin-top:20px;">Mensaje</h4>
                     <input type="text" name="messageFriendship" id="messageFriendship" value="" placeholder="Mensaje opcional" data-theme="a">
                     <button type="button" onClick="addAsContact()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Enviar</button>
+                </div>
+            </form>
+        </div>
+        <!-- Eliminar contacto -->
+        <div data-role="popup" id="popupRemoveContact" data-overlay-theme="a" data-theme="a">
+            <form>
+                <div style="text-align: center;padding:0px 20px">
+                    <h3>Eliminar contacto</h3>
+                    <h4 style="margin-top:20px;">¿Estas segur@?</h4>
+                    <table>
+                        <tr>
+                            <td><button type="button" onClick="removeContact()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" style="background:green">Si</button></td>
+                            <td><button type="button" onClick="$('#popupRemoveContact').popup('close')" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-delete" style="background:red">No</button></td>
+                        </tr>
+                    </table>
                 </div>
             </form>
         </div>

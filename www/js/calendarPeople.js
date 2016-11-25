@@ -445,7 +445,7 @@
         $.post(url, { eventData: dataJSON }, function (answer) {
             if (answer > 0) {
                 getEventsFromServer();
-                $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-delete" style="background:#FF5050;border-radius: 25px;"></button>').
+                $('<a href="#popupRemoveContact" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-delete" style="background:#FF5050;border-radius: 25px;data-transition="slidedown""></a>').
                     text("Eliminar contacto").appendTo($("#headMainContent"));
                 $('<table style="width:100%"><tr><td id="buttonRequestEvent"></td><td id="buttonMessage"></td></tr></table>').appendTo($("#footerMainContent"));
                 $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="border-radius: 25px;"></button>').
@@ -475,6 +475,21 @@
 
         $.post(url, { eventData: dataJSON }, function () {
             $("#popupFriendship").popup("close");
+        }).error(function () {
+            alert('Error al enviar la solicitud');
+        });
+    }
+
+    removeContact = function () {
+        var dataToSend = [{
+            "user1": localStorage.getItem("username"),
+            "user2": localStorage.getItem("userFound")
+        }]
+        var dataJSON = JSON.stringify(dataToSend);
+        var url = "http://socialcalendarplus.esy.es/removeContact.php";
+
+        $.post(url, { eventData: dataJSON }, function () {
+            window.location = "people.html";
         }).error(function () {
             alert('Error al enviar la solicitud');
         });
