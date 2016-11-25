@@ -412,7 +412,7 @@
         $("#calendar").jqmCalendar(calendar, {});
         isContact();                              // Check if users are contact
         // Format datepicker
-        /*$("#endDate").datepicker({
+        $("#endDate").datepicker({
             firstDay: 1,
             dayNamesMin: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
             monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre"
@@ -430,8 +430,7 @@
             onSelect: function (selected, evnt) {
                 $("#endDateEdit").val(getDateFormated(selected));
             }
-        });*/
-        document.addEventListener("deviceready", onDeviceReady, false);
+        });
     })
 
     isContact = function () {
@@ -445,20 +444,46 @@
         $.post(url, { eventData: dataJSON }, function (answer) {
             if (answer > 0) {
                 getEventsFromServer();
-                $('<a href="#popupRemoveContact" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-delete" style="background:#FF5050;border-radius: 25px;data-transition="slidedown""></a>').
+                $('<a href="#popupRemoveContact" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-delete" style="background:#FF5050;border-radius: 25px;" data-transition="slidedown"></a>').
                     text("Eliminar contacto").appendTo($("#headMainContent"));
                 $('<table style="width:100%"><tr><td id="buttonRequestEvent"></td><td id="buttonMessage"></td></tr></table>').appendTo($("#footerMainContent"));
-                $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="border-radius: 25px;"></button>').
+                $('<a href="#popupAddEvent" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="border-radius: 25px;" data-transition="slidedown"></a>').
                     text("Evento").appendTo($("#buttonRequestEvent"));
-                $('<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-mail" style="border-radius: 25px;"></button>').
+                $('<a href="#popupSendMessage" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-mail" style="border-radius: 25px;" data-transition="slidedown"></a>').
                     text("Mensaje").appendTo($("#buttonMessage"));
             } else {
                 $('<a href="#popupFriendship" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="background:#90EE90;border-radius: 25px;" data-transition="slidedown"></a>').
                     text("Añadir contacto").appendTo($("#headMainContent"));
-                    //<button type="button" onClick="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="background:#90EE90;border-radius: 25px;"></button>
             }
         }).error(function () {
             console.log('Error al ejecutar la petición');
+        });
+    }
+
+    // Function to get all events from server
+    getEventsFromServer = function () {
+        var dataToSend = [{
+            "creator": calendar.creator
+        }]
+        var dataJSON = JSON.stringify(dataToSend);
+        var url = "http://socialcalendarplus.esy.es/eventGet.php";
+
+        $.getJSON(url, { eventData: dataJSON }, function (eventsReceived) {
+            calendar.eventsCalendar.length = 0;
+            $.each(eventsReceived, function (i, event) {
+                if (event.isPrivate > 0) { // 0 = no privado
+                    calendar.eventsCalendar.splice(0, 0, {
+                        "summary": "Evento privado", "begin": new Date(event.start),
+                        "end": new Date(event.finish), "id": event.id, "isPrivate": event.isPrivate
+                    });
+                } else {
+                    calendar.eventsCalendar.splice(0, 0, {
+                        "summary": event.name, "begin": new Date(event.start),
+                        "end": new Date(event.finish), "id": event.id, "isPrivate": event.isPrivate
+                    });
+                }
+            });
+            calendar.refreshFunction();
         });
     }
 
@@ -471,7 +496,7 @@
             "message_content": document.getElementById("messageFriendship").value
         }]
         var dataJSON = JSON.stringify(dataToSend);
-        var url = "http://socialcalendarplus.esy.es/addContact.php";
+        var url = "http://socialcalendarplus.esy.es/addNotification.php";
 
         $.post(url, { eventData: dataJSON }, function () {
             $("#popupFriendship").popup("close");
@@ -504,35 +529,8 @@
             " " + selected.getFullYear();
     }
 
-    // Function to get all events from server
-    getEventsFromServer = function () {
-        var dataToSend = [{
-            "creator": calendar.creator
-        }]
-        var dataJSON = JSON.stringify(dataToSend);
-        var url = "http://socialcalendarplus.esy.es/eventGet.php";
-
-        $.getJSON(url, { eventData: dataJSON }, function (eventsReceived) {
-            calendar.eventsCalendar.length = 0;
-            $.each(eventsReceived, function (i, event) {
-                if (event.isPrivate > 0) { // 0 = no privado
-                    calendar.eventsCalendar.splice(0, 0, {
-                        "summary": "Evento privado", "begin": new Date(event.start),
-                        "end": new Date(event.finish), "id": event.id, "isPrivate": event.isPrivate
-                    });
-                } else {
-                    calendar.eventsCalendar.splice(0, 0, {
-                        "summary": event.name, "begin": new Date(event.start),
-                        "end": new Date(event.finish), "id": event.id, "isPrivate": event.isPrivate
-                    });
-                }
-            });
-            calendar.refreshFunction();
-        });
-    }
-
     // Function to create an event
-    /*addEventToCalendar = function () {
+    requestEvent = function () {
         name = document.getElementById("nameEvent").value;
         document.getElementById("nameEvent").value = "";
         if (name == "") {
@@ -553,23 +551,52 @@
         eventPrivate = document.getElementById("eventPrivate").checked;
         document.getElementById("eventPrivate").checked = 0;
 
-        var dataToSend = [{
+        var event = [{
             "name": name,
             "start": new Date(startDate + " " + startHour),
             "finish": new Date(endDate + " " + endHour),
-            "creator": calendar.creator,
+            "creator": localStorage.getItem("username"),
             "private": eventPrivate
         }]
+        var eventJSON = JSON.stringify(event);
+        var dataToSend = [{
+            "sender": localStorage.getItem("username"),
+            "receiver": localStorage.getItem("userFound"),
+            "type": "invitation",
+            "message_subject": "Evento",
+            "message_content": eventJSON
+        }]
         var dataJSON = JSON.stringify(dataToSend);
-        var url = "http://socialcalendarplus.esy.es/eventSet.php";
+        var url = "http://socialcalendarplus.esy.es/addNotification.php";
 
         contactServer(url, dataJSON);
 
         $("#popupAddEvent").popup("close");
     }
 
+    sendMessage = function () {
+        var dataToSend = [{
+            "sender": localStorage.getItem("username"),
+            "receiver": localStorage.getItem("userFound"),
+            "type": "message",
+            "message_subject": document.getElementById("subjectMessage").value,
+            "message_content": document.getElementById("messageMessage").value
+        }]
+        document.getElementById("subjectMessage").value = "";
+        document.getElementById("messageMessage").value = "";
+        var dataJSON = JSON.stringify(dataToSend);
+        var url = "http://socialcalendarplus.esy.es/addNotification.php";
+
+        $.post(url, { eventData: dataJSON }, function () {
+            $("#popupSendMessage").popup("close");
+        }).error(function () {
+            alert('Error al enviar la solicitud');
+        });
+    }
+
+    // Seleccionar si pero no puede modificar nada
     // Function to select an event
-    selectEvent = function (id) {
+    /*selectEvent = function (id) {
         // Search event in calendar
         for (var i = 0; i < calendar.eventsCalendar.length; i++) {
             if (id == calendar.eventsCalendar[i].id) {
@@ -646,7 +673,7 @@
         contactServer(url, dataJSON);
 
         $("#popupMenuEvent").popup("close");    // Close popup
-    }
+    }*/
 
     // Function to communicate with the server
     contactServer = function (url, data) {
@@ -660,7 +687,7 @@
             );
     }
 
-    searchUser = function () {
+    /*searchUser = function () {
         var userToSearch = [{
             "username": document.getElementById("nameUserSearch").value
         }]
@@ -684,7 +711,7 @@
     }*/
 
     // Accelerometer
-    var options = { frequency: 500 };   // Update every 500 ms
+    /*var options = { frequency: 500 };   // Update every 500 ms
 
     onDeviceReady = function () {
         navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
@@ -704,7 +731,7 @@
         previousZ = acceleration.z;
     }
 
-    onError = function () { }
+    onError = function () { }*/
     /* ------------------------------------------------------------------------------*/
 
 })(jQuery);

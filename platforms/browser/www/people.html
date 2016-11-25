@@ -65,27 +65,42 @@
                 </div>
             </form>
         </div>
-
-
-
-        <!-- Añadir evento -->
-        <div data-role="popup" id="popupAddEvent" data-overlay-theme="a" data-theme="b">
+        <!-- Solicitar evento -->
+        <div data-role="popup" id="popupAddEvent" data-overlay-theme="a" data-theme="a">
             <form>
                 <div style="text-align: center;padding:0px 20px">
                     <h3>Evento</h3>
-                    <input type="text" name="nameEvent" id="nameEvent" value="" placeholder="Nombre del evento" data-theme="b">
+                    <input type="text" name="nameEvent" id="nameEvent" value="" placeholder="Nombre del evento" data-theme="a">
                     <h4 style="margin-top:20px;">Inicio</h4>
-                    <input type="text" name="startDate" id="startDate" value="" placeholder="Fecha inicio" data-theme="b" readonly>
-                    <input type="time" name="startHour" id="startHour" value="00:00" data-theme="b">
+                    <input type="text" name="startDate" id="startDate" value="" placeholder="Fecha inicio" data-theme="a" readonly>
+                    <input type="time" name="startHour" id="startHour" value="00:00" data-theme="a">
                     <h4 style="margin-top:20px;">Final</h4>
-                    <input type="text" name="endDate" id="endDate" value="" placeholder="Fecha finalizar" data-theme="b" readonly>
-                    <input type="time" name="endHour" id="endHour" value="23:59" data-theme="b">
+                    <input type="text" name="endDate" id="endDate" value="" placeholder="Fecha finalizar" data-theme="a" readonly>
+                    <input type="time" name="endHour" id="endHour" value="23:59" data-theme="a">
+                    <div data-role="collapsible">
+                        <h4>Ubicación</h4>
+                        <input type="text" id = "pos" name="name" placeholder="Dirección" value="">
+                        <button data-icon="location" onclick="getPositionOnMap()">Mapa</button>
+                    </div>
                     <div class="ui-checkbox">
                         <label for="eventPrivate" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off" style="text-align:center">Evento privado
                             <input type="checkbox" name="eventPrivate" id="eventPrivate" data-enhanced="true">
                         </label>
                     </div>
-                    <button type="button" onClick="addEventToCalendar()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Añadir</button>
+                    <button type="button" onClick="requestEvent()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Solicitar</button>
+                </div>
+            </form>
+        </div>
+        <!-- Enviar mensaje -->
+        <div data-role="popup" id="popupSendMessage" data-overlay-theme="a" data-theme="a">
+            <form>
+                <div style="text-align: center;padding:0px 20px">
+                    <h3>Enviar mensaje</h3>
+                    <h4 style="margin-top:20px;">Asunto</h4>
+                    <input type="text" name="subjectMessage" id="subjectMessage" value="" placeholder="Asunto" data-theme="a">
+                    <h4 style="margin-top:20px;">Mensaje</h4>
+                    <input type="text" name="messageMessage" id="messageMessage" value="" placeholder="Mensaje opcional" data-theme="a">
+                    <button type="button" onClick="sendMessage()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Enviar</button>
                 </div>
             </form>
         </div>
@@ -108,28 +123,6 @@
                     </div>
                     <button type="button" onClick="editEvent()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Editar</button>
                     <a href="#" onclick="deleteEvent()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-delete ui-btn-icon-left ui-btn-b">Eliminar</a>
-                </div>
-            </form>
-        </div>
-        <!-- Menu desplegable -->
-        <div data-role="panel" id="outside" data-theme="b">
-            <ul data-role="listview">
-                <li data-icon="back"><a href="#" data-rel="close">Cerrar</a></li>
-                <li><a id="calendarbutton">Calendario</a></li>
-                <li><a id="profilebutton">Perfil</a></li>
-                <li><a id="aboutbutton">Acerca de</a></li>
-                <li><a id="settingsbutton">Configuración</a></li>
-                <li><a id="loginbutton">Cerrar sesión</a></li>
-            </ul>
-        </div>
-        <!-- Menú de búsqueda de usuario -->
-        <div data-role="popup" id="popupSearchUser" data-overlay-theme="a" data-theme="b">
-            <form>
-                <div style="text-align: center;padding:0px 20px">
-                    <h3>Buscar usuario</h3>
-                    <input type="text" name="nameUserSearch" id="nameUserSearch" value="" placeholder="Nombre de usuario" data-theme="b">
-                    <button type="button" onClick="searchUser()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Buscar</button>
-                    <div id="userFound"></div>
                 </div>
             </form>
         </div>
