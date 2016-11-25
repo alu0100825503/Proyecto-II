@@ -59,7 +59,21 @@
         <li><a id="settingsbutton">Ajustes</a></li>
         <li><a id="logoutbutton">Cerrar sesión</a></li>
       </ul>
-	  </div>
+	</div>
+
+    <!-- Popup para visualizar los mensajes -->
+    <div data-role="popup" id="messageViewer" class="ui-corner-all">
+        <div style="padding:10px 20px;">
+            <a class="ui-btn ui-btn-a" style="text-align: left;">Mensaje</a>
+            <p id="messageSubject"></p>
+            <p id="messageDate"></p>
+            <p id="messageFrom"></p>
+            <p id="messageTo"></p>
+            <p id="messageText"></p>
+            <a href="#" type="submit" id="agreeLogout" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Responder</a>
+        </div>
+    </div>
+
   </div>
 </body>
 </html>
