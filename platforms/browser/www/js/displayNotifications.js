@@ -4,28 +4,66 @@ $(document).ready(function() {
 	console.log(localStorage.notifications);
 	notifications_obj = JSON.parse(localStorage.notifications);
 
+	var n_messages = 0, 
+		n_events = 0, 
+		n_contacts = 0;
+
+	// Contar los tipos de notificación
+	jQuery.each(notifications_obj.notifications, function(i, val) {
+		if (notifications_obj.notifications[i].type == "message") {
+			n_messages++;
+		} else if (notifications_obj.notifications[i].type == "invitation") {
+			n_events++;
+		} else if (notifications_obj.notifications[i].type == "friendship") {
+			n_contacts++;
+		}
+	});
+
 	// Empty divs
-	$("#messagesContainer").empty();
-	$("#eventsContainer").empty();
-	$("#contactsContainer").empty();
+	if (n_messages > 0) $("#messagesContainer").empty();
+	if (n_events > 0) $("#eventsContainer").empty();
+	if (n_contacts > 0) $("#contactsContainer").empty();
+
+	// Getting total number of notifications
+	console.log(Object.keys(notifications_obj.notifications).length);
+
+	var notifications = [];
 
 	jQuery.each(notifications_obj.notifications, function(i, val) {
+		notifications.push(val);
 		if (val.type == "message") {
 			console.log("tiene mensajes");
-			var newMessageButton = $('<a data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
+			var newMessageButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
 				val.sender + ": <i>" +
 				val.message_subject +
 				"</i></a>");
-			$("#messagesContainer").append(newMessageButton);
+
+			// Si el mensaje no ha sido leído, se pone primero en la lista	
+			if (val.is_read) {
+				$("#messagesContainer").append(newMessageButton);
+			} else {
+				$("#messagesContainer").prepend(newMessageButton);
+			}
+			
 	
 		} else if (val.type == "invitation") {
 			console.log("tiene solicitudes de eventos");
 
 		} else if (val.type == "friendship") {
 			console.log("tiene solicitudes de contacto");
-			
-		} else {
+			var newContactButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
+				val.sender + ": <i>" +
+				val.message_subject +
+				"</i></a>");
 
+			if (val.is_read) {
+				$("#contactsContainer").append(newContactButton);
+			} else {
+				$("#contactsContainer").prepend(newContactButton);
+			}
+
+		} else {
+			console.log("notification type not supported");
 		}
 	});
 });
