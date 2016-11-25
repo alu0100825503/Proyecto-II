@@ -6,26 +6,49 @@ $(document).ready(function() {
 
 	// Empty divs
 	$("#messagesContainer").empty();
-	$("#eventsContainer").empty();
+	//$("#eventsContainer").empty();
 	$("#contactsContainer").empty();
 
+	// Getting total number of notifications
+	console.log(Object.keys(notifications_obj.notifications).length);
+
+	var notifications = [];
+
 	jQuery.each(notifications_obj.notifications, function(i, val) {
+		notifications.push(val);
 		if (val.type == "message") {
 			console.log("tiene mensajes");
-			var newMessageButton = $('<a data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
+			var newMessageButton = $('<a id="message' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
 				val.sender + ": <i>" +
 				val.message_subject +
 				"</i></a>");
-			$("#messagesContainer").append(newMessageButton);
+
+			// Si el mensaje no ha sido leído, se pone primero en la lista	
+			if (val.is_read) {
+				$("#messagesContainer").append(newMessageButton);
+			} else {
+				$("#messagesContainer").prepend(newMessageButton);
+			}
+			
 	
 		} else if (val.type == "invitation") {
 			console.log("tiene solicitudes de eventos");
 
 		} else if (val.type == "friendship") {
 			console.log("tiene solicitudes de contacto");
-			
-		} else {
+			var newContactButton = $('<a id="contact' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
+				val.sender + ": <i>" +
+				val.message_subject +
+				"</i></a>");
 
+			if (val.is_read) {
+				$("#contactsContainer").append(newContactButton);
+			} else {
+				$("#contactsContainer").prepend(newContactButton);
+			}
+
+		} else {
+			console.log("notification type not supported");
 		}
 	});
 });
