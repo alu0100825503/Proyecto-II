@@ -18,7 +18,7 @@ $(document).ready(function() {
 		notifications.push(val);
 		if (val.type == "message") {
 			console.log("tiene mensajes");
-			var newMessageButton = $('<a id="message' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
+			var newMessageButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
 				val.sender + ": <i>" +
 				val.message_subject +
 				"</i></a>");
@@ -36,7 +36,7 @@ $(document).ready(function() {
 
 		} else if (val.type == "friendship") {
 			console.log("tiene solicitudes de contacto");
-			var newContactButton = $('<a id="contact' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
+			var newContactButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
 				val.sender + ": <i>" +
 				val.message_subject +
 				"</i></a>");
