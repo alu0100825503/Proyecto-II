@@ -95,7 +95,7 @@ function notificationButtonHandler(event) {
 		$("#deleteMessage").click(function() {
 			console.log("eliminando notificación de la base de datos");
 			deleteNotificationFromDB(notification);
-			//location.reload();
+			location.reload();
 		});
 	} else if (notification.type == "friendship") {
 		$("#contactSender").empty();
@@ -108,6 +108,7 @@ function notificationButtonHandler(event) {
 		});
 		$("#rejectContact").click(function() {
 			deleteNotificationFromDB(notification);
+			//location.reload();
 		});	
 	} else if (notification.type == "invitation") {
 		console.log("manejo de eventos sin implementar");
