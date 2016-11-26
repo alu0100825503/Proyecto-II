@@ -3,7 +3,7 @@ var eventposMark;
 var eventpos;
 var userpos;
 var devReady = false;
-//$('#pos').change(convertDirection);
+$('#pos').bind("propertychange change input", function (){ alert ("hello");});
 function getPositionOnMap(){
   $('#popupAddEvent').popup("close");
   timeoutID = window.setTimeout(mapOpen, 900);
@@ -19,7 +19,12 @@ function onDeviceReady () {
   }
   function mapOpen(){
     $('#locationMap').popup("open");
-    document.addEventListener("deviceready", onDeviceReady, false);
+    if ($('#coords').val()==""){
+      document.addEventListener("deviceready", onDeviceReady, false);
+    } else {
+      var ub = JSON.parse($('#coords').val());
+      userpos = new google.maps.LatLng(ub.lat,ub.lng);
+    }
     map = new google.maps.Map(document.getElementById('map'), {
       center: userpos,
       zoom: 18
@@ -49,25 +54,22 @@ function onDeviceReady () {
       function (error){
         alert ("Error al convertir a texto")
       });
-      alert (eventpos.toJSON().lat);
-      $('#coords').val(eventpos.toJSON());
+      $('#coords').val(JSON.stringify(eventpos));
       $('#locationMap').popup("close");
       timeoutID = window.setTimeout(addEventOpen, 900);
     }
 
     function convertDirection (){
-      geocoder.geocode({'address': $('#pos')}.val(), function(results, status) {
+      var geocoder = new google.maps.Geocoder;
+      geocoder.geocode({'address': $('#pos').val()}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
-          $('#coords').val(results[0].toJSON());
-
+          alert("Ubicación establecida en: " + results[0].formatted_address);
+          $('#coords').val(JSON.stringify(results[0].geometry.location));
         } else {
           alert('Geocode was not successful for the following reason: ' + status);
         }
       });
     }
-
-
-
     function addEventOpen(){
       $('#popupAddEvent').popup("open");
     }
