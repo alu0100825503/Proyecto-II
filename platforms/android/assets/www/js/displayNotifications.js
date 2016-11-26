@@ -113,6 +113,8 @@ function notificationButtonHandler(event) {
 	} else if (notification.type == "invitation") {
 		console.log("manejo de eventos sin implementar");
 		var eventInfo = JSON.parse(notification.message_content)[0];
+		var startDate = eventInfo.start.substring(0, 10) + " " + eventInfo.start.substring(11, 19);
+		var finishDate = eventInfo.finish.substring(0, 10) + " " + eventInfo.finish.substring(11, 19);
 		console.log("eventInfo: " + JSON.stringify(eventInfo));
 		$("#eventName").empty();
 		$("#eventCreator").empty();
@@ -121,8 +123,8 @@ function notificationButtonHandler(event) {
 
 		$("#eventName").append("<strong>Título: </strong>" + eventInfo.name);
 		$("#eventCreator").append("<strong>Creador: </strong>" + eventInfo.creator);
-		$("#eventStart").append("<strong>Inicio: </strong>" + eventInfo.start);
-		$("#eventFinish").append("<strong>Fin: </strong>" + eventInfo.finish);
+		$("#eventStart").append("<strong>Inicio: </strong>" + startDate);
+		$("#eventFinish").append("<strong>Fin: </strong>" + finishDate);
 		$("#eventViewer").popup();
 		$("#eventViewer").popup("open");
 	}
