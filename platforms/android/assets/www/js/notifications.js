@@ -9,13 +9,25 @@ $(document).ready(function() {
 	var ajaxRequest = $.post(url, dataForServer, function(returnedData) {
 			if (returnedData.success) {
 				// Guardar el objeto json de notificaciones en
-				// localStorage para hacerlo accesible a notifications.html
-				console.log("returnedData: " + JSON.stringify(returnedData));
+				// localStorage para hacerlo accesible a diplayNotifications.js
 				localStorage.notifications = JSON.stringify(returnedData);
-				// Poner el número de notificaciones sobre el botón de notificaciones
-				// en rojo
-				// .....
-				// if (es calendar.html) { actualizamos icono de mensajes }
+				console.log("returnedData in success: " + JSON.stringify(returnedData));
+				// Contar notificaciones no leídas
+				var newNotifications = 0;
+				jQuery.each(returnedData.notifications, function(i, val) {
+					if (val.is_read <= 0) {
+						newNotifications++;
+					}
+				});
+
+				if (newNotifications > 0) {
+					// Pintar círculo rojo sobre el botón de notificaciones
+					$("#notificationsbutton").css("background", "red");
+					$("#notificationsbutton").css("-moz-border-radius", "10px");
+					$("#notificationsbutton").css("-webkit-border-radius", "100px");
+					$("#notificationsbutton").css("border-radius", "100px");
+					//console.log("Nuevas notificaciones: " + newNotifications);
+				}
 			}
 			else {
 				console.log("not success in the json");

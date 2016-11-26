@@ -86,6 +86,7 @@ $(document).ready(function() {
 
 	var notifications = [];
 
+	// Organizar las notificaciones en las categorías
 	jQuery.each(notifications_obj.notifications, function(i, val) {
 		notifications.push(val);
 		if (val.type == "message") {
