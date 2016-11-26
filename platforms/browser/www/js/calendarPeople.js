@@ -421,16 +421,6 @@
                 $("#endDate").val(getDateFormated(selected));
             }
         });
-        // Format datepicker
-        $("#endDateEdit").datepicker({
-            firstDay: 1,
-            dayNamesMin: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
-            monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre"
-                , "Noviembre", "Diciembre"],
-            onSelect: function (selected, evnt) {
-                $("#endDateEdit").val(getDateFormated(selected));
-            }
-        });
     })
 
     isContact = function () {
@@ -596,7 +586,7 @@
 
     // Seleccionar si pero no puede modificar nada
     // Function to select an event
-    /*selectEvent = function (id) {
+    selectEvent = function (id) {
         // Search event in calendar
         for (var i = 0; i < calendar.eventsCalendar.length; i++) {
             if (id == calendar.eventsCalendar[i].id) {
@@ -629,7 +619,7 @@
     }
 
     // Function to edit an event
-    editEvent = function () {
+    /*editEvent = function () {
         name = document.getElementById("nameEventEdit").value;
         if (name == "") {
             name = "Ocupado";
