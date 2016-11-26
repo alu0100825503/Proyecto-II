@@ -1,3 +1,47 @@
+function deleteNotificationFromDB(notificationData) {
+	console.log("deleting notification from DB");
+	url = "http://socialcalendarplus.esy.es/removeNotification.php"
+	dataForServer = {
+		"sender": notificationData.sender,
+		"receiver": notificationData.receiver,
+		"date": notificationData.date
+	};
+
+	$.post(url, dataForServer, function(returnedData) {
+		if (returnedData.success) {
+			console.log("notification deleted");
+		} else {
+			console.log("notification not deleted");
+			console.log("returnedData: " + returnedData);
+		}
+	}, 'json')
+	.fail(function() {
+		console.log("server connection failed while deleting");
+	});
+	console.log(JSON.stringify(dataForServer));
+}
+
+function saveContactsInDB(notification) {
+	url = "http://socialcalendarplus.esy.es/addContact.php";
+	dataForServer = {
+		"user1": notification.sender,
+		"user2": notification.receiver
+	};
+
+	$.post(url, dataForServer, function(returnedData) {
+		if (returnedData.success) {
+			console.log("contactos guardados");
+			deleteNotificationFromDB({ sender: event.data.sender, receiver: event.data.receiver, date: event.data.date});
+		} else {
+			console.log("sin éxito al guardar contactos");
+			console.log("returnedData: " + returnedData);
+		}	 
+	}, 'json')
+	.fail(function() {
+		console.log("server connection failed while saving contacts");
+	});	
+}
+
 function notificationButtonHandler(event) {
 	url = "http://socialcalendarplus.esy.es/updateReadMessages.php";
 
@@ -44,11 +88,29 @@ function notificationButtonHandler(event) {
 		$("#messageText").append("<i>" + notification.message_content + "</i>");
 		$("#messageViewer").popup();
 		$("#messageViewer").popup("open");	
+
+		$("#replyMessage").click(function() {
+			console.log("redirigiendo a la página de perfil del emisor");
+		});
+		$("#deleteMessage").click(function() {
+			console.log("eliminando notificación de la base de datos");
+			deleteNotificationFromDB(notification);
+			//location.reload();
+		});
 	} else if (notification.type == "friendship") {
 		$("#contactSender").empty();
 		$("#contactSender").append("<strong>Usuario: </strong>" + notification.sender);
 		$("#contactViewer").popup();
-		$("#contactViewer").popup("open");	
+		$("#contactViewer").popup("open");
+		
+		$("#acceptContact").click(function() {
+			saveContactsInDB(notification);
+		});
+		$("#rejectContact").click(function() {
+			deleteNotificationFromDB(notification);
+		});	
+	} else if (notification.type == "invitation") {
+		console.log("manejo de eventos sin implementar");
 	}
 };
 
