@@ -70,7 +70,22 @@
             <p id="messageFrom"></p>
             <p id="messageTo"></p>
             <p id="messageText"></p>
-            <a href="#" type="submit" id="agreeLogout" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Responder</a>
+            <a href="#" type="submit" id="replyMessage" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Responder</a>
+            <a href="#" type="submit" id="deleteMessage" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-delete">Eliminar</a>
+        </div>
+    </div>
+
+    <!-- Popup para visualizar las solicitudes de evento -->
+    <div data-role="popup" id="eventViewer" class="ui-corner-all">
+        <div style="padding:10px 20px;">
+            <a class="ui-btn ui-btn-a">Solicitud de evento</a>
+            <p id="eventName"></p>
+            <p id="eventCreator"></p>
+            <p id="eventStart"></p>
+            <p id="eventFinish"></p>
+            <p>Ha recibido una solicitud de evento con la información anterior. ¿Desea aceptarla?</p>
+            <a href="#" type="submit" id="acceptEvent" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Aceptar</a>
+            <a href="#" type="submit" id="rejectEvent" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-delete">Rechazar</a>
         </div>
     </div>
 
