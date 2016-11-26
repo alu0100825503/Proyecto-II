@@ -108,10 +108,23 @@ function notificationButtonHandler(event) {
 		});
 		$("#rejectContact").click(function() {
 			deleteNotificationFromDB(notification);
-			//location.reload();
+			location.reload();
 		});	
 	} else if (notification.type == "invitation") {
 		console.log("manejo de eventos sin implementar");
+		var eventInfo = JSON.parse(notification.message_content)[0];
+		console.log("eventInfo: " + JSON.stringify(eventInfo));
+		$("#eventName").empty();
+		$("#eventCreator").empty();
+		$("#eventStart").empty();
+		$("#eventFinish").empty();
+
+		$("#eventName").append("<strong>Título: </strong>" + eventInfo.name);
+		$("#eventCreator").append("<strong>Creador: </strong>" + eventInfo.creator);
+		$("#eventStart").append("<strong>Inicio: </strong>" + eventInfo.start);
+		$("#eventFinish").append("<strong>Fin: </strong>" + eventInfo.finish);
+		$("#eventViewer").popup();
+		$("#eventViewer").popup("open");
 	}
 };
 
@@ -163,7 +176,18 @@ $(document).ready(function() {
 	
 		} else if (val.type == "invitation") {
 			console.log("tiene solicitudes de eventos");
+			var eventInfo = JSON.parse(val.message_content);
+			console.log("eventInfo: " + JSON.stringify(eventInfo));
+			var newEventButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
+				eventInfo[0].creator + ': <i>' + eventInfo[0].name + '</i></a>');
 
+			if (val.is_read > 0) {
+				$("#eventsContainer").append(newEventButton);
+			} else {
+				$("#eventsContainer").prepend(newEventButton);
+				$("#not" + i).css("background-color", "green");
+				$("#eventsCollapsible").css("background-color", "green");
+			}
 		} else if (val.type == "friendship") {
 			var newContactButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
 				val.sender + ": <i>" +
