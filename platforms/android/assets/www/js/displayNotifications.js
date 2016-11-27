@@ -1,10 +1,10 @@
-function deleteNotificationFromDB(notificationData) {
+function deleteNotificationFromDB(notification) {
 	console.log("deleting notification from DB");
 	url = "http://socialcalendarplus.esy.es/removeNotification.php"
 	dataForServer = {
-		"sender": notificationData.sender,
-		"receiver": notificationData.receiver,
-		"date": notificationData.date
+		"sender": notification.sender,
+		"receiver": notification.receiver,
+		"date": notification.date
 	};
 
 	$.post(url, dataForServer, function(returnedData) {
@@ -18,7 +18,6 @@ function deleteNotificationFromDB(notificationData) {
 	.fail(function() {
 		console.log("server connection failed while deleting");
 	});
-	console.log(JSON.stringify(dataForServer));
 }
 
 function saveContactsInDB(notification) {
@@ -31,7 +30,7 @@ function saveContactsInDB(notification) {
 	$.post(url, dataForServer, function(returnedData) {
 		if (returnedData.success) {
 			console.log("contactos guardados");
-			deleteNotificationFromDB({ sender: event.data.sender, receiver: event.data.receiver, date: event.data.date});
+			deleteNotificationFromDB({ sender: notification.sender, receiver: notification.receiver, date: notification.date});
 		} else {
 			console.log("sin éxito al guardar contactos");
 			console.log("returnedData: " + returnedData);
@@ -91,11 +90,13 @@ function notificationButtonHandler(event) {
 
 		$("#replyMessage").click(function() {
 			console.log("redirigiendo a la página de perfil del emisor");
+			localStorage.setItem("userFound", notification.sender);
+			window.location.replace("people.html");
 		});
 		$("#deleteMessage").click(function() {
 			console.log("eliminando notificación de la base de datos");
 			deleteNotificationFromDB(notification);
-			location.reload();
+			//window.location.replace("notifications.html");
 		});
 	} else if (notification.type == "friendship") {
 		$("#contactSender").empty();
