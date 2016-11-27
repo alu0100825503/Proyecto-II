@@ -618,53 +618,6 @@
         }
     }
 
-    // Function to edit an event
-    /*editEvent = function () {
-        name = document.getElementById("nameEventEdit").value;
-        if (name == "") {
-            name = "Ocupado";
-        }
-        startDate = document.getElementById("startDateEdit").value;
-        startHour = document.getElementById("startHourEdit").value;
-        if (startHour == "") {
-            startHour = "00:00";
-        }
-        endDate = document.getElementById("endDateEdit").value;
-        endHour = document.getElementById("endHourEdit").value;
-        if (endHour == "") {
-            endHour = "00:01";
-        }
-        eventPrivate = document.getElementById("eventPrivateEdit").checked;
-
-        var dataToUpdate = [{
-            "id": calendar.eventSelected.id,
-            "name": name,
-            "start": new Date(startDate + " " + startHour),
-            "finish": new Date(endDate + " " + endHour),
-            "private": eventPrivate
-        }]
-
-        var dataJSON = JSON.stringify(dataToUpdate);
-        var url = "http://socialcalendarplus.esy.es/eventUpdate.php";
-
-        contactServer(url, dataJSON);
-
-        $("#popupMenuEvent").popup("close");
-    }
-
-    // Function to delete an event
-    deleteEvent = function () {
-        var dataToDelete = [{
-            "id": calendar.eventSelected.id
-        }]
-        var dataJSON = JSON.stringify(dataToDelete);
-        var url = "http://socialcalendarplus.esy.es/eventDelete.php";
-
-        contactServer(url, dataJSON);
-
-        $("#popupMenuEvent").popup("close");    // Close popup
-    }*/
-
     // Function to communicate with the server
     contactServer = function (url, data) {
         $.post(url, { eventData: data },
@@ -676,52 +629,6 @@
             }
             );
     }
-
-    /*searchUser = function () {
-        var userToSearch = [{
-            "username": document.getElementById("nameUserSearch").value
-        }]
-        document.getElementById("nameUserSearch").value = "";
-
-        var dataJSON = JSON.stringify(userToSearch);
-        var url = "http://socialcalendarplus.esy.es/searchUser.php";
-
-        // Add users found to the popup
-        $.getJSON(url, { eventData: dataJSON }, function (eventsReceived) {
-            $.each(eventsReceived, function (i, event) {
-                $('<button type="button" onClick="seeUserFound(this.innerHTML)" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-btn-icon-right ui-icon-forward"></button>').
-                    text(event.username).appendTo($("#userFound"));
-            });
-        });
-
-        seeUserFound = function (name) {
-            localStorage.setItem("userFound", name);  // Save name
-            window.location = "people.html";
-        }
-    }*/
-
-    // Accelerometer
-    /*var options = { frequency: 500 };   // Update every 500 ms
-
-    onDeviceReady = function () {
-        navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
-    }
-
-    var previousX = 0;
-    var previousY = 0;
-    var previousZ = 0;
-    var EPS = 8;
-    onSuccess = function (acceleration) {
-        if (Math.abs(acceleration.x - previousX) > EPS || Math.abs(acceleration.y - previousY) > EPS ||
-            Math.abs(acceleration.z - previousZ) > EPS) {
-            getEventsFromServer();
-        }
-        previousX = acceleration.x;
-        previousY = acceleration.y;
-        previousZ = acceleration.z;
-    }
-
-    onError = function () { }*/
     /* ------------------------------------------------------------------------------*/
 
 })(jQuery);
