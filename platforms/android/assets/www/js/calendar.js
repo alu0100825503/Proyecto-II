@@ -374,9 +374,12 @@
             if (event[plugin.settings.url]) {
                 //$('<a onclick="eventSettings()"></a>').text(text).attr('href', event[plugin.settings.url]).appendTo($listItem);
             } else {
-                //$('<a onclick="eventSettings()"></a>').text(text).appendTo($listItem);
-                $('<a href="#popupMenuEvent" onclick="selectEvent(this.id)" data-rel="popup" data-transition="turn" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-right ui-btn-a"></a>').
+                if (event[plugin.settings.bg] == "holiday") {
+                    $('<a style="background:#BCF5A9" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a"></a>').text(text).attr('id', event.id).appendTo($listItem);
+                } else {
+                    $('<a href="#popupMenuEvent" onclick="selectEvent(this.id)" data-rel="popup" data-transition="turn" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-right ui-btn-a"></a>').
                     text(text).attr('id', event.id).appendTo($listItem);
+                }
             }
         }
 
@@ -481,9 +484,13 @@
         $.getJSON(calendarUrl)
             .success(function (data) {
                 for (var i = 0; i < data.items.length; i++) {
+                    var end = new Date(data.items[i].end.date);
+                    if (end.getHours() == 0 && end.getMinutes() == 0) {
+                        end.setDate(end.getDate() - 1);
+                    }
                     calendar.eventsCalendar.splice(0, 0, {
                         "summary": data.items[i].summary, "begin": new Date(data.items[i].start.date),
-                        "end": new Date(data.items[i].end.date), "id": -1, "isPrivate": 0, "bg": "holiday"
+                        "end": end, "id": -1, "isPrivate": 0, "bg": "holiday"
                     });
                 }
                 calendar.refreshFunction();
