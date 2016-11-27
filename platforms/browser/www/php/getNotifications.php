@@ -27,7 +27,6 @@ $notifications_query = "SELECT sender, receiver, dateSol, type, message_subject,
 $result = mysqli_query($connection, $notifications_query);
 
 if (!$result || mysqli_num_rows($result) <= 0) {
-    echo "not success in query";
     $json_response['success'] = false;
 } else {
     $notifications = array();

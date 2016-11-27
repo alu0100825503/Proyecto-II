@@ -27,11 +27,11 @@ $(document).ready(function() {
 				}
 			}
 			else {
-				console.log("not success in the json");
+				console.log("notifications.js: no hay notificaciones nuevas");
 				console.log(returnedData);
 			}
 		}, 'json')
 		.fail(function() {
-			console.log("the response from the server failed");
+			console.log("notifications.js: the response from the server failed");
 		});
 });
