@@ -115,10 +115,29 @@ function notificationButtonHandler(event) {
 		
 		$("#acceptContact").click(function() {
 			saveContactsInDB(notification);
+			// Show popup
+			$("#contactViewer").popup("close");
+			setTimeout(function() {
+				$("#infoPopupTitle").text("Usuario aceptado");
+				$("#infoPopupText").text("El usuario ha sido añadido correctamente a la lista de contactos.");
+				$("#infoPopup").popup();
+				$("#infoPopup").popup("open");
+				$("#infoOK").click(function() {
+					refreshPage();
+				});
+			}, 500);
 		});
 		$("#rejectContact").click(function() {
 			deleteNotificationFromDB(notification);
-			refreshPage();
+			setTimeout(function() {
+				$("#infoPopupTitle").text("Solicitud rechazada");
+				$("#infoPopupText").text("Se ha denegado la solicitud de contacto.");
+				$("#infoPopup").popup();
+				$("#infoPopup").popup("open");
+				$("#infoOK").click(function() {
+					refreshPage();
+				});
+			}, 500);
 		});	
 	} else if (notification.type == "invitation") {
 		console.log("manejo de eventos sin implementar");
@@ -149,89 +168,99 @@ function notificationButtonHandler(event) {
 };
 
 $(document).ready(function() {
-	// Si hay notificaciones...
-	console.log("lo que hay en localStorage.notifications: " + localStorage.notifications);
-	if (localStorage.notifications) {
-		notifications_obj = JSON.parse(localStorage.notifications);
-
-		var n_messages = 0, 
+	var url = "http://socialcalendarplus.esy.es/getNotifications.php";
+	var receiver = localStorage.username;
+	var dataForServer = { "receiver": receiver };
+	
+	$.post(url, dataForServer, function(returnedData) {
+		if (returnedData.success) {
+			notifications_obj = returnedData;
+			console.log("notifications_obj: " + JSON.stringify(notifications_obj));
+			var n_messages = 0, 
 			n_events = 0, 
 			n_contacts = 0;
 
-		// Contar los tipos de notificación
-		jQuery.each(notifications_obj.notifications, function(i, val) {
-			if (notifications_obj.notifications[i].type == "message") {
-				n_messages++;
-			} else if (notifications_obj.notifications[i].type == "invitation") {
-				n_events++;
-			} else if (notifications_obj.notifications[i].type == "friendship") {
-				n_contacts++;
+			// Contar los tipos de notificación
+			jQuery.each(notifications_obj.notifications, function(i, val) {
+				if (notifications_obj.notifications[i].type == "message") {
+					n_messages++;
+				} else if (notifications_obj.notifications[i].type == "invitation") {
+					n_events++;
+				} else if (notifications_obj.notifications[i].type == "friendship") {
+					n_contacts++;
+				}
+			});
+
+			// Empty divs
+			if (n_messages > 0) $("#messagesContainer").empty();
+			if (n_events > 0) $("#eventsContainer").empty();
+			if (n_contacts > 0) $("#contactsContainer").empty();
+
+			// Getting total number of notifications
+			console.log(Object.keys(notifications_obj.notifications).length);
+
+			var notifications = [];
+
+			// Organizar las notificaciones en las categorías
+			jQuery.each(notifications_obj.notifications, function(i, val) {
+				notifications.push(val);
+				if (val.type == "message") {
+					var newMessageButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
+						val.sender + ": <i>" +
+						val.message_subject +
+						"</i></a>");
+
+					// Si el mensaje no ha sido leído, se pone primero en la lista	
+					if (val.is_read > 0) {
+						$("#messagesContainer").append(newMessageButton);
+					} else {
+						$("#messagesContainer").prepend(newMessageButton);
+						$("#not" + i).css("background-color", "green");
+						$("#messagesCollapsible").css("background-color", "green");
+					}
+			
+				} else if (val.type == "invitation") {
+					console.log("tiene solicitudes de eventos");
+					var eventInfo = JSON.parse(val.message_content);
+					console.log("eventInfo: " + JSON.stringify(eventInfo));
+					var newEventButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
+						eventInfo[0].creator + ': <i>' + eventInfo[0].name + '</i></a>');
+
+					if (val.is_read > 0) {
+						$("#eventsContainer").append(newEventButton);
+					} else {
+						$("#eventsContainer").prepend(newEventButton);
+						$("#not" + i).css("background-color", "green");
+						$("#eventsCollapsible").css("background-color", "green");
+					}
+				} else if (val.type == "friendship") {
+					var newContactButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
+						val.sender + ": <i>" +
+						val.message_subject +
+						"</i></a>");
+
+					if (val.is_read > 0) {
+						$("#contactsContainer").append(newContactButton);
+					} else {
+						$("#contactsContainer").prepend(newContactButton);
+						$("#not" + i).css("background-color", "green");
+					}
+
+				} else {
+					console.log("notification type not supported");
+				}
+			});
+
+			// Setting listener for all notifications buttons
+			for (i = 0; i < notifications.length; i++) { 
+				$("#not" + i).click({ notification: notifications[i] }, notificationButtonHandler);
 			}
-		});
-
-		// Empty divs
-		if (n_messages > 0) $("#messagesContainer").empty();
-		if (n_events > 0) $("#eventsContainer").empty();
-		if (n_contacts > 0) $("#contactsContainer").empty();
-
-		// Getting total number of notifications
-		console.log(Object.keys(notifications_obj.notifications).length);
-
-		var notifications = [];
-
-		// Organizar las notificaciones en las categorías
-		jQuery.each(notifications_obj.notifications, function(i, val) {
-			notifications.push(val);
-			if (val.type == "message") {
-				var newMessageButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
-					val.sender + ": <i>" +
-					val.message_subject +
-					"</i></a>");
-
-				// Si el mensaje no ha sido leído, se pone primero en la lista	
-				if (val.is_read > 0) {
-					$("#messagesContainer").append(newMessageButton);
-				} else {
-					$("#messagesContainer").prepend(newMessageButton);
-					$("#not" + i).css("background-color", "green");
-					$("#messagesCollapsible").css("background-color", "green");
-				}
-		
-			} else if (val.type == "invitation") {
-				console.log("tiene solicitudes de eventos");
-				var eventInfo = JSON.parse(val.message_content);
-				console.log("eventInfo: " + JSON.stringify(eventInfo));
-				var newEventButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
-					eventInfo[0].creator + ': <i>' + eventInfo[0].name + '</i></a>');
-
-				if (val.is_read > 0) {
-					$("#eventsContainer").append(newEventButton);
-				} else {
-					$("#eventsContainer").prepend(newEventButton);
-					$("#not" + i).css("background-color", "green");
-					$("#eventsCollapsible").css("background-color", "green");
-				}
-			} else if (val.type == "friendship") {
-				var newContactButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
-					val.sender + ": <i>" +
-					val.message_subject +
-					"</i></a>");
-
-				if (val.is_read > 0) {
-					$("#contactsContainer").append(newContactButton);
-				} else {
-					$("#contactsContainer").prepend(newContactButton);
-					$("#not" + i).css("background-color", "green");
-				}
-
-			} else {
-				console.log("notification type not supported");
-			}
-		});
-
-		// Setting listener for all notifications buttons
-		for (i = 0; i < notifications.length; i++) { 
-			$("#not" + i).click({ notification: notifications[i] }, notificationButtonHandler);
 		}
-	}
+		else {
+			console.log("not success getting the json");
+		}
+	}, 'json')
+	.fail(function() {
+		console.log("server connection failed");
+	});
 });

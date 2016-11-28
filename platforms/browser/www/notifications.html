@@ -7,7 +7,6 @@
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
   <!-- Ajustar el contenido central para extenderlo a la totalidad de la pantalla -->
-  <script src="js/notifications.js"></script>
   <script src="js/resize.js"></script>
   <script src="js/buttons.js"></script>
   <script src="js/displayNotifications.js"></script>
@@ -98,6 +97,17 @@
             <div class="ui-grid-a ui-responsive">
               <a href="#" type="submit" id="acceptContact" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Aceptar</a>
               <a href="#" type="submit" id="rejectContact" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-delete">Rechazar</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup informativo -->
+    <div data-role="popup" id="infoPopup" class="ui-corner-all">
+        <div style="padding:10px 20px;">
+            <h3 id="infoPopupTitle"></h3>
+            <p id="infoPopupText"></p>
+            <div class="ui-grid-a ui-responsive">
+              <a type="submit" id="infoOK" data-rel="back" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">OK</a>
             </div>
         </div>
     </div>
