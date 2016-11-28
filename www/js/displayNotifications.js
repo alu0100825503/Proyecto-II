@@ -41,6 +41,13 @@ function saveContactsInDB(notification) {
 	});	
 }
 
+function refreshPage() {
+	localStorage.removeItem("notifications");
+	setTimeout(function() {
+		window.location.replace("notifications.html");
+	}, 500);
+}
+
 function notificationButtonHandler(event) {
 	url = "http://socialcalendarplus.esy.es/updateReadMessages.php";
 
@@ -91,12 +98,14 @@ function notificationButtonHandler(event) {
 		$("#replyMessage").click(function() {
 			console.log("redirigiendo a la página de perfil del emisor");
 			localStorage.setItem("userFound", notification.sender);
-			window.location.replace("people.html");
+			setTimeout(function() {
+				window.location.replace("people.html");
+			}, 500);
 		});
 		$("#deleteMessage").click(function() {
 			console.log("eliminando notificación de la base de datos");
 			deleteNotificationFromDB(notification);
-			window.location.replace("notifications.html");
+			refreshPage();
 		});
 	} else if (notification.type == "friendship") {
 		$("#contactSender").empty();
@@ -109,7 +118,7 @@ function notificationButtonHandler(event) {
 		});
 		$("#rejectContact").click(function() {
 			deleteNotificationFromDB(notification);
-			window.location.replace("notifications.html");
+			refreshPage();
 		});	
 	} else if (notification.type == "invitation") {
 		console.log("manejo de eventos sin implementar");
@@ -134,13 +143,14 @@ function notificationButtonHandler(event) {
 		});
 		$("#rejectEvent").click(function() {
 			deleteNotificationFromDB(notification);
-			window.location.replace("notifications.html");
+			refreshPage();
 		});
 	}
 };
 
 $(document).ready(function() {
 	// Si hay notificaciones...
+	console.log("lo que hay en localStorage.notifications: " + localStorage.notifications);
 	if (localStorage.notifications) {
 		notifications_obj = JSON.parse(localStorage.notifications);
 
