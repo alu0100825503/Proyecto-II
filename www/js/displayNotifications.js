@@ -43,17 +43,16 @@ function saveContactsInDB(notification) {
 function acceptEvent(notification) {
 	var url = "http://socialcalendarplus.esy.es/eventSet.php";
 	//notification = JSON.parse(notification);
-	console.log("notification: " + JSON.stringify(notification));
+	var eventInfo = JSON.parse(notification.message_content)[0];
 	newEventData = [{
-				"name": notification.message_content[0].name,
-				"start": new Date(notification.message_content[0].start),
-				"finish": new Date(notification.message_content[0].finish),
-				"creator": notification.message_content[0].creator,
-				"private": notification.message_content[0].private
+				"name": eventInfo.name,
+				"start": new Date(eventInfo.start),
+				"finish": new Date(eventInfo.finish),
+				"creator": eventInfo.creator,
+				"private": eventInfo.private
 			}]
 
-	console.log("name: " + notification.message_content[0].name);
-	console.log(JSON.stringify(newEventData));
+	console.log("newEventData" + JSON.stringify(newEventData));
 
 	// Crear el evento
 	$.post(url, newEventData, function(returnedData) {
