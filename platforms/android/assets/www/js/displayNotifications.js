@@ -47,10 +47,10 @@ function acceptEvent(notification) {
 	console.log("eventInfo: " + JSON.stringify(eventInfo));
 
 	newEventData = [{
-				"name": "eventito",
+				"name": "PruebaDeQueSiFunciona",
 				"start": new Date("2016-11-25 12:34:43"),
 				"finish": new Date("2016-11-25 12:54:45"),
-				"creator": "Juanito_30",
+				"creator": "Kevin",
 				"private": false
 			}]
 
