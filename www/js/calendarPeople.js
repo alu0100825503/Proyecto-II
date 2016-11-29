@@ -445,7 +445,7 @@
                 $('<a href="#popupSendMessage" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-mail" style="border-radius: 25px;" data-transition="slidedown"></a>').
                     text("Mensaje").appendTo($("#buttonMessage"));
             } else {
-                $('<a href="#popupFriendship" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="background:#90EE90;border-radius: 25px;" data-transition="slidedown"></a>').
+                $('<a onclick="addAsContact()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-icon-right ui-icon-plus" style="background:#90EE90;border-radius: 25px;"></a>').
                     text("Añadir contacto").appendTo($("#headMainContent"));
             }
         }).error(function () {
@@ -513,14 +513,15 @@
             "sender": localStorage.getItem("username"),
             "receiver": localStorage.getItem("userFound"),
             "type": "friendship",
-            "message_subject": document.getElementById("subjectFriendship").value,
-            "message_content": document.getElementById("messageFriendship").value
+            // Tengo que eliminar esto y cambiar el php, afectara en algo?
+            "message_subject": "Solicitud",
+            "message_content": ""
         }]
         var dataJSON = JSON.stringify(dataToSend);
         var url = "http://socialcalendarplus.esy.es/addNotification.php";
 
         $.post(url, { eventData: dataJSON }, function () {
-            $("#popupFriendship").popup("close");
+            $("#popupFriendship").popup("open");
         }).error(function () {
             alert('Error al enviar la solicitud');
         });

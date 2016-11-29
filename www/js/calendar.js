@@ -484,12 +484,13 @@
         $.getJSON(calendarUrl)
             .success(function (data) {
                 for (var i = 0; i < data.items.length; i++) {
+                    var summary = data.items[i].summary;
                     var end = new Date(data.items[i].end.date);
                     if (end.getHours() == 0 && end.getMinutes() == 0) {
                         end.setDate(end.getDate() - 1);
                     }
                     calendar.eventsCalendar.splice(0, 0, {
-                        "summary": data.items[i].summary, "begin": new Date(data.items[i].start.date),
+                        "summary": summary.replace("(regional holiday)", ""), "begin": new Date(data.items[i].start.date),
                         "end": end, "id": -1, "isPrivate": 0, "bg": "holiday"
                     });
                 }
