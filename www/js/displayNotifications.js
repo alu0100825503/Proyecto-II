@@ -44,25 +44,30 @@ function acceptEvent(notification) {
 	var url = "http://socialcalendarplus.esy.es/eventSet.php";
 	//notification = JSON.parse(notification);
 	var eventInfo = JSON.parse(notification.message_content)[0];
+	console.log("eventInfo: " + JSON.stringify(eventInfo));
+
 	newEventData = [{
-				"name": eventInfo.name,
-				"start": new Date(eventInfo.start),
-				"finish": new Date(eventInfo.finish),
-				"creator": eventInfo.creator,
-				"private": eventInfo.private
+				"name": "eventito",
+				"start": new Date("2016-11-25 12:34:43"),
+				"finish": new Date("2016-11-25 12:54:45"),
+				"creator": "Juanito_30",
+				"private": false
 			}]
 
+	var json_str = JSON.stringify(newEventData);
 	console.log("newEventData" + JSON.stringify(newEventData));
 
 	// Crear el evento
-	$.post(url, newEventData, function(returnedData) {
+	$.post(url, { eventData: json_str }, function(returnedData) {
 		console.log("evento supuestamente guardado en la BD...");
+		console.log("returnedData in acceptEvent: " + returnedData);
 	})
 	.fail(function() {
 		console.log("server connection failed");
 	});
 
 	// Añadir fila a invitation
+
 } 
 
 function refreshPage() {
