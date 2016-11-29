@@ -41,24 +41,19 @@ function saveContactsInDB(notification) {
 }
 
 function acceptEvent(notification) {
-	var url = "http://socialcalendarplus.esy.es/eventSet.php";
-	//notification = JSON.parse(notification);
+	var setEventUrl = "http://socialcalendarplus.esy.es/eventSet.php";
 	var eventInfo = JSON.parse(notification.message_content)[0];
-	console.log("eventInfo: " + JSON.stringify(eventInfo));
-
 	newEventData = [{
-				"name": "PruebaDeQueSiFunciona",
-				"start": new Date("2016-11-25 12:34:43"),
-				"finish": new Date("2016-11-25 12:54:45"),
-				"creator": "Kevin",
-				"private": false
+				"name": eventInfo.name,
+				"start": new Date(eventInfo.start),
+				"finish": new Date(eventInfo.finish),
+				"creator": eventInfo.creator,
+				"private": eventInfo.private
 			}]
-
-	var json_str = JSON.stringify(newEventData);
-	console.log("newEventData" + JSON.stringify(newEventData));
+	var newEventDataStr = JSON.stringify(newEventData);		
 
 	// Crear el evento
-	$.post(url, { eventData: json_str }, function(returnedData) {
+	$.post(setEventUrl, { eventData: newEventDataStr }, function(returnedData) {
 		console.log("evento supuestamente guardado en la BD...");
 		console.log("returnedData in acceptEvent: " + returnedData);
 	})
@@ -67,8 +62,27 @@ function acceptEvent(notification) {
 	});
 
 	// Añadir fila a invitation
+	newInvitationData = {
+			"user": notification.receiver,
+			"eventName": eventInfo.name,
+			"eventDate": new Date(eventInfo.start),
+			"eventCreator": eventInfo.creator
+		};
 
-} 
+	var setInvitationUrl = "http://socialcalendarplus.esy.es/addInvitation.php";
+	console.log("storing invitation...");
+	$.post(setInvitationUrl, newInvitationData, function(returnedData) {
+		if (returnedData.success) {
+			console.log("invitation was created");
+		} else {
+			console.log("php failed");
+			console.log(returnedData);
+		}
+	}, 'json')
+	.fail(function() {
+		console.log("server connection failed");
+	});
+}
 
 function refreshPage() {
 	localStorage.removeItem("notifications");
