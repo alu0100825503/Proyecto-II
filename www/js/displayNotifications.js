@@ -30,7 +30,6 @@ function saveContactsInDB(notification) {
 	$.post(url, dataForServer, function(returnedData) {
 		if (returnedData.success) {
 			console.log("contactos guardados");
-			deleteNotificationFromDB({ sender: notification.sender, receiver: notification.receiver, date: notification.date});
 		} else {
 			console.log("sin éxito al guardar contactos");
 			console.log("returnedData: " + returnedData);
@@ -40,6 +39,32 @@ function saveContactsInDB(notification) {
 		console.log("server connection failed while saving contacts");
 	});	
 }
+
+function acceptEvent(notification) {
+	var url = "http://socialcalendarplus.esy.es/eventSet.php";
+	//notification = JSON.parse(notification);
+	console.log("notification: " + JSON.stringify(notification));
+	newEventData = [{
+				"name": notification.message_content[0].name,
+				"start": new Date(notification.message_content[0].start),
+				"finish": new Date(notification.message_content[0].finish),
+				"creator": notification.message_content[0].creator,
+				"private": notification.message_content[0].private
+			}]
+
+	console.log("name: " + notification.message_content[0].name);
+	console.log(JSON.stringify(newEventData));
+
+	// Crear el evento
+	$.post(url, newEventData, function(returnedData) {
+		console.log("evento supuestamente guardado en la BD...");
+	})
+	.fail(function() {
+		console.log("server connection failed");
+	});
+
+	// Añadir fila a invitation
+} 
 
 function refreshPage() {
 	localStorage.removeItem("notifications");
@@ -96,14 +121,12 @@ function notificationButtonHandler(event) {
 		$("#messageViewer").popup("open");	
 
 		$("#replyMessage").click(function() {
-			console.log("redirigiendo a la página de perfil del emisor");
 			localStorage.setItem("userFound", notification.sender);
 			setTimeout(function() {
 				window.location.replace("people.html");
 			}, 500);
 		});
 		$("#deleteMessage").click(function() {
-			console.log("eliminando notificación de la base de datos");
 			deleteNotificationFromDB(notification);
 			refreshPage();
 		});
@@ -115,6 +138,7 @@ function notificationButtonHandler(event) {
 		
 		$("#acceptContact").click(function() {
 			saveContactsInDB(notification);
+			deleteNotificationFromDB(notification);
 			// Show popup
 			$("#contactViewer").popup("close");
 			setTimeout(function() {
@@ -129,6 +153,7 @@ function notificationButtonHandler(event) {
 		});
 		$("#rejectContact").click(function() {
 			deleteNotificationFromDB(notification);
+			$("#contactViewer").popup("close");
 			setTimeout(function() {
 				$("#infoPopupTitle").text("Solicitud rechazada");
 				$("#infoPopupText").text("Se ha denegado la solicitud de contacto.");
@@ -140,11 +165,9 @@ function notificationButtonHandler(event) {
 			}, 500);
 		});	
 	} else if (notification.type == "invitation") {
-		console.log("manejo de eventos sin implementar");
 		var eventInfo = JSON.parse(notification.message_content)[0];
 		var startDate = eventInfo.start.substring(0, 10) + " " + eventInfo.start.substring(11, 19);
 		var finishDate = eventInfo.finish.substring(0, 10) + " " + eventInfo.finish.substring(11, 19);
-		console.log("eventInfo: " + JSON.stringify(eventInfo));
 		$("#eventName").empty();
 		$("#eventCreator").empty();
 		$("#eventStart").empty();
@@ -158,11 +181,32 @@ function notificationButtonHandler(event) {
 		$("#eventViewer").popup("open");
 
 		$("#acceptEvent").click(function() {
-			console.log("aceptando evento...");
+			$("#eventViewer").popup("close");
+			setTimeout(function() {
+				acceptEvent(notification);
+				//deleteNotificationFromDB(notification);
+				$("#infoPopupTitle").text("Evento aceptado");
+				$("#infoPopupText").text("Se ha añadido el evento a su calendario.");
+				$("#infoPopup").popup();
+				$("#infoPopup").popup("open");
+				$("#infoOK").click(function() {
+					refreshPage();
+				});
+			}, 500);
+
 		});
 		$("#rejectEvent").click(function() {
 			deleteNotificationFromDB(notification);
-			refreshPage();
+			$("#eventViewer").popup("close");
+			setTimeout(function() {
+				$("#infoPopupTitle").text("Solicitud rechazada");
+				$("#infoPopupText").text("Se ha denegado la solicitud de evento.");
+				$("#infoPopup").popup();
+				$("#infoPopup").popup("open");
+				$("#infoOK").click(function() {
+					refreshPage();
+				});
+			}, 500);
 		});
 	}
 };
@@ -175,7 +219,6 @@ $(document).ready(function() {
 	$.post(url, dataForServer, function(returnedData) {
 		if (returnedData.success) {
 			notifications_obj = returnedData;
-			console.log("notifications_obj: " + JSON.stringify(notifications_obj));
 			var n_messages = 0, 
 			n_events = 0, 
 			n_contacts = 0;
@@ -196,14 +239,13 @@ $(document).ready(function() {
 			if (n_events > 0) $("#eventsContainer").empty();
 			if (n_contacts > 0) $("#contactsContainer").empty();
 
-			// Getting total number of notifications
-			console.log(Object.keys(notifications_obj.notifications).length);
-
 			var notifications = [];
 
 			// Organizar las notificaciones en las categorías
 			jQuery.each(notifications_obj.notifications, function(i, val) {
+				var notificationColor = "#228B22";
 				notifications.push(val);
+
 				if (val.type == "message") {
 					var newMessageButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
 						val.sender + ": <i>" +
@@ -214,24 +256,23 @@ $(document).ready(function() {
 					if (val.is_read > 0) {
 						$("#messagesContainer").append(newMessageButton);
 					} else {
+						// Make collapsible and message green
+						$("#messagesCollapsible").find(".ui-collapsible-heading-toggle").addClass("greenCollHeader");
 						$("#messagesContainer").prepend(newMessageButton);
-						$("#not" + i).css("background-color", "green");
-						$("#messagesCollapsible").css("background-color", "green");
+						$("#not" + i).css("background-color", notificationColor);
 					}
 			
 				} else if (val.type == "invitation") {
-					console.log("tiene solicitudes de eventos");
 					var eventInfo = JSON.parse(val.message_content);
-					console.log("eventInfo: " + JSON.stringify(eventInfo));
 					var newEventButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
 						eventInfo[0].creator + ': <i>' + eventInfo[0].name + '</i></a>');
 
 					if (val.is_read > 0) {
 						$("#eventsContainer").append(newEventButton);
 					} else {
+						$("#eventsCollapsible").find(".ui-collapsible-heading-toggle").addClass("greenCollHeader");
 						$("#eventsContainer").prepend(newEventButton);
-						$("#not" + i).css("background-color", "green");
-						$("#eventsCollapsible").css("background-color", "green");
+						$("#not" + i).css("background-color", notificationColor);
 					}
 				} else if (val.type == "friendship") {
 					var newContactButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
@@ -242,8 +283,9 @@ $(document).ready(function() {
 					if (val.is_read > 0) {
 						$("#contactsContainer").append(newContactButton);
 					} else {
+						$("#contactsCollapsible").find(".ui-collapsible-heading-toggle").addClass("greenCollHeader");
 						$("#contactsContainer").prepend(newContactButton);
-						$("#not" + i).css("background-color", "green");
+						$("#not" + i).css("background-color", notificationColor);
 					}
 
 				} else {
