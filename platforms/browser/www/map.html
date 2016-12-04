@@ -16,9 +16,9 @@
   <script src="js/map.js"></script>
   <link rel="stylesheet" href="css/profile.css" />
   <script type="text/javascript">
-  function changePage(page) {
-    window.location = page;
-  }
+    function changePage(page) {
+      window.location = page;
+    }
   </script>
   <script src="js/resize.js"></script>
   <script src="js/buttons.js"></script>
@@ -33,16 +33,29 @@
       <div id="map" style="height: 98%;">
       </div>
     </div>
-    <div data-role="panel" id="inside-a" data-position="left" data-display="overlay" data-theme="b">
-      <ul data-role="listview">
-        <li data-icon="back"><a href="#" data-rel="close">Cerrar</a></li>
-        <li><a id="calendarbutton">Calendario</a></li>
-        <li><a id="profilebutton">Perfil</a></li>
-        <li><a id="aboutbutton">Acerca de</a></li>
-        <li><a id="settingsbutton">Configuración</a></li>
-        <li><a id="mapbutton">Mapa</a></li>
-        <li><a id="loginbutton">Cerrar sesión</a></li>
-      </ul>
-    </div>
+    
+    <!-- Popup para el warning del cierre de sesión -->
+      <div data-role="popup" id="warningLogout" class="ui-corner-all">
+          <div style="padding:10px 20px;">
+              <h3>Cerrar sesión</h3>
+              <p>¿Estás seguro de que quieres cerrar sesión? Se eliminarán tus datos de la sesión actual y serás redirigido a la página principal.</p>
+              <div class="ui-grid-a ui-responsive">
+              <a href="#" type="submit" id="agreeLogout" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Cerrar sesión</a>
+              <a href="#" type="submit" data-rel="back" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-back">Volver</a>
+              </div>
+          </div>
+      </div>
+
+      <!-- Menú desplegable -->
+      <div data-role="panel" id="outside" data-theme="b">
+          <ul data-role="listview">
+              <li data-icon="back"><a href="#" id="closeMenu" data-rel="close">Cerrar</a></li>
+              <li><a id="calendarbuttonMenu">Calendario</a></li>
+              <li><a id="profilebutton">Perfil</a></li>
+              <li><a id="settingsbutton">Ajustes</a></li>
+              <li><a id="logoutbutton">Cerrar sesión</a></li>
+          </ul>
+      </div>
+
   </body>
   </html>

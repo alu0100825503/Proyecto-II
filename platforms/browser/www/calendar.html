@@ -106,16 +106,7 @@
                 </div>
             </form>
         </div>
-        <!-- Menu desplegable -->
-        <div data-role="panel" id="outside" data-theme="b">
-            <ul data-role="listview">
-                <li data-icon="back"><a href="#" data-rel="close">Cerrar</a></li>
-                <li><a id="calendarbutton">Calendario</a></li>
-                <li><a id="profilebutton">Perfil</a></li>
-                <li><a id="settingsbutton">Ajustes</a></li>
-                <li><a id="loginbutton">Cerrar sesión</a></li>
-            </ul>
-        </div>
+        
         <!-- Menú de búsqueda de usuario -->
         <div data-role="popup" id="popupSearchUser" data-overlay-theme="a" data-theme="a">
             <form>
@@ -138,6 +129,17 @@
                 <a href="#" type="submit" data-rel="back" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-back">Volver</a>
                 </div>
             </div>
+        </div>
+
+        <!-- Menú desplegable -->
+        <div data-role="panel" id="outside" data-theme="b">
+            <ul data-role="listview">
+                <li data-icon="back"><a href="#" id="closeMenu" data-rel="close">Cerrar</a></li>
+                <li><a id="calendarbuttonMenu">Calendario</a></li>
+                <li><a id="profilebutton">Perfil</a></li>
+                <li><a id="settingsbutton">Ajustes</a></li>
+                <li><a id="logoutbutton">Cerrar sesión</a></li>
+            </ul>
         </div>
 
     </div>

@@ -48,6 +48,10 @@ $(document).ready(function() {
         chargePage("calendar.html");
     });
 
+    $("#calendarbuttonMenu").click(function() {
+        chargePage("calendar.html");
+    });
+
     $("#profilebutton").click(function() {
         chargePage("profile.html");
     });
