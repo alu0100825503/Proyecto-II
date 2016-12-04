@@ -23,7 +23,17 @@ function logout() {
 
 $(document).ready(function() {
     $("#logoutbutton").click(logout);
-     $("#logoutbuttonMain").click(logout);
+    $("#logoutbuttonMain").click(logout);
+
+    // Botón "mis datos"
+    $("#mydatabutton").click(function() {
+        chargePage("pageUnderConstruction.html");
+    });
+
+    // Botón "otros"
+    $("#othersbutton").click(function() {
+        chargePage("pageUnderConstruction.html");
+    });
 
      // Botón home (esquina superior izquierda)
     $("#homebutton").click(function() {
