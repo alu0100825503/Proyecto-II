@@ -1,4 +1,4 @@
 $(document).ready(function() {
-	console.log("profeile.js");
+	console.log("profile.js");
 	$("#usernameTitle").text(localStorage.getItem("username"));
 });
