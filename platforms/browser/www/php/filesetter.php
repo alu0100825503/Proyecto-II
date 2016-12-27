@@ -5,7 +5,7 @@ header('Access-Control-Allow-Origin: *');
 $jsondata = array();
 
 if(count($_FILES) > 0) {
-  if(is_uploaded_file($_FILES['userImage']['tmp_name'])) {
+  if(is_uploaded_file($_FILES['file']['tmp_name'])) {
     $dbserver = "mysql.hostinger.es";
     $dbuser = "u344358176_calen";
     $password = "supercalendar";
@@ -29,8 +29,10 @@ if(count($_FILES) > 0) {
 }
 
 
-  header('Content-type: application/json; charset=utf-8');
-  echo json_encode($jsondata, JSON_FORCE_OBJECT);
+  //header('Content-type: application/json; charset=utf-8');
+  //echo json_encode($jsondata, JSON_FORCE_OBJECT);
+  header();
+  echo "todo ok";
   $database->close();
 }
 exit();

@@ -1,7 +1,7 @@
 $(document).ready(function() {
   $("#form").on('submit',function () {
     var formData = new FormData(this);
-    $.ajax({url:"http://socialcalendarplus.esy.es/fileSetter.php",
+    $.ajax({url:"http://socialcalendarplus.esy.es/filesetter.php",
     type: "POST",
     data: formData,
     contentType: false,
@@ -11,8 +11,8 @@ $(document).ready(function() {
       console.log("entro");
       console.log(data.success);
     },
-    error: function(){
-      console.log("ha fallado");
+    error: function(error){
+      console.log("ha fallado" + error);
     }});
 
     //https://www.html5rocks.com/es/tutorials/file/dndfiles/
