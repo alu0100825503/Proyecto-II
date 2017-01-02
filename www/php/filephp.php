@@ -21,19 +21,29 @@ $binario_nombre_temporal=$_FILES['archivo']['tmp_name'] ;
 $binario_contenido = addslashes(fread(fopen($binario_nombre_temporal, "rb"), filesize($binario_nombre_temporal)));
 
 // Obtener del array FILES (superglobal) los datos del binario .. nombre, tabamo y tipo.
-//$binario_nombre=$_FILES['archivo']['name'];
+$binario_nombre=$_FILES['archivo']['name'];
 $binario_peso=$_FILES['archivo']['size'];
 $binario_tipo=$_FILES['archivo']['type'];
-
+$id = 0;
 //insertamos los datos en la BD.
-$consulta_insertar = "INSERT INTO Files (data, size, type) VALUES ('$binario_contenido', '$binario_peso', '$binario_tipo')";
+$consulta_insertar = "INSERT INTO Files (data, size, type, name) VALUES ('$binario_contenido', '$binario_peso', '$binario_tipo', '$binario_nombre')";
+$consulta_id = "SELECT `id` FROM `Files` WHERE (`name` = '$binario_nombre')";
 if ( $conexion->query($consulta_insertar)){
+  if ($respuesta = $conexion->query($consulta_id)){
+    if ($respuesta->num_rows > 0){
+      foreach ($respuesta as $row) {
+          $id = $row['id'];
+      }
+    }
+  }
 
 } else {
   die("No se pudo insertar los datos en la base de datos.");
 }
 
 //mysql_query($consulta_insertar,$conexion) or die("No se pudo insertar los datos en la base de datos.");
-header("location: listar_imagenes.php");  // si ha ido todo bien
+//header("location: listar_imagenes.php");  // si ha ido todo bien
+header("Content-Type: text/plain");
+echo $id;
 exit;
 ?>
