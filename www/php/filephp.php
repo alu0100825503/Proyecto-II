@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 //Primero, arranca el bloque PHP y checkea si el archivo tiene nombre.  Si no fue asi, te remite de nuevo al formulario de inserción:
 // No se comprueba aqui si se ha subido correctamente.
 if (empty($_FILES['archivo']['name'])){
@@ -8,8 +8,10 @@ if (empty($_FILES['archivo']['name'])){
 
 //establece una conexión con la base de datos.
 
-$conexion = mysql_connect("mysql.hostinger.es","u344358176_calen","supercalendar") or die("No se pudo realizar la conexion con el servidor.");
-mysql_select_db("u344358176_calen",$conexion) or die("No se puede seleccionar BD"); // tu_bd es el nombre de la Base de datos .. por siaca.
+//$conexion = mysql_connect("localhost","","") or die("No se pudo realizar la conexion con el servidor.");
+$conexion = new mysqli("mysql.hostinger.es","u344358176_calen","supercalendar","u344358176_calen") or die("No se pudo realizar la conexion con el servidor.");
+
+//mysql_select_db("archivos",$conexion) or die("No se puede seleccionar BD"); // tu_bd es el nombre de la Base de datos .. por siaca.
 
 // archivo temporal (ruta y nombre).
 $binario_nombre_temporal=$_FILES['archivo']['tmp_name'] ;
@@ -25,7 +27,13 @@ $binario_tipo=$_FILES['archivo']['type'];
 
 //insertamos los datos en la BD.
 $consulta_insertar = "INSERT INTO Files (data, size, type) VALUES ('$binario_contenido', '$binario_peso', '$binario_tipo')";
-mysql_query($consulta_insertar,$conexion) or die("No se pudo insertar los datos en la base de datos.");
+if ( $conexion->query($consulta_insertar)){
+
+} else {
+  die("No se pudo insertar los datos en la base de datos.");
+}
+
+//mysql_query($consulta_insertar,$conexion) or die("No se pudo insertar los datos en la base de datos.");
 header("location: listar_imagenes.php");  // si ha ido todo bien
 exit;
 ?>

@@ -30,7 +30,7 @@
        <a id="calendarbutton" data-icon="home" data-iconpos="notext"></a>
        <a href="#outside" data-icon="bars" data-iconpos="notext"></a>
     </div>
- 
+
   <div data-role="page">
     <div role="main" class="ui-content" style="text-align:center;">
       <div data-role="collapsible" data-theme="b" data-content-theme="b">
@@ -39,13 +39,6 @@
           <input type="text" name="apellido" placeholder="Apellidos" value="">
           <input type="text" name="date" onfocus="(this.type='date')" id="date" placeholder="Fecha de nacimiento"/>
           <input type="file" id="photo" name="photo" placeholder="Imagen" value="">
-
-          <button onclick="capturePhotoWithData();">Capture Photo With Image Data</button> <br>
-          <!--button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
-          <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
-          <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br-->
-          <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-          <img style="display:none;" id="largeImage" src="" />
           <img src="img/standar-face.png" style="width:30%; margin: 0 auto; " />
       </div>
       <div data-role="collapsible" data-theme="b" data-content-theme="b">
@@ -62,12 +55,13 @@
             <option value="1">Contactos</option>
             <option value="2">Privado</option>
             <option value="3">Público</option>
-          </select> 
+          </select>
       </div>
 
       <a id="send" type="submit" data-role="button" data-inline="true" data-theme="b" data-icon="check">Guardar</a>
-  </div>  
-      
+      <a id="discard" type="submit" data-role="button" data-inline="true" data-theme="b" data-icon="check">Descartar</a>
+  </div>
+
     <!-- Pie de página -->
     <div data-role="footer" data-theme="b">
       <h1>Interfaces Inteligentes · 2016</h1>
