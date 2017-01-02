@@ -1,6 +1,8 @@
 $(document).ready(function() {
   $("#form").on('submit',function () {
-    var formData = new FormData(this);
+    var formData = new FormData();
+    formData.append('file',$('#filesel')[0].files[0] )
+    console.log(formData);
     $.ajax({url:"http://socialcalendarplus.esy.es/filesetter.php",
     type: "POST",
     data: formData,
@@ -21,6 +23,7 @@ $(document).ready(function() {
     //https://www.formget.com/ajax-image-upload-php/
     //http://www.aorank.com/tutorial/Live_demo_ajax_upload_image/ajax_upload_image_main.php
     //https://manuais.iessanclemente.net/index.php/Almacenamiento_de_im%C3%A1genes_en_bases_de_datos_con_PHP#Formulario_para_subir_im.C3.A1genes
+    //http://www.forosdelweb.com/f18/tutorial-ejemplo-subir-archivos-bd-guardando-bd-binario-127775/
 
 
   });

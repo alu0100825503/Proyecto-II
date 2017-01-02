@@ -18,7 +18,7 @@ if(count($_FILES) > 0) {
     $imageProperties = getimageSize($_FILES['file']['tmp_name']);
 
     if ( $database->query( "INSERT INTO Files (name, size, data)
-    VALUES('$_FILES['file']['tmp_name']', '$imageProperties', '$imgData')") ){
+    VALUES('$_FILES['file']['name']', '$imageProperties', '$imgData')") ){
       $jsondata["success"] = true;
       $jsondata["data"] = array('message' => "Actualización correcta '$data'" );
     } else {
@@ -30,10 +30,10 @@ if(count($_FILES) > 0) {
 }
 
 
-  //header('Content-type: application/json; charset=utf-8');
-  //echo json_encode($jsondata, JSON_FORCE_OBJECT);
-  header();
-  echo "todo ok";
+  header('Content-type: application/json; charset=utf-8');
+  echo json_encode($jsondata, JSON_FORCE_OBJECT);
+  //header();
+  //echo "todo ok";
   $database->close();
 }
 exit();
