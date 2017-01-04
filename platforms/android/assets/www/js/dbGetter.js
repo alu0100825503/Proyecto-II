@@ -1,7 +1,6 @@
 $(document).ready(function() {
   $('input[name=photo]').on('change', function () {
     var formData = new FormData();
-    var formData2 = new FormData();
     formData.append('archivo',document.getElementById("photo").files[0] );
     $.ajax({url:"http://socialcalendarplus.esy.es/filephp.php",
     type: "POST",
@@ -11,29 +10,13 @@ $(document).ready(function() {
     processData:false,
     success: function(data){
       console.log("entro");
-      console.log(data);
-      formData.append('id', data);
+      document.getElementById("userImg").src = "http://socialcalendarplus.esy.es/imageGetter.php?id=" + data;
+      $('#imageId').val(data);
     },
     error: function(error){
       console.log("ha fallado" + error);
     }});
-
-    $.ajax({url:"http://socialcalendarplus.esy.es/imageGetter.php",
-    type: "POST",
-    data: formData2,
-    contentType: false,
-    cache: false,
-    processData:false,
-    success: function(data){
-      console.log("entro");
-      console.log(data);
-    },
-    error: function(error){
-      console.log("ha fallado" + error);
-    }});
-
-
-
+    //document.getElementById("userImg").src = "http://socialcalendarplus.esy.es/imageGetter.php?id=" + $("#imageId").val();
   });
 
 
@@ -64,6 +47,13 @@ $(document).ready(function() {
       console.log( "La solicitud a fallado: " +  textStatus);
     }
   });
+  if ($('#imageId').val() == ""){
+    document.getElementById("userImg").src = "img/standar-face.png";
+  } else {
+    document.getElementById("userImg").src = "http://socialcalendarplus.esy.es/imageGetter.php?id=" + $("#imageId").val();
+  }
+
+
   $("#send").click(function (){
     var myObject3 = new Object();
     myObject3.username = "Pepe_85";

@@ -2,7 +2,7 @@
 if(isset($_GET['id'])) {
 
   // you may have to modify login information for your database server:
-  $conexion=mysql_connect("localhost","","") or die ("no se ha podido conectar a la BD");
+  //  $conexion=mysql_connect("localhost","","") or die ("no se ha podido conectar a la BD");
 
   //mysql_select_db("tu_bd") or die ("no se ha podido seleccionar la BD");
   $conexion = new mysqli("mysql.hostinger.es","u344358176_calen","supercalendar","u344358176_calen") or die("No se pudo realizar la conexion con el servidor.");
@@ -13,7 +13,7 @@ if(isset($_GET['id'])) {
   $nombre = null;
   $peso = null;
 
-  if ($respueta = $conexion->query($sql)){
+  if ($respuesta = $conexion->query($sql)){
     foreach ($respuesta as $row) {
       $nombre = $row ['name'];
       $tipo = $row ['type'];
