@@ -2,7 +2,8 @@
 //Primero, arranca el bloque PHP y checkea si el archivo tiene nombre.  Si no fue asi, te remite de nuevo al formulario de inserción:
 // No se comprueba aqui si se ha subido correctamente.
 if (empty($_FILES['archivo']['name'])){
-  header("location: formulario.php?proceso=falta_indicar_fichero"); //o como se llame el formulario ..
+  //header("location: formulario.php?proceso=falta_indicar_fichero"); //o como se llame el formulario ..
+  die("No existe fichero.");
   exit;
 }
 
@@ -15,6 +16,7 @@ $conexion = new mysqli("mysql.hostinger.es","u344358176_calen","supercalendar","
 
 // archivo temporal (ruta y nombre).
 $binario_nombre_temporal=$_FILES['archivo']['tmp_name'] ;
+$owner_name=$_POST['owner'];
 
 // leer del archvio temporal .. el binario subido.
 // "rb" para Windows .. Linux parece q con "r" sobra ...
@@ -26,8 +28,9 @@ $binario_peso=$_FILES['archivo']['size'];
 $binario_tipo=$_FILES['archivo']['type'];
 $id = 0;
 //insertamos los datos en la BD.
-$consulta_insertar = "INSERT INTO Files (data, size, type, name) VALUES ('$binario_contenido', '$binario_peso', '$binario_tipo', '$binario_nombre')";
-$consulta_id = "SELECT `id` FROM `Files` WHERE (`name` = '$binario_nombre')";
+$consulta_insertar = "INSERT INTO Files (data, size, type, name, owner) VALUES ('$binario_contenido', '$binario_peso', '$binario_tipo', '$binario_nombre', '$owner_name')";
+//$consulta_id = "SELECT `id` FROM `Files` WHERE (`name` = '$binario_nombre')";
+$consulta_id = "SELECT `id` FROM `Files` WHERE (`name`='$binario_nombre' && `type` = '$binario_tipo' && `size` = '$binario_peso' && `owner` = '$owner_name')";
 if ( $conexion->query($consulta_insertar)){
   if ($respuesta = $conexion->query($consulta_id)){
     if ($respuesta->num_rows > 0){

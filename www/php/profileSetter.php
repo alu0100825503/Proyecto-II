@@ -24,7 +24,8 @@ function set_data( $data ) {
   $lastname = $data["lastname"];
   $email = $data["email"];
   $telephone = $data["telephone"];
-  if ( $database->query( "UPDATE User SET username = '$newusername', name = '$name', lastname = '$lastname', email = '$email', telephone = '$telephone'  WHERE username = '$username'") ){
+  $imageId = $data["imageId"];
+  if ( $database->query( "UPDATE User SET username = '$newusername', name = '$name', lastname = '$lastname', email = '$email', telephone = '$telephone', imageId ='$imageId'  WHERE username = '$username'") ){
     $jsondata["success"] = true;
     $jsondata["data"] = array('message' => "Actualización correcta '$data'" );
   } else {

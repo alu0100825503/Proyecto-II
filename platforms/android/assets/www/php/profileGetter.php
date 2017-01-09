@@ -43,6 +43,8 @@ function get_persons( $id ) {
         $jsondata["lastname"] = $row['lastname'];
         $jsondata["email"]=$row['email'];
         $jsondata["tel"]=$row['telephone'];
+        $jsondata["imageId"]=$row['imageId'];
+
     }
    } else {
      $jsondata["success"] = false;

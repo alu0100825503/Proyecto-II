@@ -10,13 +10,14 @@
   <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script type="text/javascript" src="cordova.js"></script>
   <script src="js/menu.js"></script>
   <script src="js/dbGetter.js"></script>
   <link rel="stylesheet" href="css/profile.css" />
   <script type="text/javascript">
-    function changePage(page) {
-      window.location = page;
-    }
+  function changePage(page) {
+    window.location = page;
+  }
   </script>
   <script src="js/resize.js"></script>
   <script src="js/buttons.js"></script>
@@ -24,45 +25,126 @@
 </head>
 
 <body>
-    <div data-role="header" data-position="fixed" data-theme="b">
-      <h1 id="usernameTitle">Perfil</h1>
-       <a id="calendarbutton" data-icon="home" data-iconpos="notext"></a>
-       <a href="#outside" data-icon="bars" data-iconpos="notext"></a>
-    </div>
+  <div data-role="header" data-position="fixed" data-theme="b">
+    <h1 id="usernameTitle">Perfil</h1>
+    <a id="calendarbutton" data-icon="home" data-iconpos="notext"></a>
+    <a href="#outside" data-icon="bars" data-iconpos="notext"></a>
+  </div>
 
   <div data-role="page">
     <div role="main" class="ui-content" style="text-align:center;">
       <div data-role="collapsible" data-theme="b" data-content-theme="b">
-          <h4>Datos personales</h4>
-          <input type="text" name="name" placeholder="Nombre" value="">
-          <input type="text" name="apellido" placeholder="Apellidos" value="">
-          <input type="text" name="date" onfocus="(this.type='date')" id="date" placeholder="Fecha de nacimiento"/>
-          <input type="file" id="photo" name="photo" placeholder="Imagen" value="">
-          <input type="hidden" id = "imageId" placeholder="" value="">
-          <img id = "userImg" style="width:30%; margin: 0 auto; " />
+        <h4>Datos personales</h4>
+        <input type="text" name="name" placeholder="Nombre" value="">
+        <input type="text" name="apellido" placeholder="Apellidos" value="">
+        <input type="text" name="date" onfocus="(this.type='date')" id="date" placeholder="Fecha de nacimiento"/>
+        <a id="takePhoto" type="submit" data-role="button" data-inline="true" data-theme="b" data-icon="check">Photo</a>
+        <script type="text/javascript">
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+          $("#takePhoto").click(function (){
+            navigator.camera.getPicture(onSuccess, onFail, { quality: 10,
+              destinationType: Camera.DestinationType.FILE_URI, sourceType : Camera.PictureSourceType.PHOTOLIBRARY});
+          });
+          function onSuccess(imageURI) {
+            //document.getElementById("userImg").src = imageURI;
 
-          <!--img src="img/standar-face.png" style="width:30%; margin: 0 auto; " /-->
+            //window.resolveLocalFileSystemURL(imageURI, function success(fileEntry) {
+              var win = function (r) {
+                console.log("Code = " + r.responseCode);
+                console.log("Response = " + r.response);
+                console.log("Sent = " + r.bytesSent);
+              }
+              var fail = function (error) {
+                alert("An error has occurred: Code = " + error.code + error.body);
+
+                console.log("upload error source " + error.source);
+                console.log("upload error target " + error.target);
+              }
+
+              var options = new FileUploadOptions();
+              options.fileKey = "archivo";
+              options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+              options.mimeType = "image/jpeg";
+
+              var params = {};
+              params.value1 = "test";
+              params.value2 = "param";
+
+              options.params = params;
+
+              var ft = new FileTransfer();
+              ft.upload(imageURI, encodeURI("http://socialcalendarplus.esy.es/filephp.php"), win, fail, options);
+
+
+              // Do something with the FileEntry object, like write to it, upload it, etc.
+              // writeFile(fileEntry, imgUri);
+              //console.log("got file: " + fileEntry.nativeURL);
+              // displayFileData(fileEntry.nativeURL, "Native URL");
+
+            //}, function () {
+              // If don't get the FileEntry (which may happen when testing
+              // on some emulators), copy to a new FileEntry.
+            //  createNewFileEntry(imageURI);
+            //});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          }
+
+          function onFail(message) {
+            alert('Failed because: ' + message);
+          }
+        }
+        </script>
+        <input type="file" id="photo" name="photo" placeholder="Imagen" value="">
+        <input type="hidden" id = "imageId" placeholder="" value="">
+        <img id = "userImg" style="width:30%; margin: 0 auto; " />
+
+        <!--img src="img/standar-face.png" style="width:30%; margin: 0 auto; " /-->
       </div>
       <div data-role="collapsible" data-theme="b" data-content-theme="b">
-          <h4>Datos de contacto</h4>
-          <input type="tel" name="telefono" placeholder="Teléfono (+34)" value="">
-          <input type="text" name="correoe" placeholder="Correo electrónico" pattern="[a-z,A-Z,1-9]+@[a-z,A-Z,1-9]+(.com|.es|.org)+" value="">
+        <h4>Datos de contacto</h4>
+        <input type="tel" name="telefono" placeholder="Teléfono (+34)" value="">
+        <input type="text" name="correoe" placeholder="Correo electrónico" pattern="[a-z,A-Z,1-9]+@[a-z,A-Z,1-9]+(.com|.es|.org)+" value="">
       </div>
       <div data-role="collapsible" data-theme="b" data-content-theme="b">
-          <h4>Seguridad</h4>
-          <input type="password" id="passwordField" name="password" placeholder="Nueva contraseña">
-          <input type="password" name="repPassawordField" placeholder="Repetir nueva contraseña">
-          <label for="privSelect">Mostrar datos a:</label>
-          <select name="privSelect">
-            <option value="1">Contactos</option>
-            <option value="2">Privado</option>
-            <option value="3">Público</option>
-          </select>
+        <h4>Seguridad</h4>
+        <input type="password" id="passwordField" name="password" placeholder="Nueva contraseña">
+        <input type="password" name="repPassawordField" placeholder="Repetir nueva contraseña">
+        <label for="privSelect">Mostrar datos a:</label>
+        <select name="privSelect">
+          <option value="1">Contactos</option>
+          <option value="2">Privado</option>
+          <option value="3">Público</option>
+        </select>
       </div>
 
       <a id="send" type="submit" data-role="button" data-inline="true" data-theme="b" data-icon="check">Guardar</a>
       <a id="discard" type="submit" data-role="button" data-inline="true" data-theme="b" data-icon="check">Descartar</a>
-  </div>
+    </div>
 
     <!-- Pie de página -->
     <div data-role="footer" data-theme="b">
@@ -71,25 +153,25 @@
 
     <!-- Popup para el warning del cierre de sesión -->
     <div data-role="popup" id="warningLogout" class="ui-corner-all">
-        <div style="padding:10px 20px;">
-            <h3>Cerrar sesión</h3>
-            <p>¿Estás seguro de que quieres cerrar sesión? Se eliminarán tus datos de la sesión actual y serás redirigido a la página principal.</p>
-            <div class="ui-grid-a ui-responsive">
-            <a href="#" type="submit" id="agreeLogout" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Cerrar sesión</a>
-            <a href="#" type="submit" data-rel="back" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-back">Volver</a>
-            </div>
+      <div style="padding:10px 20px;">
+        <h3>Cerrar sesión</h3>
+        <p>¿Estás seguro de que quieres cerrar sesión? Se eliminarán tus datos de la sesión actual y serás redirigido a la página principal.</p>
+        <div class="ui-grid-a ui-responsive">
+          <a href="#" type="submit" id="agreeLogout" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Cerrar sesión</a>
+          <a href="#" type="submit" data-rel="back" data-inline="true" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-back">Volver</a>
         </div>
+      </div>
     </div>
 
     <!-- Menú desplegable -->
     <div data-role="panel" id="outside" data-theme="b">
-        <ul data-role="listview">
-            <li data-icon="back"><a href="#" id="closeMenu" data-rel="close">Cerrar</a></li>
-            <li><a id="calendarbuttonMenu">Calendario</a></li>
-            <li><a id="profilebutton">Perfil</a></li>
-            <li><a id="settingsbutton">Ajustes</a></li>
-            <li><a id="logoutbutton">Cerrar sesión</a></li>
-        </ul>
+      <ul data-role="listview">
+        <li data-icon="back"><a href="#" id="closeMenu" data-rel="close">Cerrar</a></li>
+        <li><a id="calendarbuttonMenu">Calendario</a></li>
+        <li><a id="profilebutton">Perfil</a></li>
+        <li><a id="settingsbutton">Ajustes</a></li>
+        <li><a id="logoutbutton">Cerrar sesión</a></li>
+      </ul>
     </div>
 
   </div>
