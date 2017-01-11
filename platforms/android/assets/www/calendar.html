@@ -83,6 +83,12 @@
                     <h4 style="margin-top:20px;">Final</h4>
                     <input type="text" name="endDate" id="endDateEdit" value="" placeholder="Fecha finalizar" data-theme="a" readonly>
                     <input type="time" name="endHour" id="endHourEdit" value="23:59" data-theme="a">
+                    <div data-role="collapsible">
+                        <h4>Ubicación</h4>
+                        <input type="text" onblur="convertDirection ()" id = "pos" name="name" placeholder="Dirección" value="">
+                        <button data-icon="location" onclick="getPositionOnMap()">Mapa</button>
+                        <input type="hidden" id = "coords" name="name" placeholder="" value="">
+                    </div>
                     <div class="ui-checkbox">
                         <label for="eventPrivateEdit" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off" style="text-align:center">Evento privado
                             <input type="checkbox" name="eventPrivate" id="eventPrivateEdit" data-enhanced="true">
