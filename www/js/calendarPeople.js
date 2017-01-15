@@ -551,6 +551,36 @@
             " " + selected.getFullYear();
     }
 
+    parseToEngl = function (dateToParse) {
+        var day = dateToParse.toString().substr(0, 3);
+        var month = dateToParse.toString().substr(4, 3);
+        var rest = dateToParse.toString().substr(8, 7);
+        switch (day) {
+            case "Lun": {day = "Mon";} break;
+            case "Mar": {day = "Tue";} break;
+            case "Mie": {day = "Wed";} break;
+            case "Jue": {day = "Thu";} break;
+            case "Vie": {day = "Fri";} break;
+            case "Sab": {day = "Sat";} break;
+            case "Dom": {day = "Sun";} break;
+        }
+        switch (month) {
+            case "Ene": {day = "Jan";} break;
+            case "Feb": {day = "Feb";} break;
+            case "Mar": {day = "Mar";} break;
+            case "Abr": {day = "Apr";} break;
+            case "May": {day = "May";} break;
+            case "Jun": {day = "Jun";} break;
+            case "Jul": {day = "Jul";} break;
+            case "Ago": {day = "Aug";} break;
+            case "Sep": {day = "Sep";} break;
+            case "Oct": {day = "Oct";} break;
+            case "Nov": {day = "Nov";} break;
+            case "Dic": {day = "Dec";} break;
+        }
+        return day + " " + month + " " + rest;
+    }
+
     // Function to create an event
     requestEvent = function () {
         name = document.getElementById("nameEvent").value;
@@ -575,8 +605,8 @@
 
         var event = [{
             "name": name,
-            "start": new Date(startDate + " " + startHour),
-            "finish": new Date(endDate + " " + endHour),
+            "start": new Date(parseToEngl(startDate) + " " + startHour + " GMT+0000"),
+            "finish": new Date(parseToEngl(endDate) + " " + endHour + " GMT+0000"),
             "creator": localStorage.getItem("username"),
             "private": eventPrivate
         }]
