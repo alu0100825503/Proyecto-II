@@ -603,6 +603,10 @@
         } else {
             document.getElementById("eventPrivateEdit").checked = false;
         }
+
+        // Location
+        document.getElementById("posEdit").value = calendar.eventSelected.location;
+        document.getElementById("coordsEdit").value = calendar.eventSelected.location;
     }
 
     // Function to edit an event
