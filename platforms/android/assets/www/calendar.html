@@ -16,6 +16,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZTORBRdgbXQWMUugw4Ohpz6F-BaZS6tE&" async defer></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script src="js/calendar.js"></script>
+    <script src="js/map.js"></script>
     <script src="js/buttons.js"></script>
     <script src="js/resize.js"></script>
     <script src="js/updateNotificationsButton.js"></script>
@@ -87,7 +88,7 @@
                         <h4>Ubicación</h4>
                         <input type="text" onblur="convertDirection ()" id = "pos" name="name" placeholder="Dirección" value="">
                         <button data-icon="location" onclick="getPositionOnMap()">Mapa</button>
-                        <input type="hidden" id = "coords" name="name" placeholder="" value="">
+                        <input type="hidden" id = "coordsEdit" name="name" placeholder="" value="">
                     </div>
                     <div class="ui-checkbox">
                         <label for="eventPrivateEdit" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off" style="text-align:center">Evento privado
@@ -99,6 +100,23 @@
                 </div>
             </form>
         </div>
+
+
+
+        <!-- Desplegable navegador -->
+        <div data-role="popup" id="navMap" data-overlay-theme="a" data-theme="a">
+            <form>
+                <div style="text-align: center;padding:0px 20px">
+                    <h3>Navegador</h3>
+                      <div id="NavMap" style="height: 400px; width: 300px">
+                      </div>
+                </div>
+            </form>
+        </div>
+
+
+
+
 
         <!-- Desplegable mapa -->
         <div data-role="popup" id="locationMap" data-overlay-theme="a" data-theme="a">

@@ -31,7 +31,7 @@ function initMap(latitude, longitude, accuracy) {
   userpos = new google.maps.LatLng(latitude, longitude);
   eventpos = new google.maps.LatLng(28.5, -16.2);
   var latLong = new google.maps.LatLng(latitude, longitude);
-  map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('navMap'), {
     center: latLong,
     zoom: 18
   });
@@ -55,12 +55,12 @@ function initMap(latitude, longitude, accuracy) {
       rotation: 0.
     },
     map: map,
-    title: 'Hello World!'
+    title: 'Mi posición'
   });
   eventpos = new google.maps.Marker({
     position: {lat: 28.5, lng: -16.2},
     map: map,
-    title: 'Hello World!'
+    title: 'Evento'
   });
 
   existMap = true;
