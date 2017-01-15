@@ -31,7 +31,7 @@ function initMap(latitude, longitude, accuracy) {
   userpos = new google.maps.LatLng(latitude, longitude);
   eventpos = new google.maps.LatLng(28.5, -16.2);
   var latLong = new google.maps.LatLng(latitude, longitude);
-  map = new google.maps.Map(document.getElementById('navMap'), {
+  map = new google.maps.Map(document.getElementById('nav'), {
     center: latLong,
     zoom: 18
   });
