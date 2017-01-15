@@ -54,7 +54,9 @@ function onDeviceReady () {
       function (error){
         alert ("Error al convertir a texto")
       });
-      $('#coords').val(JSON.stringify(eventpos));
+      $('#coords').val((JSON.stringify(eventpos)));
+      console.log(  $('#coords').val());
+      //$('#coords').val(eventpos);
       $('#locationMap').popup("close");
       timeoutID = window.setTimeout(addEventOpen, 900);
     }

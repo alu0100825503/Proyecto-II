@@ -162,7 +162,7 @@
 
         function getEventsOnDay(begin, end, callback) {
             // Find events for this date
-            // Callback is called for each event and once at the end without an event. 
+            // Callback is called for each event and once at the end without an event.
             var ret_list = [];
             for (var i = 0, event; event = plugin.settings.events[i]; i++) {
                 if (event[plugin.settings.end] >= begin && event[plugin.settings.begin] < end) {
@@ -552,20 +552,20 @@
         }
         eventPrivate = document.getElementById("eventPrivate").checked;
         document.getElementById("eventPrivate").checked = 0;
-        
+
         // ===> Aqui la localizacion
-        location = document.getElementById("coords").value;
-        console.log("Coords:" + location);
+        location =  $('#coords').val();
 
         var dataToSend = [{
             "name": name,
             "start": new Date(parseToEngl(startDate) + " " + startHour + " GMT+0000"),
             "finish": new Date(parseToEngl(endDate) + " " + endHour + " GMT+0000"),
             "creator": calendar.creator,
-            "private": eventPrivate
-            // ===> Añadir un campo aqui
+            "private": eventPrivate,
+            "location": $('#coords').val()
         }]
         var dataJSON = JSON.stringify(dataToSend);
+        console.log(dataJSON);
         var url = "http://socialcalendarplus.esy.es/eventSet.php";
 
         contactServer(url, dataJSON);
