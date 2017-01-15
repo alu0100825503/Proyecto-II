@@ -10,14 +10,15 @@ $start = $event[0]->start;
 $finish = $event[0]->finish;
 $creator = $event[0]->creator;
 $private = $event[0]->private;
+$location = $event[0]->location;
 
 //Creamos la conexión
 $conexion = mysqli_connect($server, $user, $pass,$bd) 
 or die("Ha sucedido un error inexperado en la conexion de la base de datos");
 
 //generamos la consulta
-$sql = "INSERT INTO Event (name, start, finish, creator, private)
-VALUES('$name', '$start', '$finish', '$creator', '$private')";
+$sql = "INSERT INTO Event (name, start, finish, creator, private, location)
+VALUES('$name', '$start', '$finish', '$creator', '$private', '$location')";
 mysqli_set_charset($conexion, "utf8"); //formato de datos utf8
 
 if(!$result = mysqli_query($conexion, $sql)) die();

@@ -19,6 +19,7 @@
             id: "id",
             isPrivate: "isPrivate",
             summary: "summary",
+            location: "location",
             bg: "bg", // as per http://stackoverflow.com/questions/18782689/how-to-change-the-background-image-on-particular-date-in-calendar-based-on-event
             itemIndex: "itemIndex",
             icon: "icon",
@@ -495,7 +496,8 @@
             $.each(eventsReceived, function (i, event) {
                 calendar.eventsCalendar.splice(0, 0, {
                     "summary": event.name, "begin": new Date(event.start),
-                    "end": new Date(event.finish), "id": event.id, "isPrivate": event.isPrivate
+                    "end": new Date(event.finish), "id": event.id, "isPrivate": event.isPrivate,
+                    "location": event.location
                 });
             });
             //calendar.refreshFunction();
@@ -552,9 +554,6 @@
         }
         eventPrivate = document.getElementById("eventPrivate").checked;
         document.getElementById("eventPrivate").checked = 0;
-
-        // ===> Aqui la localizacion
-        location =  $('#coords').val();
 
         var dataToSend = [{
             "name": name,
@@ -629,7 +628,8 @@
             "name": name,
             "start": new Date(parseToEngl(startDate) + " " + startHour + " GMT+0000"),
             "finish": new Date(parseToEngl(endDate) + " " + endHour + " GMT+0000"),
-            "private": eventPrivate
+            "private": eventPrivate,
+            "location": $('#coordsEdit').val()
         }]
 
         var dataJSON = JSON.stringify(dataToUpdate);
