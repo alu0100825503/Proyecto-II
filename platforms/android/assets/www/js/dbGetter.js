@@ -21,14 +21,43 @@ $(document).ready(function() {
   });
 
 
-  //https://www.html5rocks.com/es/tutorials/file/dndfiles/
-  //https://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
-  //http://casamadrugada.net/tutoriales/php/como-almacenar-archivos-imagenes-en-mysql-utilizando-php/
-  //https://www.formget.com/ajax-image-upload-php/
-  //http://www.aorank.com/tutorial/Live_demo_ajax_upload_image/ajax_upload_image_main.php
-  //https://manuais.iessanclemente.net/index.php/Almacenamiento_de_im%C3%A1genes_en_bases_de_datos_con_PHP#Formulario_para_subir_im.C3.A1genes
-  //http://www.forosdelweb.com/f18/tutorial-ejemplo-subir-archivos-bd-guardando-bd-binario-127775/
+  $("#takePhoto").click(function (){
+    navigator.camera.getPicture(onSuccess, onFail, { quality: 40,
+      destinationType: Camera.DestinationType.FILE_URI,
+      sourceType : Camera.PictureSourceType.CAMERA
+    });
+  });
+  function onSuccess(imageURI) {
+    document.getElementById("userImg").src = imageURI;
+      var win = function (r) {
+        console.log("Code = " + r.responseCode);
+        console.log("Response = " + r.response);
+        console.log("Sent = " + r.bytesSent);
+      }
+      var fail = function (error) {
+        alert("An error has occurred: Code = " + error.code + error.body);
 
+        console.log("upload error source " + error.source);
+        console.log("upload error target " + error.target);
+      }
+
+      var options = new FileUploadOptions();
+      options.fileKey = "archivo";
+      options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+      options.mimeType = "image/jpeg";
+
+      var params = {};
+      params.value1 = "test";
+      params.value2 = "param";
+
+      options.params = params;
+
+      var ft = new FileTransfer();
+      ft.upload(imageURI, encodeURI("http://socialcalendarplus.esy.es/filephp.php"), win, fail, options);
+  }
+  function onFail(message) {
+    alert('Failed because: ' + message);
+  }
 
   var myObject = {id : localStorage.getItem("username")}
   var json = JSON.stringify(myObject);
