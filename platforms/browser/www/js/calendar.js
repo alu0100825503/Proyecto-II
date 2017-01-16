@@ -605,7 +605,7 @@
         }
 
         // Location
-        document.getElementById("posEdit").value = calendar.eventSelected.location;
+        //document.getElementById("posEdit").value = calendar.eventSelected.location;
         document.getElementById("coordsEdit").value = calendar.eventSelected.location;
     }
 

@@ -88,6 +88,7 @@
                         <h4>Ubicación</h4>
                         <input type="text" onblur="convertDirection ()" id = "posEdit" name="name" placeholder="Dirección" value="">
                         <button data-icon="location" onclick="getPositionOnMap()">Mapa</button>
+                        <button data-icon="navigation" onclick="openNav()">Ir</button>
                         <input type="hidden" id = "coordsEdit" name="name" placeholder="" value="">
                     </div>
                     <div class="ui-checkbox">
@@ -101,22 +102,17 @@
             </form>
         </div>
 
-
-
         <!-- Desplegable navegador -->
-        <div data-role="popup" id="navMap" data-overlay-theme="a" data-theme="a">
+        <div data-role="popup" id="navPopUp" data-overlay-theme="a" data-theme="a">
             <form>
                 <div style="text-align: center;padding:0px 20px">
-                    <h3>Navegador</h3>
+                    <h3>Ubicación</h3>
                       <div id="nav" style="height: 400px; width: 300px">
+
                       </div>
                 </div>
             </form>
         </div>
-
-
-
-
 
         <!-- Desplegable mapa -->
         <div data-role="popup" id="locationMap" data-overlay-theme="a" data-theme="a">

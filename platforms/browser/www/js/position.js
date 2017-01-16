@@ -22,6 +22,7 @@ function onDeviceReady () {
     if ($('#coords').val()==""){
       document.addEventListener("deviceready", onDeviceReady, false);
     } else {
+      //document.addEventListener("deviceready", onDeviceReady, false);
       var ub = JSON.parse($('#coords').val());
       userpos = new google.maps.LatLng(ub.lat,ub.lng);
     }
@@ -33,7 +34,7 @@ function onDeviceReady () {
       position: userpos,
       map: map,
       draggable: true,
-      title: 'Hello World!'
+      title: 'Ubicación del evento'
     });
     window.clearTimeout(timeoutID);
   }
@@ -55,8 +56,6 @@ function onDeviceReady () {
         alert ("Error al convertir a texto")
       });
       $('#coords').val((JSON.stringify(eventpos)));
-      console.log(  $('#coords').val());
-      //$('#coords').val(eventpos);
       $('#locationMap').popup("close");
       timeoutID = window.setTimeout(addEventOpen, 900);
     }

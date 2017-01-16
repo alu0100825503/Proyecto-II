@@ -1,15 +1,31 @@
-document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("deviceready", onDeviceReadyTwo, false);
 var map = undefined;
 var existMap = false;
-var userpos;
-var eventpos;
+var userposNav;
+var eventposNav;
+var evLat;
+var evLng;
 var latitude = undefined;
 var longitude = undefined;
 var accuracy;
 var circle = undefined;
 var directionsDisplay;
 var directionsService;
-function onDeviceReady() {
+var ub;
+function onDeviceReadyTwo() {
+
+  function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+      vars[key] = value;
+    });
+    return vars;
+  }
+
+  evLat = parseFloat(getUrlVars()["lat"])
+  evLng = parseFloat(getUrlVars()["lng"])
+
+
   var onSuccess = function(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
@@ -27,11 +43,24 @@ function onDeviceReady() {
   }
   navigator.geolocation.watchPosition(onSuccess, onError,{enableHighAccuracy: true});
 }
+
+function openNav(){
+  ub = JSON.parse($('#coordsEdit').val());
+  $('#popupAddEvent').popup("close");
+  timeoutID = window.setTimeout(navOpen, 900);
+}
+
+
+function navOpen(){
+  chargePage("map.html?lat="+ub.lat+"&lng="+ub.lng+"");
+  window.clearTimeout(timeoutID);
+}
+
 function initMap(latitude, longitude, accuracy) {
-  userpos = new google.maps.LatLng(latitude, longitude);
-  eventpos = new google.maps.LatLng(28.5, -16.2);
+  userposNav = new google.maps.LatLng(latitude, longitude);
+  eventposNav = new google.maps.LatLng(evLat, evLng);
   var latLong = new google.maps.LatLng(latitude, longitude);
-  map = new google.maps.Map(document.getElementById('nav'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     center: latLong,
     zoom: 18
   });
@@ -47,7 +76,7 @@ function initMap(latitude, longitude, accuracy) {
     radius: parseFloat(accuracy)
   });
 
-  userpos = new google.maps.Marker({
+  userposNav = new google.maps.Marker({
     position: latLong,
     icon: {
       path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
@@ -57,8 +86,8 @@ function initMap(latitude, longitude, accuracy) {
     map: map,
     title: 'Mi posición'
   });
-  eventpos = new google.maps.Marker({
-    position: {lat: 28.5, lng: -16.2},
+  eventposNav = new google.maps.Marker({
+    position: eventposNav,
     map: map,
     title: 'Evento'
   });
@@ -68,12 +97,12 @@ function initMap(latitude, longitude, accuracy) {
 function updateMap(latitude, longitude) {
   var latLong = new google.maps.LatLng(latitude, longitude);
   map.setCenter(latLong);
-  userpos.setPosition(latLong);
+  userposNav.setPosition(latLong);
   circle.setCenter(latLong);
   circle.setRadius(parseFloat(accuracy));
   navigator.compass.getCurrentHeading(function (heading){
     var rot = parseFloat(heading.magneticHeading);
-    userpos.setOptions({icon: {
+    userposNav.setOptions({icon: {
       path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
       scale: 8,
       rotation: rot
@@ -81,14 +110,14 @@ function updateMap(latitude, longitude) {
   }, function (error){
     alert("Error:" + error)
   });
-  maproute (userpos, eventpos);
+  maproute (userposNav, eventposNav);
 }
 
 function maproute(orig, dest){
   directionsService = new google.maps.DirectionsService();
   var request = {
-    origin: userpos.getPosition(),
-    destination: eventpos.getPosition(),
+    origin: userposNav.getPosition(),
+    destination: eventposNav.getPosition(),
     travelMode: google.maps.DirectionsTravelMode.DRIVING,
     unitSystem: google.maps.DirectionsUnitSystem.METRIC,
     provideRouteAlternatives: false
