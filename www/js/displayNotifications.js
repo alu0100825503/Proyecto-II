@@ -186,15 +186,32 @@ function notificationButtonHandler(event) {
 		var eventInfo = JSON.parse(notification.message_content)[0];
 		var startDate = eventInfo.start.substring(0, 10) + " " + eventInfo.start.substring(11, 19);
 		var finishDate = eventInfo.finish.substring(0, 10) + " " + eventInfo.finish.substring(11, 19);
+
 		$("#eventName").empty();
 		$("#eventCreator").empty();
 		$("#eventStart").empty();
 		$("#eventFinish").empty();
+		$("#eventLocation").empty();
 
 		$("#eventName").append("<strong>Título: </strong>" + eventInfo.name);
 		$("#eventCreator").append("<strong>Creador: </strong>" + eventInfo.creator);
 		$("#eventStart").append("<strong>Inicio: </strong>" + startDate);
 		$("#eventFinish").append("<strong>Fin: </strong>" + finishDate);
+
+		// Si hay ubicación
+		if (eventInfo.hasOwnProperty("location")) {
+			var eventLocation = {
+				"lat": eventInfo.location.lat,
+				"lng": eventInfo.location.lng
+			};
+
+			$("#eventLocation").append("<strong>Ubicación: </strong>" + 
+				eventLocation.lat + ", " + 
+				eventLocation.lng + ". " + 
+				// Añadir anchor para linkar con la página de visualización de la ubicación
+				"<a href='map.html?lat=" + eventLocation.lat + "&lng=" + eventLocation.lng + "' style='text-decoration: none;'>Acceder</a>");
+		}
+
 		$("#eventViewer").popup();
 		$("#eventViewer").popup("open");
 
@@ -281,6 +298,7 @@ $(document).ready(function() {
 					}
 			
 				} else if (val.type == "invitation") {
+					console.log("procesando: " + val.message_content);
 					var eventInfo = JSON.parse(val.message_content);
 					var newEventButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
 						eventInfo[0].creator + ': <i>' + eventInfo[0].name + '</i></a>');
