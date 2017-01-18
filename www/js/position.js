@@ -22,7 +22,6 @@ function onDeviceReady () {
     if ($('#coords').val()==""){
       document.addEventListener("deviceready", onDeviceReady, false);
     } else {
-      //document.addEventListener("deviceready", onDeviceReady, false);
       var ub = JSON.parse($('#coords').val());
       userpos = new google.maps.LatLng(ub.lat,ub.lng);
     }

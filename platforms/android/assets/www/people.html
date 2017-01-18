@@ -13,10 +13,15 @@
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="cordova.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZTORBRdgbXQWMUugw4Ohpz6F-BaZS6tE&" async defer></script>
+    <script type="text/javascript" src="js/cordova.js"></script>
     <script src="js/calendarPeople.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/resize.js"></script>
     <script src="js/buttons.js"></script>
-    <script src="js/resize.js"></script> 
+    <script src="js/position.js"></script>
+
+
 </head>
 
 <body>
@@ -102,6 +107,20 @@
                 </div>
             </form>
         </div>
+
+        <!-- Desplegable mapa -->
+        <div data-role="popup" id="locationMap" data-overlay-theme="a" data-theme="a">
+            <form>
+                <div style="text-align: center;padding:0px 20px">
+                    <h3>Ubicación</h3>
+                      <div id="map" style="height: 400px; width: 300px">
+
+                      </div>
+                    <button type="button" onClick="returnPosition()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Seleccionar</button>
+                </div>
+            </form>
+        </div>
+
         <!-- Menú de evento -->
         <div data-role="popup" id="popupMenuEvent" data-overlay-theme="a" data-theme="a">
             <form>
