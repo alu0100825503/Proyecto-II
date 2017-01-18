@@ -13,10 +13,15 @@
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="cordova.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZTORBRdgbXQWMUugw4Ohpz6F-BaZS6tE&" async defer></script>
+    <script type="text/javascript" src="js/cordova.js"></script>
     <script src="js/calendarPeople.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/resize.js"></script>
     <script src="js/buttons.js"></script>
-    <script src="js/resize.js"></script> 
+    <script src="js/position.js"></script>
+
+
 </head>
 
 <body>
@@ -76,8 +81,9 @@
                     <input type="time" name="endHour" id="endHour" value="23:59" data-theme="a">
                     <div data-role="collapsible">
                         <h4>Ubicación</h4>
-                        <input type="text" id = "pos" name="name" placeholder="Dirección" value="">
+                        <input type="text" onblur="convertDirection ()" id = "pos" name="name" placeholder="Dirección" value="">
                         <button data-icon="location" onclick="getPositionOnMap()">Mapa</button>
+                        <input type="hidden" id = "coords" name="name" placeholder="" value="">
                     </div>
                     <div class="ui-checkbox">
                         <label for="eventPrivate" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off" style="text-align:center">Evento privado
@@ -101,6 +107,20 @@
                 </div>
             </form>
         </div>
+
+        <!-- Desplegable mapa -->
+        <div data-role="popup" id="locationMap" data-overlay-theme="a" data-theme="a">
+            <form>
+                <div style="text-align: center;padding:0px 20px">
+                    <h3>Ubicación</h3>
+                      <div id="map" style="height: 400px; width: 300px">
+
+                      </div>
+                    <button type="button" onClick="returnPosition()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Seleccionar</button>
+                </div>
+            </form>
+        </div>
+
         <!-- Menú de evento -->
         <div data-role="popup" id="popupMenuEvent" data-overlay-theme="a" data-theme="a">
             <form>
@@ -115,7 +135,10 @@
                     <input type="time" name="endHour" id="endHourEdit" value="23:59" data-theme="a" readonly>
                     <div data-role="collapsible">
                         <h4>Ubicación</h4>
-                        <input type="text" id = "pos" name="name" placeholder="Dirección" value="" readonly>
+                        <input type="text" onblur="convertDirection ()" id = "posEdit" name="name" placeholder="Dirección" value="">
+                        <button data-icon="location" onclick="getPositionOnMap()">Mapa</button>
+                        <button data-icon="navigation" onclick="openNav()">Ir</button>
+                        <input type="hidden" id = "coordsEdit" name="name" placeholder="" value="">
                     </div>
                     <div class="ui-checkbox">
                         <label for="eventPrivateEdit" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off" style="text-align:center" readonly>Evento privado

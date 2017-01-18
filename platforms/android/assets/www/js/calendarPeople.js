@@ -19,6 +19,7 @@
             id: "id",
             isPrivate: "isPrivate",
             summary: "summary",
+            location: "location",
             bg: "bg", // as per http://stackoverflow.com/questions/18782689/how-to-change-the-background-image-on-particular-date-in-calendar-based-on-event
             itemIndex: "itemIndex",
             icon: "icon",
@@ -467,12 +468,14 @@
                 if (event.isPrivate > 0) { // 0 = no privado
                     calendar.eventsCalendar.splice(0, 0, {
                         "summary": "Evento privado", "begin": new Date(event.start),
-                        "end": new Date(event.finish), "id": event.id, "isPrivate": event.isPrivate
+                        "end": new Date(event.finish), "id": event.id, "isPrivate": event.isPrivate,
+                        "location": "Localizacion privada"
                     });
                 } else {
                     calendar.eventsCalendar.splice(0, 0, {
                         "summary": event.name, "begin": new Date(event.start),
-                        "end": new Date(event.finish), "id": event.id, "isPrivate": event.isPrivate
+                        "end": new Date(event.finish), "id": event.id, "isPrivate": event.isPrivate,
+                        "location": event.location
                     });
                 }
             });
@@ -608,7 +611,8 @@
             "start": new Date(parseToEngl(startDate) + " " + startHour + " GMT+0000"),
             "finish": new Date(parseToEngl(endDate) + " " + endHour + " GMT+0000"),
             "creator": localStorage.getItem("username"),
-            "private": eventPrivate
+            "private": eventPrivate,
+            "location": $('#coords').val()
         }]
         var eventJSON = JSON.stringify(event);
         var dataToSend = [{
@@ -678,6 +682,10 @@
         } else {
             document.getElementById("eventPrivateEdit").checked = false;
         }
+
+        // Location
+        //document.getElementById("posEdit").value = calendar.eventSelected.location;
+        document.getElementById("coordsEdit").value = calendar.eventSelected.location;
     }
 
     // Function to communicate with the server
