@@ -561,7 +561,7 @@
             "finish": new Date(parseToEngl(endDate) + " " + endHour + " GMT+0000"),
             "creator": calendar.creator,
             "private": eventPrivate,
-            "location": $('#coords').val()
+            "location": JSON.parse($('#coords').val())
         }]
         var dataJSON = JSON.stringify(dataToSend);
         console.log(dataJSON);
