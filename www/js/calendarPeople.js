@@ -163,7 +163,7 @@
 
         function getEventsOnDay(begin, end, callback) {
             // Find events for this date
-            // Callback is called for each event and once at the end without an event. 
+            // Callback is called for each event and once at the end without an event.
             var ret_list = [];
             for (var i = 0, event; event = plugin.settings.events[i]; i++) {
                 if (event[plugin.settings.end] >= begin && event[plugin.settings.begin] < end) {
@@ -605,6 +605,8 @@
         }
         eventPrivate = document.getElementById("eventPrivate").checked;
         document.getElementById("eventPrivate").checked = 0;
+        coordsObj = JSON.parse($('#coords').val());
+        console.log("coordsObj   :"+ coordsObj);
 
         var event = [{
             "name": name,
@@ -612,7 +614,7 @@
             "finish": new Date(parseToEngl(endDate) + " " + endHour + " GMT+0000"),
             "creator": localStorage.getItem("username"),
             "private": eventPrivate,
-            "location": $('#coords').val()
+            "location": coordsObj
         }]
         var eventJSON = JSON.stringify(event);
         var dataToSend = [{
