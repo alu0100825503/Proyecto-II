@@ -91,6 +91,11 @@ function refreshPage() {
 	}, 500);
 }
 
+function chargeLocationPage(lat, lng) {
+	chargePage("map.html?lat=" + lat + "&lng=" + lng + "");
+	window.setTimeout(3000);
+}
+
 function notificationButtonHandler(event) {
 	url = "http://socialcalendarplus.esy.es/updateReadMessages.php";
 
@@ -183,18 +188,6 @@ function notificationButtonHandler(event) {
 			}, 500);
 		});
 	} else if (notification.type == "invitation") {
-
-		// Esto era mejor prevenirlo
-		if (notification.message_content.includes("\"location\":")) {
-			var indexOfFirstCharToRemove = notification.message_content.indexOf("\"location\":") + 11;
-			var indexOfSecondCharToRemove = -2;
-
-			notification.message_content.replaceAt(indexOfFirstCharToRemove, "");
-			notification.message_content.replaceAt(indexOfSecondCharToRemove, "");
-		}
-
-		console.log("skadnsd: " + notification.message_content);
-
 		var eventInfo = JSON.parse(notification.message_content)[0];
 		var startDate = eventInfo.start.substring(0, 10) + " " + eventInfo.start.substring(11, 19);
 		var finishDate = eventInfo.finish.substring(0, 10) + " " + eventInfo.finish.substring(11, 19);
@@ -217,11 +210,20 @@ function notificationButtonHandler(event) {
 				"lng": eventInfo.location.lng
 			};
 
+			// Crear botón de acceso a localización
+			var accessAnchor = $('<a/>',
+			{
+				text: 'Acceder',
+				click: function () { chargePage("map.html?lat=" + eventLocation.lat + "&lng=" + eventLocation.lng); }
+			});
+
 			$("#eventLocation").append("<strong>Ubicación: </strong>" +
 				eventLocation.lat + ", " +
-				eventLocation.lng + ". " +
-				// Añadir anchor para linkar con la página de visualización de la ubicación
-				"<a href='map.html?lat=" + eventLocation.lat + "&lng=" + eventLocation.lng + "' style='text-decoration: none;'>Acceder</a>");
+				eventLocation.lng + ". ");
+
+			// Añadir el botón
+			accessAnchor.appendTo($("#eventLocation"));
+
 		}
 
 		$("#eventViewer").popup();

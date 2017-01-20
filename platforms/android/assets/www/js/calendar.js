@@ -633,7 +633,7 @@
             "start": new Date(parseToEngl(startDate) + " " + startHour + " GMT+0000"),
             "finish": new Date(parseToEngl(endDate) + " " + endHour + " GMT+0000"),
             "private": eventPrivate,
-            "location": $('#coordsEdit').val()
+            "location": JSON.parse($('#coordsEdit').val())
         }]
 
         var dataJSON = JSON.stringify(dataToUpdate);
