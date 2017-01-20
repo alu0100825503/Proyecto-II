@@ -40,8 +40,18 @@ function onDeviceReadyTwo() {
   function onError(error) {
     alert('code: '    + error.code    + '\n' +
     'message: ' + error.message + '\n');
+    latitude = 28.482761;
+    longitude = -16.322151;
+    accuracy = 100;
+    if (!existMap){
+      initMap(latitude, longitude, accuracy);
+      existMap = true;
+    } else {
+      updateMap(latitude,longitude);
+    }
   }
   navigator.geolocation.watchPosition(onSuccess, onError,{enableHighAccuracy: true});
+  location.reload();
 }
 
 function openNav(){

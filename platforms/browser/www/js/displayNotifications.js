@@ -33,11 +33,11 @@ function saveContactsInDB(notification) {
 		} else {
 			console.log("sin éxito al guardar contactos");
 			console.log("returnedData: " + returnedData);
-		}	 
+		}
 	}, 'json')
 	.fail(function() {
 		console.log("server connection failed while saving contacts");
-	});	
+	});
 }
 
 function acceptEvent(notification) {
@@ -50,7 +50,7 @@ function acceptEvent(notification) {
 				"creator": eventInfo.creator,
 				"private": eventInfo.private
 			}]
-	var newEventDataStr = JSON.stringify(newEventData);		
+	var newEventDataStr = JSON.stringify(newEventData);
 
 	// Crear el evento
 	$.post(setEventUrl, { eventData: newEventDataStr }, function(returnedData) {
@@ -98,7 +98,7 @@ function notificationButtonHandler(event) {
 	var notIndex = buttonClickedId.match(/\d+/g);
 	var notification = event.data.notification;
 	console.log(notification);
-	
+
 	dataForServer = {
 		"sender": notification.sender,
 		"receiver": notification.receiver,
@@ -115,14 +115,14 @@ function notificationButtonHandler(event) {
 			}
 			else {
 				console.log("update did not success");
-				console.log("returnedData: " + returnedData);	
+				console.log("returnedData: " + returnedData);
 			}
 		}, 'json')
 		.fail(function() {
 			console.log("server connection failed");
 		});
 
-	// Categorizar las notificaciones que nos llegan del servidor	
+	// Categorizar las notificaciones que nos llegan del servidor
 	if (notification.type == "message") {
 		$("#messageSubject").empty();
 		$("#messageDate").empty();
@@ -136,7 +136,7 @@ function notificationButtonHandler(event) {
 		$("#messageTo").append("<strong>Para: </strong>" + notification.receiver);
 		$("#messageText").append("<i>" + notification.message_content + "</i>");
 		$("#messageViewer").popup();
-		$("#messageViewer").popup("open");	
+		$("#messageViewer").popup("open");
 
 		$("#replyMessage").click(function() {
 			localStorage.setItem("userFound", notification.sender);
@@ -153,7 +153,7 @@ function notificationButtonHandler(event) {
 		$("#contactSender").append("<strong>Usuario: </strong>" + notification.sender);
 		$("#contactViewer").popup();
 		$("#contactViewer").popup("open");
-		
+
 		$("#acceptContact").click(function() {
 			saveContactsInDB(notification);
 			deleteNotificationFromDB(notification);
@@ -181,7 +181,7 @@ function notificationButtonHandler(event) {
 					refreshPage();
 				});
 			}, 500);
-		});	
+		});
 	} else if (notification.type == "invitation") {
 
 		// Esto era mejor prevenirlo
@@ -217,9 +217,9 @@ function notificationButtonHandler(event) {
 				"lng": eventInfo.location.lng
 			};
 
-			$("#eventLocation").append("<strong>Ubicación: </strong>" + 
-				eventLocation.lat + ", " + 
-				eventLocation.lng + ". " + 
+			$("#eventLocation").append("<strong>Ubicación: </strong>" +
+				eventLocation.lat + ", " +
+				eventLocation.lng + ". " +
 				// Añadir anchor para linkar con la página de visualización de la ubicación
 				"<a href='map.html?lat=" + eventLocation.lat + "&lng=" + eventLocation.lng + "' style='text-decoration: none;'>Acceder</a>");
 		}
@@ -262,12 +262,12 @@ $(document).ready(function() {
 	var url = "http://socialcalendarplus.esy.es/getNotifications.php";
 	var receiver = localStorage.username;
 	var dataForServer = { "receiver": receiver };
-	
+
 	$.post(url, dataForServer, function(returnedData) {
 		if (returnedData.success) {
 			notifications_obj = returnedData;
-			var n_messages = 0, 
-			n_events = 0, 
+			var n_messages = 0,
+			n_events = 0,
 			n_contacts = 0;
 
 			// Contar los tipos de notificación
@@ -294,12 +294,12 @@ $(document).ready(function() {
 				notifications.push(val);
 
 				if (val.type == "message") {
-					var newMessageButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
+					var newMessageButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' +
 						val.sender + ": <i>" +
 						val.message_subject +
 						"</i></a>");
 
-					// Si el mensaje no ha sido leído, se pone primero en la lista	
+					// Si el mensaje no ha sido leído, se pone primero en la lista
 					if (val.is_read > 0) {
 						$("#messagesContainer").append(newMessageButton);
 					} else {
@@ -308,11 +308,11 @@ $(document).ready(function() {
 						$("#messagesContainer").prepend(newMessageButton);
 						$("#not" + i).css("background-color", notificationColor);
 					}
-			
+
 				} else if (val.type == "invitation") {
 					console.log("procesando: " + val.message_content);
 					var eventInfo = JSON.parse(val.message_content);
-					var newEventButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
+					var newEventButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' +
 						eventInfo[0].creator + ': <i>' + eventInfo[0].name + '</i></a>');
 
 					if (val.is_read > 0) {
@@ -323,7 +323,7 @@ $(document).ready(function() {
 						$("#not" + i).css("background-color", notificationColor);
 					}
 				} else if (val.type == "friendship") {
-					var newContactButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' + 
+					var newContactButton = $('<a id="not' + i + '"data-icon="carat-r" class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-left">' +
 						val.sender + ": <i>" +
 						val.message_subject +
 						"</i></a>");
@@ -342,7 +342,7 @@ $(document).ready(function() {
 			});
 
 			// Setting listener for all notifications buttons
-			for (i = 0; i < notifications.length; i++) { 
+			for (i = 0; i < notifications.length; i++) {
 				$("#not" + i).click({ notification: notifications[i] }, notificationButtonHandler);
 			}
 		}

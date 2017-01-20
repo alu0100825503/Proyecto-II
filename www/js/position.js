@@ -9,13 +9,18 @@ function getPositionOnMap(){
   timeoutID = window.setTimeout(mapOpen, 900);
 }
 function onDeviceReady () {
+  if ($('#coords').val()==""){
+    userpos = new google.maps.LatLng({lat:28.482761, lng:-16.322151});
+  }
   navigator.geolocation.getCurrentPosition(
     function (position){
       userpos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     },
     function (error){
-      alert ("Error leyendo su posición")
+      //{lat: -34, lng: 1
+      alert ("Error leyendo su posición, posición por defecto")
     });
+    //, { timeout: 5000 });
   }
   function mapOpen(){
     $('#locationMap').popup("open");
