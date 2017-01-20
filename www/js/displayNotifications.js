@@ -183,6 +183,18 @@ function notificationButtonHandler(event) {
 			}, 500);
 		});	
 	} else if (notification.type == "invitation") {
+
+		// Esto era mejor prevenirlo
+		if (notification.message_content.includes("\"location\":")) {
+			var indexOfFirstCharToRemove = notification.message_content.indexOf("\"location\":") + 11;
+			var indexOfSecondCharToRemove = -2;
+
+			notification.message_content.replaceAt(indexOfFirstCharToRemove, "");
+			notification.message_content.replaceAt(indexOfSecondCharToRemove, "");
+		}
+
+		console.log("skadnsd: " + notification.message_content);
+
 		var eventInfo = JSON.parse(notification.message_content)[0];
 		var startDate = eventInfo.start.substring(0, 10) + " " + eventInfo.start.substring(11, 19);
 		var finishDate = eventInfo.finish.substring(0, 10) + " " + eventInfo.finish.substring(11, 19);

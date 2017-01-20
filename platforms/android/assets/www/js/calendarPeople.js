@@ -469,7 +469,7 @@
                     calendar.eventsCalendar.splice(0, 0, {
                         "summary": "Evento privado", "begin": new Date(event.start),
                         "end": new Date(event.finish), "id": event.id, "isPrivate": event.isPrivate,
-                        "location": "Localizacion privada"
+                        "location": "Localización privada"
                     });
                 } else {
                     calendar.eventsCalendar.splice(0, 0, {
