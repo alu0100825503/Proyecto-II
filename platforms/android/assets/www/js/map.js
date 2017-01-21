@@ -51,7 +51,6 @@ function onDeviceReadyTwo() {
     }
   }
   navigator.geolocation.watchPosition(onSuccess, onError,{enableHighAccuracy: true});
-  location.reload();
 }
 
 function openNav(){
